@@ -35,6 +35,7 @@ export default function Home() {
               <li>About</li>
               <li>Timeline</li>
               <li>Mentors</li>
+              <button className={styles.navButton}>Register Now</button>
             </div>
           </ul>
         </nav>
