@@ -1,0 +1,61 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 1px;
+}
+  
+.quoteCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.quoteCard img {
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.quoteCard blockquote {
+  font-size: 1.2rem;
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.quoteCard blockquote p {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.quoteCard blockquote p .fa-quote-left {
+  font-size: 2rem;
+  margin-right: 1rem;
+  color: #ffc107;
+}
+
+.quoteCard figcaption {
+  font-size: 1rem;
+  color: #999;
+  margin-top: 0.5rem;
+}
+
+.quoteCard figcaption cite {
+  font-style: normal;
+  font-weight: bold;
+  color: #333;
+}
+
+.flexBox {
+  display: flex;
+  gap: 20px;
+}
+
+.box {
+  background-color: white;
+  padding: 50px 50px 20px 50px;
+  border-radius: 30px;
+}
