@@ -45,6 +45,7 @@ export default function Home() {
       </div>
       <div className={styles.graySection}>
         <h1>TESTIMONIALS</h1>
+          <Testimonials />
       </div>
       <div className={styles.divider}>
         <h2>Sign up to the reminder list here:</h2>
