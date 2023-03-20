@@ -1,4 +1,4 @@
-import styles from '../styles/Quotes.module.css'
+import styles from "../styles/Quotes.module.css";
 import {
   MDBCard,
   MDBCardBody,
@@ -11,10 +11,11 @@ import {
   MDBTypography,
   MDBIcon,
 } from "mdb-react-ui-kit";
-import { Slide } from 'react-slideshow-image'
-import 'react-slideshow-image/dist/styles.css'
+import { Slide } from "react-slideshow-image";
+import "react-slideshow-image/dist/styles.css";
+import { testimonials } from "../data/testimonials";
 
-function QuoteCard() {
+function QuoteCard({ data }: any) {
   return (
     <div className={styles.box}>
       <MDBCard className={styles.quoteCard}>
@@ -24,8 +25,11 @@ function QuoteCard() {
               <div className={styles.flexBox}>
                 <div>
                   <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
-                    alt="woman avatar"
+                    src={
+                      data.photo.src ||
+                      "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+                    }
+                    alt={data.photo.alt || "Example Avatar"}
                     width="90"
                     height="90"
                   />
@@ -33,16 +37,15 @@ function QuoteCard() {
                 <div>
                   <MDBTypography blockquote>
                     <span className="font-italic">
-                      Lorem ipsum dolor sit amet consectetur adipisicing
-                      elit. Pariatur sint nesciunt ad itaque aperiam
-                      expedita officiis incidunt minus facere, molestias
-                      quisquam impedit inventore.
+                      {data.description ||
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit.\
+                      Pariatur sint nesciunt ad itaque aperiam expedita officiis\
+                      incidunt minus facere, molestias quisquam impedit\
+                      inventore."}
                     </span>
                   </MDBTypography>
-                  <br/>
-                  <figcaption>
-                    Example Name
-                  </figcaption>
+                  <br />
+                  <figcaption>{data.name || "Example Name"}</figcaption>
                 </div>
               </div>
             </MDBCol>
@@ -56,11 +59,13 @@ function QuoteCard() {
 export default function Testimonials() {
   return (
     <Slide>
-      <MDBContainer className={styles.container}>
+      {testimonials.map((testimony, index) => (
+        <MDBContainer key={index} className={styles.container}>
           <MDBCol xl="10">
-            <QuoteCard />
+            <QuoteCard data={testimony} />
           </MDBCol>
-      </MDBContainer>
+        </MDBContainer>
+      ))}
     </Slide>
   );
 }
