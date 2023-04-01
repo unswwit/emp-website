@@ -1,6 +1,6 @@
 import * as React from "react";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import Image from "next/image";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import TabContext from "@mui/lab/TabContext";
@@ -15,9 +15,8 @@ import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 
+import { StyledCalendar } from "../styles/Timeline.module";
 import { timeline } from "../data/timeline";
-import { Montserrat } from "@next/font/google";
-const montserrat = Montserrat({ subsets: ["latin"] });
 
 function TimelineTabs(data: any) {
   const [value, setValue] = React.useState("1");
@@ -106,18 +105,31 @@ function TimelineCalendarTUI(data: any) {
 }
 
 function TimelineCalendarFC(data: any) {
+  const events = timeline.map((e: any, id: any) => {
+    return {
+      title: e.title,
+      start: e.start,
+      end: e.end,
+    };
+  });
+
   return (
-    <>
+    <StyledCalendar>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
-        weekends={false}
-        events={[
-          { title: "Lorem Ipsum Party", date: "2023-04-14" },
-          { title: "Mock Technical Interview Workshop", date: "2023-04-20" },
-        ]}
+        // initialView="dayGridWeek"
+        weekends={true}
+        eventColor="#313638"
+        eventTextColor="#feb14b"
+        titleFormat={{ year: "numeric", month: "short" }}
+        buttonText={{ today: "Today" }}
+        eventClick={() => {
+          alert("Hello");
+        }}
+        events={events}
       />
-    </>
+    </StyledCalendar>
   );
 }
 
