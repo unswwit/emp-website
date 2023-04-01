@@ -5,7 +5,7 @@
     "jest": true
   },
   "extends": ["eslint:recommended", "next", "prettier"],
-  "plugins": ["eslint-plugin-no-inline-styles"],
+  "plugins": ["eslint-plugin-no-inline-styles", "eslint-plugin-prettier"],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
