@@ -1,8 +1,7 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import { Montserrat } from '@next/font/google';
 import styles from '../styles/Home.module.css';
-import React, { useState } from 'react';
+import React from 'react';
 import NavBar from '../components/NavBar';
 import Hero from '../components/Hero';
 import Countdown from '../components/Countdown';
