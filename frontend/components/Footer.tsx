@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
 
 export default function Footer() {
   return (
@@ -13,7 +13,7 @@ export default function Footer() {
           height={50}
           priority
         />
-        <p>©  UNSW Women in Technology 2023</p>
+        <p>© UNSW Women in Technology 2023</p>
         <button className={styles.footerButton}>Register Now</button>
       </div>
       <Image
@@ -25,5 +25,5 @@ export default function Footer() {
         priority
       />
     </div>
-  )
+  );
 }
