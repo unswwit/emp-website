@@ -1,11 +1,15 @@
 import * as React from "react";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
-import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
+import Typography from "@mui/material/Typography";
+import { TextalignJustifycenter, Grid2 } from "iconsax-react";
+import {
+  StyledCalendar,
+  StyledTabs,
+  StyledTab,
+} from "../styles/Timeline.module";
+import { timeline } from "../data/timeline";
 
 // Test Calendar 1: ToastUI Calendar
 import Calendar from "@toast-ui/react-calendar";
@@ -15,33 +19,65 @@ import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 
-import { StyledCalendar } from "../styles/Timeline.module";
-import { timeline } from "../data/timeline";
+// docs: https://mui.com/material-ui/react-tabs/
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
 
 function TimelineTabs(data: any) {
-  const [value, setValue] = React.useState("1");
+  const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
-      <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} aria-label="timeline tabs">
-            <Tab label="List" value="1" />
-            <Tab label="Calendar" value="2" />
-          </TabList>
-        </Box>
-        <TabPanel value="1">
-          <TimelineList />
-        </TabPanel>
-        <TabPanel value="2">
-          {/* <TimelineCalendarTUI data={data} /> */}
-          <TimelineCalendarFC data={data} />
-        </TabPanel>
-      </TabContext>
+      <StyledTabs
+        value={value}
+        onChange={handleChange}
+        aria-label="timeline tabs"
+      >
+        <StyledTab
+          label="List"
+          icon={<TextalignJustifycenter size="13" />}
+          iconPosition="start"
+        />
+        <StyledTab
+          label="Calendar"
+          icon={<Grid2 size="13" />}
+          iconPosition="start"
+        />
+      </StyledTabs>
+      <TabPanel value={value} index={0}>
+        <TimelineList />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        {/* <TimelineCalendarTUI data={data} /> */}
+        <TimelineCalendarFC data={data} />
+      </TabPanel>
     </Box>
   );
 }
@@ -73,7 +109,7 @@ function TimelineCalendarTUI(data: any) {
   ];
 
   // docs: https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/event-object.md
-  const timelineEvent = data.map((e: any, id: any) => {
+  const timelineEvent = timeline.map((e: any, id: any) => {
     return {
       key: id,
       id: `${id}`,
