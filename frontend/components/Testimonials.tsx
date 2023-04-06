@@ -6,7 +6,7 @@ import {
   MDBContainer,
   MDBRow,
   MDBCarousel,
-  MDBCarouselInner,
+  // MDBCarouselInner,
   MDBCarouselItem,
   MDBTypography,
   MDBIcon,
@@ -30,8 +30,6 @@ function QuoteCard({ data }: any) {
                       "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
                     }
                     alt={data.photo.alt || "Example Avatar"}
-                    width="90"
-                    height="90"
                   />
                 </div>
                 <div>
