@@ -1,49 +1,35 @@
 // mentees testimonials
 const mentees = [
   {
-    name: 'Mentee Name 1',
-    description: '',
+    name: "Sophia Chen",
+    description: "The Empowerment program was an extremely rewarding experience, helping me to become more confident about the tech industry. My mentor was very supportive, giving me advice about networking and helping me prepare for interviews, as well as sharing career opportunities. Not only was I able to gain valuable insight into the industry but I was also able to form meaningful connections with my mentor who I am still in contact with today.",
     photo: {
-      src: 'https://www.theknotnews.com/wp-content/uploads/2017/03/Ivy-Headshot-90x90.jpg',
-      alt: 'woman avatar',
-    }
+      src: "testimonials/sophia-chen.jpg",
+      alt: "sophia-chen",
+    },
   },
   {
-    name: 'Mentee Name 2',
-    description: '',
+    name: "Rifa Jamal",
+    description:
+      "WIT's EMP was super helpful to not only gain industry skills but gain confidence in my networking and communication. My mentor was super supportive and I am still in contact with her today. I was able to form many new connections with both mentors and mentees and learn many insights about the tech space.",
     photo: {
-      src: 'https://i.pinimg.com/236x/d9/49/d7/d949d75c1745abd87b94d9f756dd3e54.jpg',
-      alt: 'pennywise',
-    }
+      src: "",
+      alt: "",
+    },
   },
-  {
-    name: '',
-    description: '',
-    photo: {
-      src: '/WIT-logo-white.png',
-      alt: 'wit',
-    }
-  },
-]
+];
 
 // mentors testimonials
 const mentors = [
   {
-    name: 'Mentor Name 1',
-    description: '',
+    name: "Mentor Name 1",
+    description: "",
     photo: {
-      src: '',
-      alt: '',
-    }
+      src: "",
+      alt: "",
+    },
   },
-  {
-    name: 'Mentor Name 2',
-    description: '',
-    photo: {
-      src: '',
-      alt: '',
-    }
-  },
-]
+];
 
-export const testimonials = [...mentees, ...mentors]
+// export const testimonials = [...mentees, ...mentors];
+export const testimonials = [...mentees];
