@@ -1,0 +1,28 @@
+.flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.header {
+}
+
+.banner {
+}
+
+.heading {
+  /* font-family: "Monserrat Thin 100", "Montserrat", sans-serif; */
+  /* font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif */
+  /* font-family: inherit; */
+}
+
+.subheading {
+}
+
+.body {
+}
+
+.labels {
+}

@@ -1,23 +1,33 @@
 import * as React from "react";
-import styles from "../styles/Home.module.css";
+
+import { Montserrat } from "@next/font/google";
+const montserrat = Montserrat({ subsets: ["latin"] });
+
+import styles from "../styles/Timeline.module.css";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { TextalignJustifycenter, Grid2 } from "iconsax-react";
+import Drawer from "@mui/material/Drawer";
+import {
+  TextalignJustifycenter,
+  Grid2,
+  Link2,
+  Calendar,
+  Clock,
+  Global,
+} from "iconsax-react";
 import {
   StyledCalendar,
   StyledTabs,
   StyledTab,
 } from "../styles/Timeline.module";
 import { timeline } from "../data/timeline";
+import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
 
-// Test Calendar 1: ToastUI Calendar
-import Calendar from "@toast-ui/react-calendar";
-import "@toast-ui/calendar/dist/toastui-calendar.min.css";
-
-// Test Calendar 2: FullCalendar
+// FullCalendar
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
+import { Button, Container } from "@mui/material";
 
 // docs: https://mui.com/material-ui/react-tabs/
 interface TabPanelProps {
@@ -46,7 +56,7 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-function TimelineTabs(data: any) {
+function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -76,7 +86,12 @@ function TimelineTabs(data: any) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         {/* <TimelineCalendarTUI data={data} /> */}
-        <TimelineCalendarFC data={data} />
+        {/* <TimelineCalendarFC data={data} /> */}
+        <TimelineCalendarFC
+          events={events}
+          handleDrawer={handleDrawer}
+          handleEventNo={handleEventNo}
+        />
       </TabPanel>
     </Box>
   );
@@ -86,69 +101,7 @@ function TimelineList() {
   return <div>Timeline stuff</div>;
 }
 
-function TimelineCalendarTUI(data: any) {
-  /*
-  docs:
-  - https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/calendar.md
-  - https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/theme.md
-  */
-  const calendars = [
-    {
-      id: "emp",
-      name: "Empowerment",
-      // backgroundColor: "#313638",
-      // backgroundColor: "#e85f5c",
-      backgroundColor: "#FEB14B",
-      borderColor: "#313638",
-      color: "#313638",
-      // borderColor: "#e85f5c",
-      // color: "#e85f5c",
-      // borderColor: "#FEB14B",
-      // color: "#FEB14B",
-    },
-  ];
-
-  // docs: https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/event-object.md
-  const timelineEvent = timeline.map((e: any, id: any) => {
-    return {
-      key: id,
-      id: `${id}`,
-      calendarId: "emp",
-      category: "time",
-      title: e.title,
-      start: e.start,
-      end: e.end,
-    };
-  });
-
-  return (
-    <>
-      <Calendar
-        isReadOnly={true}
-        height="550px"
-        view="month"
-        calendars={calendars}
-        events={timelineEvent}
-        month={{
-          isAlways6Weeks: false,
-        }}
-        week={{
-          taskView: false,
-        }}
-      />
-    </>
-  );
-}
-
-function TimelineCalendarFC(data: any) {
-  const events = timeline.map((e: any, id: any) => {
-    return {
-      title: e.title,
-      start: e.start,
-      end: e.end,
-    };
-  });
-
+function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
   return (
     <StyledCalendar>
       <FullCalendar
@@ -160,8 +113,9 @@ function TimelineCalendarFC(data: any) {
         eventTextColor="#feb14b"
         titleFormat={{ year: "numeric", month: "short" }}
         buttonText={{ today: "Today" }}
-        eventClick={() => {
-          alert("Hello");
+        eventClick={(e) => {
+          handleEventNo(parseInt(e.event.id));
+          handleDrawer();
         }}
         events={events}
       />
@@ -169,18 +123,123 @@ function TimelineCalendarFC(data: any) {
   );
 }
 
-export default function Timeline() {
+function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
+  const eventDate = new Date(events[eventNo].start);
+
+  const date = eventDate.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+
+  // console.log(events);
+
   return (
-    <div className={styles.wrapper}>
-      {/* <Image
-        src="/timeline.png"
-        alt="Timeline"
-        className={styles.heroImage}
-        width={1100}
-        height={130}
-        priority
-      /> */}
-      <TimelineTabs data={timeline} />
+    <Drawer anchor="right" open={drawer} onClose={handleDrawer}>
+      <Container maxWidth="sm">
+        {/* <div className={montserrat.className}> */}
+        <div>
+          {/* Header */}
+          <div className={styles.header}>
+            <button>
+              <KeyboardDoubleArrowRightRoundedIcon />
+            </button>
+          </div>
+          {/* Banner */}
+          <div className={styles.banner}>
+            <img
+              src={events[eventNo].data.photo.src || "WIT-banner.png"}
+              alt={events[eventNo].data.photo.alt || "wit-banner"}
+              width="100%"
+            />
+          </div>
+          {/* Heading */}
+          <div className={styles.heading}>
+            <h1>{events[eventNo].title}</h1>
+          </div>
+          {/* Subheading */}
+          <div className={styles.subheading}>
+            {/* Link */}
+            <div>
+              <Link2 style={{ rotate: "135deg" }} />
+              <a href={events[eventNo].data.link}>
+                {events[eventNo].data.link}
+              </a>
+            </div>
+            {/* Start date */}
+            <div>
+              <Calendar />
+              <span>{date}</span>
+            </div>
+            {/* Days left until event starts */}
+            <div>
+              <Clock />
+              <span>n days</span>
+            </div>
+            {/* Location */}
+            <div>
+              <Global />
+              <span>{events[eventNo].data.location}</span>
+            </div>
+            {/* Labels */}
+            <div className={styles.labels}>
+              <span>upskilling</span>
+              <span>workshop</span>
+            </div>
+          </div>
+          {/* Body */}
+          <div className={styles.body}>
+            <h2>Description</h2>
+            <p style={{ whiteSpace: "pre-line" }}>
+              {events[eventNo].data.description}
+            </p>
+          </div>
+        </div>
+      </Container>
+    </Drawer>
+  );
+}
+
+export default function Timeline() {
+  const [drawer, setDrawer] = React.useState(false);
+  const [events, setEvents] = React.useState(
+    timeline.map((e: any, id: number) => {
+      return {
+        id: id,
+        title: e.title,
+        start: e.start,
+        end: e.end,
+        data: e.data,
+      };
+    })
+  );
+  const [eventNo, setEventNo] = React.useState(0);
+
+  const handleDrawer = () => {
+    setDrawer((open) => !open);
+  };
+
+  const handleEventNo = (n: any) => {
+    setEventNo(n);
+  };
+
+  return (
+    // <div className={styles.wrapper}>
+    <div>
+      <TimelineTabs
+        events={events}
+        handleDrawer={handleDrawer}
+        handleEventNo={handleEventNo}
+      />
+      <InfoPanel
+        drawer={drawer}
+        handleDrawer={handleDrawer}
+        events={events}
+        eventNo={eventNo}
+      />
     </div>
   );
 }
