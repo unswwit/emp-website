@@ -1,13 +1,7 @@
+// Imports
 import * as React from "react";
-
 import { Montserrat } from "@next/font/google";
-const montserrat = Montserrat({ subsets: ["latin"] });
-
-import styles from "../styles/Timeline.module.css";
-import Image from "next/image";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Drawer from "@mui/material/Drawer";
+import { Container, Box, Drawer, Typography } from "@mui/material";
 import {
   TextalignJustifycenter,
   Grid2,
@@ -16,18 +10,22 @@ import {
   Clock,
   Global,
 } from "iconsax-react";
-import {
-  StyledCalendar,
-  StyledTabs,
-  StyledTab,
-} from "../styles/Timeline.module";
-import { timeline } from "../data/timeline";
 import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
 
 // FullCalendar
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
-import { Button, Container } from "@mui/material";
+
+// Custom imports
+import { timeline } from "../data/timeline";
+import styles from "../styles/Timeline.module.css";
+import {
+  StyledCalendar,
+  StyledTabs,
+  StyledTab,
+} from "../styles/Timeline.module";
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 // docs: https://mui.com/material-ui/react-tabs/
 interface TabPanelProps {
@@ -43,8 +41,8 @@ function TabPanel(props: TabPanelProps) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -85,8 +83,6 @@ function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
         <TimelineList />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {/* <TimelineCalendarTUI data={data} /> */}
-        {/* <TimelineCalendarFC data={data} /> */}
         <TimelineCalendarFC
           events={events}
           handleDrawer={handleDrawer}
@@ -98,12 +94,16 @@ function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
 }
 
 function TimelineList() {
-  return <div>Timeline stuff</div>;
+  return (
+    <div className={montserrat.className}>
+      <div>Timeline stuff</div>
+    </div>
+  );
 }
 
 function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
   return (
-    <StyledCalendar>
+    <StyledCalendar className={montserrat.className}>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
@@ -135,69 +135,84 @@ function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
     minute: "numeric",
   });
 
-  // console.log(events);
+  const handleBackgroundScroll = () => {
+    document.head.style.overflowY == "scroll"
+      ? (document.head.style.overflowY = "hidden")
+      : (document.head.style.overflowY = "scroll");
+  };
 
   return (
-    <Drawer anchor="right" open={drawer} onClose={handleDrawer}>
-      <Container maxWidth="sm">
-        {/* <div className={montserrat.className}> */}
-        <div>
-          {/* Header */}
-          <div className={styles.header}>
-            <button>
-              <KeyboardDoubleArrowRightRoundedIcon />
-            </button>
-          </div>
-          {/* Banner */}
-          <div className={styles.banner}>
-            <img
-              src={events[eventNo].data.photo.src || "WIT-banner.png"}
-              alt={events[eventNo].data.photo.alt || "wit-banner"}
-              width="100%"
-            />
-          </div>
-          {/* Heading */}
-          <div className={styles.heading}>
-            <h1>{events[eventNo].title}</h1>
-          </div>
-          {/* Subheading */}
-          <div className={styles.subheading}>
-            {/* Link */}
-            <div>
-              <Link2 style={{ rotate: "135deg" }} />
+    <Drawer
+      anchor="right"
+      open={drawer}
+      onClose={() => {
+        handleDrawer();
+        handleBackgroundScroll;
+      }}
+      onFocus={handleBackgroundScroll}
+      className={montserrat.className}
+    >
+      <Container maxWidth="sm" className={styles.container}>
+        {/* Header */}
+        <div className={styles.header}>
+          <button onClick={handleDrawer}>
+            <KeyboardDoubleArrowRightRoundedIcon />
+          </button>
+        </div>
+        {/* Banner */}
+        <div className={styles.banner}>
+          <img
+            src={events[eventNo].data.photo.src || "WIT-banner.png"}
+            alt={events[eventNo].data.photo.alt || "wit-banner"}
+          />
+        </div>
+        {/* Heading */}
+        <div className={styles.heading || "Event Title"}>
+          <h1>{events[eventNo].title}</h1>
+        </div>
+        {/* Subheading */}
+        <div className={styles.subheading}>
+          {/* Link */}
+          <div>
+            <Link2 style={{ rotate: "135deg" }} />
+            {events[eventNo].data.link ? (
               <a href={events[eventNo].data.link}>
                 {events[eventNo].data.link}
               </a>
-            </div>
-            {/* Start date */}
-            <div>
-              <Calendar />
-              <span>{date}</span>
-            </div>
-            {/* Days left until event starts */}
-            <div>
-              <Clock />
-              <span>n days</span>
-            </div>
-            {/* Location */}
-            <div>
-              <Global />
-              <span>{events[eventNo].data.location}</span>
-            </div>
-            {/* Labels */}
-            <div className={styles.labels}>
-              <span>upskilling</span>
-              <span>workshop</span>
-            </div>
+            ) : (
+              "-"
+            )}
           </div>
-          {/* Body */}
+          {/* Start date */}
+          <div>
+            <Calendar />
+            <span>{date || "-"}</span>
+          </div>
+          {/* Days left until event starts */}
+          <div>
+            <Clock />
+            <span>n days</span>
+          </div>
+          {/* Location */}
+          <div>
+            <Global />
+            <span>{events[eventNo].data.location || "-"}</span>
+          </div>
+          {/* Labels */}
+          <div className={styles.labels}>
+            <span>upskilling</span>
+            <span>workshop</span>
+          </div>
+        </div>
+        {/* Body */}
+        {events[eventNo].data.description && (
           <div className={styles.body}>
             <h2>Description</h2>
             <p style={{ whiteSpace: "pre-line" }}>
               {events[eventNo].data.description}
             </p>
           </div>
-        </div>
+        )}
       </Container>
     </Drawer>
   );
@@ -227,8 +242,8 @@ export default function Timeline() {
   };
 
   return (
-    // <div className={styles.wrapper}>
-    <div>
+    <div className={styles.wrapper}>
+      {/* <div> */}
       <TimelineTabs
         events={events}
         handleDrawer={handleDrawer}

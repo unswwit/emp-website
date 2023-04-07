@@ -7,7 +7,7 @@ import Tab from "@mui/material/Tab";
 // styles available: https://github.com/fullcalendar/fullcalendar/tree/main/packages/core/src/styles
 export const StyledCalendar = styled.div`
   .fc {
-    font-family: "Montserrat", sans-serif;
+    /* font-family: "Montserrat", sans-serif; */
   }
 
   .fc .fc-button-primary {
@@ -41,6 +41,11 @@ export const StyledCalendar = styled.div`
   .fc .fc-day-today {
     background-color: #31363839;
   }
+
+  .fc .fc-event {
+    cursor: pointer;
+    user-select: none;
+  }
 `;
 
 // docs: https://mui.com/material-ui/react-tabs/
@@ -70,24 +75,22 @@ export const StyledTabs = mui_styled(Tabs)({
 export const StyledTab = mui_styled((props: StyledTabProps) => (
   <Tab disableRipple {...props} />
 ))(({ theme }) => ({
-  "&": {
-    zIndex: "1",
-    fontFamily: "Montserrat",
-    fontSize: "15px",
-    fontWeight: theme.typography.fontWeightMedium,
-    // color: "#FEB14B",
-    color: "#313638",
-    borderRadius: tabBorderRadius,
+  zIndex: "1",
+  fontFamily: "Montserrat",
+  fontSize: "15px",
+  fontWeight: theme.typography.fontWeightMedium,
+  // color: "#FEB14B",
+  color: "#313638",
+  borderRadius: tabBorderRadius,
 
-    marginRight: theme.spacing(1),
-    paddingRight: 10,
-    paddingLeft: 10,
+  marginRight: theme.spacing(1),
+  paddingRight: 10,
+  paddingLeft: 10,
 
-    minWidth: 0,
-    minHeight: tabHeight,
-    height: tabHeight,
-    transition: "200ms",
-  },
+  minWidth: 0,
+  minHeight: tabHeight,
+  height: tabHeight,
+  transition: "200ms",
 
   "&:hover": {
     color: "#FEB14B",

@@ -16,11 +16,11 @@ export const timeline = [
     },
   },
   {
-    title: "1 Mock Technical Interview Workshop",
+    title: "Mock Technical Interview Workshop",
     start: "2023-04-20T15:00:00",
     end: "2023-04-25T15:30:00",
     data: {
-      link: "https://www.facebook.com/events/579873087508452",
+      link: "",
       location: "Online Event",
       labels: ["upskilling", "workshop"],
       description:
@@ -32,7 +32,7 @@ export const timeline = [
     },
   },
   {
-    title: "2 Mock Technical Interview Workshop",
+    title: "Super Long Description",
     start: "2023-04-12T15:00:00",
     end: "2023-04-12T18:30:00",
     data: {
@@ -40,7 +40,7 @@ export const timeline = [
       location: "",
       labels: [],
       description:
-        "WIT Presents: Mock Technical Interview Workshop\nHave a technical interview coming up? Not sure how to prepare?\n\nRegister for WIT'S Mock Interview Workshop to hear about tips & tricks on how to ace technical interviews and book a session for a one-on-one mock technical interview with an industry representative. Get ready to receive specific and personalised feedback on how you can improve your tech interview game with industry experts from Airwallex!\n\nNOTE: For this event, you will only be required to attend the opening presentation and the session you have been allocated. If a registrant does not show up, the position will be given to the student next in line. You can also register to attend the opening presentation only.\n\nRegistration link: https://forms.gle/G2LNTQXgg59WCuMMA",
+        "WIT Presents: Mock Technical Interview Workshop\nHave a technical interview coming up? Not sure how to prepare?\n\nRegister for WIT'S Mock Interview Workshop to hear about tips & tricks on how to ace technical interviews and book a session for a one-on-one mock technical interview with an industry representative. Get ready to receive specific and personalised feedback on how you can improve your tech interview game with industry experts from Airwallex!\n\nNOTE: For this event, you will only be required to attend the opening presentation and the session you have been allocated. If a registrant does not show up, the position will be given to the student next in line. You can also register to attend the opening presentation only.\n\nRegistration link: https://forms.gle/G2LNTQXgg59WCuMMA\nWIT Presents: Mock Technical Interview Workshop\nHave a technical interview coming up? Not sure how to prepare?\n\nRegister for WIT'S Mock Interview Workshop to hear about tips & tricks on how to ace technical interviews and book a session for a one-on-one mock technical interview with an industry representative. Get ready to receive specific and personalised feedback on how you can improve your tech interview game with industry experts from Airwallex!\n\nNOTE: For this event, you will only be required to attend the opening presentation and the session you have been allocated. If a registrant does not show up, the position will be given to the student next in line. You can also register to attend the opening presentation only.\n\nRegistration link: https://forms.gle/G2LNTQXgg59WCuMMA\nWIT Presents: Mock Technical Interview Workshop\nHave a technical interview coming up? Not sure how to prepare?\n\nRegister for WIT'S Mock Interview Workshop to hear about tips & tricks on how to ace technical interviews and book a session for a one-on-one mock technical interview with an industry representative. Get ready to receive specific and personalised feedback on how you can improve your tech interview game with industry experts from Airwallex!\n\nNOTE: For this event, you will only be required to attend the opening presentation and the session you have been allocated. If a registrant does not show up, the position will be given to the student next in line. You can also register to attend the opening presentation only.\n\nRegistration link: https://forms.gle/G2LNTQXgg59WCuMMA",
       photo: {
         src: "",
         alt: "",
@@ -48,14 +48,14 @@ export const timeline = [
     },
   },
   {
-    title: "3 Mock Technical Interview Workshop",
+    title: "Short Description",
     start: "2023-04-12T15:00:00",
     end: "2023-04-12T18:30:00",
     data: {
       link: "",
       location: "",
       labels: [],
-      description: "Description 3",
+      description: "hi.",
       photo: {
         src: "",
         alt: "",
@@ -63,14 +63,14 @@ export const timeline = [
     },
   },
   {
-    title: "4 Mock Technical Interview Workshop",
+    title: "Empty Workshop",
     start: "2023-04-12T15:00:00",
     end: "2023-04-12T18:30:00",
     data: {
       link: "",
       location: "",
       labels: [],
-      description: "Description 4",
+      description: "",
       photo: {
         src: "",
         alt: "",
