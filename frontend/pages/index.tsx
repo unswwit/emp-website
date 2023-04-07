@@ -12,9 +12,11 @@ import Testimonials from "../components/Testimonials";
 import Footer from "../components/Footer";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
-const Timeline = dynamic(() => import("../components/Timeline"), {
-  ssr: false,
-});
+
+import Timeline from "../components/Timeline";
+// const Timeline = dynamic(() => import("../components/Timeline"), {
+//   ssr: false,
+// });
 
 export default function Home() {
   return (

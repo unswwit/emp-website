@@ -120,4 +120,18 @@ export const timeline = [
       },
     },
   },
+  {
+    title: "lowercase",
+    start: "2023-04-02T15:00:00",
+    data: {
+      link: "",
+      location: "",
+      labels: [],
+      description: "",
+      photo: {
+        src: "",
+        alt: "",
+      },
+    },
+  },
 ];

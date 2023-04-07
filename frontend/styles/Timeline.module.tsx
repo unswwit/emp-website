@@ -6,6 +6,10 @@ import Tab from "@mui/material/Tab";
 /* #313638, #feb14b, #e85f5c, #f3f3f3 */
 // styles available: https://github.com/fullcalendar/fullcalendar/tree/main/packages/core/src/styles
 export const StyledCalendar = styled.div`
+  .fc {
+    text-transform: capitalize;
+  }
+
   .fc .fc-button-primary {
     background-color: #e85f5c;
     border-color: #e85f5c;
@@ -72,7 +76,7 @@ export const StyledTab = mui_styled((props: StyledTabProps) => (
   <Tab disableRipple {...props} />
 ))(({ theme }) => ({
   zIndex: "1",
-  fontFamily: "Montserrat",
+  fontFamily: "Montserrat, sans-serif",
   fontSize: "15px",
   fontWeight: theme.typography.fontWeightMedium,
   // color: "#FEB14B",

@@ -1,7 +1,6 @@
 // Imports
 import * as React from "react";
-import { Montserrat } from "@next/font/google";
-import { Container, Box, SwipeableDrawer, Typography } from "@mui/material";
+import { Container, Box, SwipeableDrawer } from "@mui/material";
 import {
   TextalignJustifycenter,
   Grid2,
@@ -26,8 +25,6 @@ import {
   StyledTab,
 } from "../styles/Timeline.module";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
-
 // docs: https://mui.com/material-ui/react-tabs/
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -46,11 +43,7 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -63,7 +56,7 @@ function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
   };
 
   return (
-    <Box sx={{ width: "100%", typography: "body1" }}>
+    <Box sx={{ width: "100%" }}>
       <StyledTabs
         value={value}
         onChange={handleChange}
@@ -96,15 +89,16 @@ function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
 
 function TimelineList() {
   return (
-    <div className={montserrat.className}>
-      <div>Timeline stuff</div>
+    <div>
+      <p>Timeline stuff</p>
+      <p>Check montserrat</p>
     </div>
   );
 }
 
 function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
   return (
-    <StyledCalendar className={montserrat.className}>
+    <StyledCalendar>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
@@ -113,7 +107,7 @@ function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
         eventColor="#313638"
         eventTextColor="#feb14b"
         titleFormat={{ year: "numeric", month: "short" }}
-        buttonText={{ today: "Today" }}
+        buttonText={{ today: "TODAY" }}
         eventClick={(e) => {
           handleEventNo(parseInt(e.event.id));
           handleDrawer();
@@ -164,81 +158,82 @@ function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
         handleBackgroundScroll;
       }}
       onOpen={handleBackgroundScroll}
-      className={montserrat.className}
     >
       <Container maxWidth="sm" className={styles.container}>
-        {/* Header */}
-        <div className={styles.header}>
-          <button onClick={handleDrawer}>
-            <KeyboardDoubleArrowRightRoundedIcon />
-          </button>
+        <div>
+          {/* Header */}
+          <div className={styles.header}>
+            <button onClick={handleDrawer}>
+              <KeyboardDoubleArrowRightRoundedIcon />
+            </button>
+          </div>
+          {/* Banner */}
+          <div className={styles.banner}>
+            <img
+              src={events[eventNo].data.photo.src || "WIT-banner.png"}
+              alt={events[eventNo].data.photo.alt || "wit-banner"}
+            />
+          </div>
+          {/* Heading */}
+          <div className={styles.heading || "Event Title"}>
+            <h1>{events[eventNo].title}</h1>
+          </div>
+          {/* Subheading */}
+          <div className={styles.subheading}>
+            {/* Link */}
+            <div>
+              <Link2 style={{ rotate: "135deg" }} />
+              {events[eventNo].data.link ? (
+                <a href={events[eventNo].data.link}>
+                  {events[eventNo].data.link}
+                </a>
+              ) : (
+                "-"
+              )}
+            </div>
+            {/* Start startDate */}
+            <div>
+              <Calendar />
+              {/* <span>{startDate + " - " + endDate || "-"}</span> */}
+              <span>{startDate || "-"}</span>
+            </div>
+            {/* Days left until event starts */}
+            <div>
+              <Clock />
+              <span>
+                {daysLeftUntilEventStarts > 0
+                  ? "Starting in " + daysLeftUntilEventStarts + " days"
+                  : daysLeftUntilEventEnds > 0
+                  ? "Ending in " + daysLeftUntilEventEnds + " days"
+                  : daysLeftUntilEventStarts == 0
+                  ? "Today"
+                  : daysLeftUntilEventEnds == 0
+                  ? "Last day"
+                  : "Ended"}
+              </span>
+            </div>
+            {/* Location */}
+            <div>
+              <Global />
+              <span>{events[eventNo].data.location || "-"}</span>
+            </div>
+            {/* Labels */}
+            <div className={styles.labels}>
+              {events[eventNo].data.labels.map((l: any, id: any) => (
+                <span key={id}>{l}</span>
+              ))}
+            </div>
+          </div>
+          {/* Body */}
+          {events[eventNo].data.description && (
+            <div className={styles.body}>
+              <h2>Description</h2>
+              <p style={{ whiteSpace: "pre-line" }}>
+                {events[eventNo].data.description}
+              </p>
+            </div>
+          )}
         </div>
-        {/* Banner */}
-        <div className={styles.banner}>
-          <img
-            src={events[eventNo].data.photo.src || "WIT-banner.png"}
-            alt={events[eventNo].data.photo.alt || "wit-banner"}
-          />
-        </div>
-        {/* Heading */}
-        <div className={styles.heading || "Event Title"}>
-          <h1>{events[eventNo].title}</h1>
-        </div>
-        {/* Subheading */}
-        <div className={styles.subheading}>
-          {/* Link */}
-          <div>
-            <Link2 style={{ rotate: "135deg" }} />
-            {events[eventNo].data.link ? (
-              <a href={events[eventNo].data.link}>
-                {events[eventNo].data.link}
-              </a>
-            ) : (
-              "-"
-            )}
-          </div>
-          {/* Start startDate */}
-          <div>
-            <Calendar />
-            {/* <span>{startDate + " - " + endDate || "-"}</span> */}
-            <span>{startDate || "-"}</span>
-          </div>
-          {/* Days left until event starts */}
-          <div>
-            <Clock />
-            <span>
-              {daysLeftUntilEventStarts > 0
-                ? "Starting in " + daysLeftUntilEventStarts + " days"
-                : daysLeftUntilEventEnds > 0
-                ? "Ending in " + daysLeftUntilEventEnds + " days"
-                : daysLeftUntilEventStarts == 0
-                ? "Today"
-                : daysLeftUntilEventEnds == 0
-                ? "Last day"
-                : "Ended"}
-            </span>
-          </div>
-          {/* Location */}
-          <div>
-            <Global />
-            <span>{events[eventNo].data.location || "-"}</span>
-          </div>
-          {/* Labels */}
-          <div className={styles.labels}>
-            {events[eventNo].data.labels.map((l: any, id: any) => (
-              <span key={id}>{l}</span>
-            ))}
-          </div>
-        </div>
-        {/* Body */}
-        {events[eventNo].data.description && (
-          <div className={styles.body}>
-            <h2>Description</h2>
-            <p style={{ whiteSpace: "pre-line" }}>
-              {events[eventNo].data.description}
-            </p>
-          </div>
-        )}
       </Container>
     </SwipeableDrawer>
   );
