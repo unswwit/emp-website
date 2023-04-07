@@ -77,4 +77,47 @@ export const timeline = [
       },
     },
   },
+  {
+    title: "Test Today",
+    start: "2023-04-07T15:00:00",
+    data: {
+      link: "",
+      location: "",
+      labels: [],
+      description: "",
+      photo: {
+        src: "",
+        alt: "",
+      },
+    },
+  },
+  {
+    title: "Test Ongoing",
+    start: "2023-04-07T15:00:00",
+    end: "2023-04-12T18:30:00",
+    data: {
+      link: "",
+      location: "",
+      labels: [],
+      description: "",
+      photo: {
+        src: "",
+        alt: "",
+      },
+    },
+  },
+  {
+    title: "Test Ended",
+    start: "2023-04-02T15:00:00",
+    data: {
+      link: "",
+      location: "",
+      labels: [],
+      description: "",
+      photo: {
+        src: "",
+        alt: "",
+      },
+    },
+  },
 ];

@@ -11,6 +11,7 @@ import {
   Global,
 } from "iconsax-react";
 import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
+import { differenceInDays } from "date-fns";
 
 // FullCalendar
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
@@ -124,9 +125,21 @@ function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
 }
 
 function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
-  const eventDate = new Date(events[eventNo].start);
+  const eventDateStart = new Date(events[eventNo].start);
+  const eventDateEnd = new Date(events[eventNo].end);
+  const daysLeftUntilEventStarts = differenceInDays(eventDateStart, new Date());
+  const daysLeftUntilEventEnds = differenceInDays(eventDateEnd, new Date());
 
-  const date = eventDate.toLocaleString("en-US", {
+  const startDate = eventDateStart.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+
+  const endDate = eventDateEnd.toLocaleString("en-US", {
     month: "long",
     day: "numeric",
     weekday: "long",
@@ -183,15 +196,26 @@ function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
               "-"
             )}
           </div>
-          {/* Start date */}
+          {/* Start startDate */}
           <div>
             <Calendar />
-            <span>{date || "-"}</span>
+            {/* <span>{startDate + " - " + endDate || "-"}</span> */}
+            <span>{startDate || "-"}</span>
           </div>
           {/* Days left until event starts */}
           <div>
             <Clock />
-            <span>n days</span>
+            <span>
+              {daysLeftUntilEventStarts > 0
+                ? "Starting in " + daysLeftUntilEventStarts + " days"
+                : daysLeftUntilEventEnds > 0
+                ? "Ending in " + daysLeftUntilEventEnds + " days"
+                : daysLeftUntilEventStarts == 0
+                ? "Today"
+                : daysLeftUntilEventEnds == 0
+                ? "Last day"
+                : "Ended"}
+            </span>
           </div>
           {/* Location */}
           <div>
