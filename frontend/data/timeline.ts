@@ -38,7 +38,7 @@ export const timeline = [
     data: {
       link: "",
       location: "",
-      labels: [],
+      labels: ["lorem", "ipsum"],
       description:
         "WIT Presents: Mock Technical Interview Workshop\nHave a technical interview coming up? Not sure how to prepare?\n\nRegister for WIT'S Mock Interview Workshop to hear about tips & tricks on how to ace technical interviews and book a session for a one-on-one mock technical interview with an industry representative. Get ready to receive specific and personalised feedback on how you can improve your tech interview game with industry experts from Airwallex!\n\nNOTE: For this event, you will only be required to attend the opening presentation and the session you have been allocated. If a registrant does not show up, the position will be given to the student next in line. You can also register to attend the opening presentation only.\n\nRegistration link: https://forms.gle/G2LNTQXgg59WCuMMA\nWIT Presents: Mock Technical Interview Workshop\nHave a technical interview coming up? Not sure how to prepare?\n\nRegister for WIT'S Mock Interview Workshop to hear about tips & tricks on how to ace technical interviews and book a session for a one-on-one mock technical interview with an industry representative. Get ready to receive specific and personalised feedback on how you can improve your tech interview game with industry experts from Airwallex!\n\nNOTE: For this event, you will only be required to attend the opening presentation and the session you have been allocated. If a registrant does not show up, the position will be given to the student next in line. You can also register to attend the opening presentation only.\n\nRegistration link: https://forms.gle/G2LNTQXgg59WCuMMA\nWIT Presents: Mock Technical Interview Workshop\nHave a technical interview coming up? Not sure how to prepare?\n\nRegister for WIT'S Mock Interview Workshop to hear about tips & tricks on how to ace technical interviews and book a session for a one-on-one mock technical interview with an industry representative. Get ready to receive specific and personalised feedback on how you can improve your tech interview game with industry experts from Airwallex!\n\nNOTE: For this event, you will only be required to attend the opening presentation and the session you have been allocated. If a registrant does not show up, the position will be given to the student next in line. You can also register to attend the opening presentation only.\n\nRegistration link: https://forms.gle/G2LNTQXgg59WCuMMA",
       photo: {
@@ -54,7 +54,7 @@ export const timeline = [
     data: {
       link: "",
       location: "",
-      labels: [],
+      labels: ["just lorem"],
       description: "hi.",
       photo: {
         src: "",

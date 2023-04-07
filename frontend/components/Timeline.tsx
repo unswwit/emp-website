@@ -224,8 +224,9 @@ function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
           </div>
           {/* Labels */}
           <div className={styles.labels}>
-            <span>upskilling</span>
-            <span>workshop</span>
+            {events[eventNo].data.labels.map((l: any, id: any) => (
+              <span key={id}>{l}</span>
+            ))}
           </div>
         </div>
         {/* Body */}
