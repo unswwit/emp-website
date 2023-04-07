@@ -6,10 +6,6 @@ import Tab from "@mui/material/Tab";
 /* #313638, #feb14b, #e85f5c, #f3f3f3 */
 // styles available: https://github.com/fullcalendar/fullcalendar/tree/main/packages/core/src/styles
 export const StyledCalendar = styled.div`
-  .fc {
-    /* font-family: "Montserrat", sans-serif; */
-  }
-
   .fc .fc-button-primary {
     background-color: #e85f5c;
     border-color: #e85f5c;

@@ -1,7 +1,7 @@
 // Imports
 import * as React from "react";
 import { Montserrat } from "@next/font/google";
-import { Container, Box, Drawer, Typography } from "@mui/material";
+import { Container, Box, SwipeableDrawer, Typography } from "@mui/material";
 import {
   TextalignJustifycenter,
   Grid2,
@@ -155,14 +155,15 @@ function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
   };
 
   return (
-    <Drawer
+    <SwipeableDrawer
+      disableSwipeToOpen
       anchor="right"
       open={drawer}
       onClose={() => {
         handleDrawer();
         handleBackgroundScroll;
       }}
-      onFocus={handleBackgroundScroll}
+      onOpen={handleBackgroundScroll}
       className={montserrat.className}
     >
       <Container maxWidth="sm" className={styles.container}>
@@ -239,7 +240,7 @@ function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
           </div>
         )}
       </Container>
-    </Drawer>
+    </SwipeableDrawer>
   );
 }
 
