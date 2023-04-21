@@ -111,6 +111,7 @@ function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
         // eventColor="#EFEFEF"
         // eventTextColor="#feb14b"
         // eventTextColor="#d18c32"
+        height={700}
         titleFormat={{ year: "numeric", month: "short" }}
         buttonText={{ today: "Today" }}
         eventClick={(e) => {
