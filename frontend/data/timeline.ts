@@ -83,7 +83,7 @@ export const timeline = [
     data: {
       link: "",
       location: "",
-      labels: [],
+      labels: ["sleep", "eat", "play", "read", "watch"],
       description: "",
       photo: {
         src: "",

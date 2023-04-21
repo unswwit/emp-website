@@ -25,6 +25,9 @@ import {
   StyledTab,
 } from "../styles/Timeline.module";
 
+// import { Montserrat } from "@next/font/google";
+// const montserrat = Montserrat({ subsets: ["latin"] });
+
 // docs: https://mui.com/material-ui/react-tabs/
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -104,10 +107,12 @@ function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
         initialView="dayGridMonth"
         // initialView="dayGridWeek"
         weekends={true}
-        eventColor="#313638"
-        eventTextColor="#feb14b"
+        // eventColor="#313638"
+        // eventColor="#EFEFEF"
+        // eventTextColor="#feb14b"
+        // eventTextColor="#d18c32"
         titleFormat={{ year: "numeric", month: "short" }}
-        buttonText={{ today: "TODAY" }}
+        buttonText={{ today: "Today" }}
         eventClick={(e) => {
           handleEventNo(parseInt(e.event.id));
           handleDrawer();
@@ -118,9 +123,9 @@ function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
   );
 }
 
-function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
-  const eventDateStart = new Date(events[eventNo].start);
-  const eventDateEnd = new Date(events[eventNo].end);
+function InfoPanel({ event, drawer, handleDrawer }: any) {
+  const eventDateStart = new Date(event.start);
+  const eventDateEnd = new Date(event.end);
   const daysLeftUntilEventStarts = differenceInDays(eventDateStart, new Date());
   const daysLeftUntilEventEnds = differenceInDays(eventDateEnd, new Date());
 
@@ -159,7 +164,7 @@ function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
       }}
       onOpen={handleBackgroundScroll}
     >
-      <Container maxWidth="sm" className={styles.container}>
+      <Container maxWidth="sm" className={styles.infoPanel}>
         <div>
           {/* Header */}
           <div className={styles.header}>
@@ -167,35 +172,36 @@ function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
               <KeyboardDoubleArrowRightRoundedIcon />
             </button>
           </div>
+
           {/* Banner */}
           <div className={styles.banner}>
             <img
-              src={events[eventNo].data.photo.src || "WIT-banner.png"}
-              alt={events[eventNo].data.photo.alt || "wit-banner"}
+              src={event.data.photo.src || "WIT-banner.png"}
+              alt={event.data.photo.alt || "wit-banner"}
             />
           </div>
+
           {/* Heading */}
           <div className={styles.heading || "Event Title"}>
-            <h1>{events[eventNo].title}</h1>
+            <h1>{event.title}</h1>
           </div>
+
           {/* Subheading */}
           <div className={styles.subheading}>
             {/* Link */}
             <div>
               <Link2 style={{ rotate: "135deg" }} />
-              {events[eventNo].data.link ? (
-                <a href={events[eventNo].data.link}>
-                  {events[eventNo].data.link}
-                </a>
+              {event.data.link ? (
+                <a href={event.data.link}>{event.data.link}</a>
               ) : (
                 "-"
               )}
             </div>
-            {/* Start startDate */}
+            {/* Start date */}
             <div>
               <Calendar />
-              {/* <span>{startDate + " - " + endDate || "-"}</span> */}
               <span>{startDate || "-"}</span>
+              {/* <span>{startDate + " until " + endDate || "-"}</span> */}
             </div>
             {/* Days left until event starts */}
             <div>
@@ -215,22 +221,21 @@ function InfoPanel({ drawer, handleDrawer, events, eventNo }: any) {
             {/* Location */}
             <div>
               <Global />
-              <span>{events[eventNo].data.location || "-"}</span>
+              <span>{event.data.location || "-"}</span>
             </div>
             {/* Labels */}
-            <div className={styles.labels}>
-              {events[eventNo].data.labels.map((l: any, id: any) => (
+            <p className={styles.labels}>
+              {event.data.labels.map((l: any, id: any) => (
                 <span key={id}>{l}</span>
               ))}
-            </div>
+            </p>
           </div>
+
           {/* Body */}
-          {events[eventNo].data.description && (
+          {event.data.description && (
             <div className={styles.body}>
               <h2>Description</h2>
-              <p style={{ whiteSpace: "pre-line" }}>
-                {events[eventNo].data.description}
-              </p>
+              <p>{event.data.description}</p>
             </div>
           )}
         </div>
@@ -264,7 +269,6 @@ export default function Timeline() {
 
   return (
     <div className={styles.wrapper}>
-      {/* <div> */}
       <TimelineTabs
         events={events}
         handleDrawer={handleDrawer}
@@ -273,8 +277,7 @@ export default function Timeline() {
       <InfoPanel
         drawer={drawer}
         handleDrawer={handleDrawer}
-        events={events}
-        eventNo={eventNo}
+        event={events.find((e) => e.id == eventNo)}
       />
     </div>
   );

@@ -8,43 +8,77 @@ import Tab from "@mui/material/Tab";
 export const StyledCalendar = styled.div`
   .fc {
     text-transform: capitalize;
+
+    & .fc-button-primary {
+      background-color: #e85f5c;
+      border-color: #e85f5c;
+      transition: all 200ms;
+    }
+
+    & .fc-button-primary:hover {
+      background-color: #ff6a67;
+      border-color: #ff6a67;
+      transition: all 200ms;
+    }
+
+    & .fc-button-primary:active {
+      background-color: #e85f5c;
+      border-color: #e85f5c;
+    }
+
+    & .fc-button-primary:focus {
+      box-shadow: 0 0 0 0.2rem #e85e5c92;
+      transition: all 200ms;
+    }
+
+    & .fc-button-primary:not(:disabled):active:focus,
+    .fc-button-primary:not(:disabled).fc-button-active:focus {
+      box-shadow: 0 0 0 0.2rem #ff6a67;
+      transition: all 200ms;
+    }
+
+    & .fc-day-today {
+      background-color: #31363839;
+    }
+
+    & .fc-event {
+      cursor: pointer;
+      user-select: none;
+      transition: all 200ms;
+
+      color: black;
+    }
+
+    & .fc-event:hover {
+      color: #feb14b;
+      background-color: #404040;
+    }
+
+    & .fc-daygrid-event-dot {
+      border: calc(var(--fc-daygrid-event-dot-width) / 2) solid #feb14b;
+      border-radius: calc(var(--fc-daygrid-event-dot-width) / 2);
+      transition: all 200ms;
+    }
   }
 
-  .fc .fc-button-primary {
-    background-color: #e85f5c;
-    border-color: #e85f5c;
+  .fc-h-event {
+    display: block;
+    /* border: 1px solid var(--fc-event-border-color); */
+    border: 1px solid #efefef;
+    background-color: #efefef;
     transition: 200ms;
-  }
+    overflow: hidden;
 
-  .fc .fc-button-primary:hover {
-    background-color: #ff6a67;
-    border-color: #ff6a67;
-    transition: 200ms;
-  }
+    & .fc-event-main {
+      /* color: #d18c32; */
+      color: #404040;
+      transition: all 200ms;
+    }
 
-  .fc .fc-button-primary:active {
-    background-color: #e85f5c;
-    border-color: #e85f5c;
-  }
-
-  .fc .fc-button-primary:focus {
-    box-shadow: 0 0 0 0.2rem #e85e5c92;
-    transition: 200ms;
-  }
-
-  .fc .fc-button-primary:not(:disabled):active:focus,
-  .fc-button-primary:not(:disabled).fc-button-active:focus {
-    box-shadow: 0 0 0 0.2rem #ff6a67;
-    transition: 200ms;
-  }
-
-  .fc .fc-day-today {
-    background-color: #31363839;
-  }
-
-  .fc .fc-event {
-    cursor: pointer;
-    user-select: none;
+    & .fc-event-main:hover {
+      color: #feb14b;
+      background-color: #404040;
+    }
   }
 `;
 
