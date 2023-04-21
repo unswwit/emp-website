@@ -1,22 +1,16 @@
-import Head from "next/head";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { Montserrat } from "@next/font/google";
-import styles from "../styles/Home.module.css";
-import React, { useState } from "react";
-import NavBar from "../components/NavBar";
-import Hero from "../components/Hero";
-import Countdown from "../components/Countdown";
-import SponsorCollage from "../components/SponsorCollage";
-import Testimonials from "../components/Testimonials";
-import Footer from "../components/Footer";
+import Head from 'next/head';
+import { Montserrat } from '@next/font/google';
+import styles from '../styles/Home.module.css';
+import React from 'react';
+import NavBar from '../components/NavBar';
+import Hero from '../components/Hero';
+import Countdown from '../components/Countdown';
+import SponsorCollage from '../components/SponsorCollage';
+import Timeline from '../components/Timeline';
+import Testimonials from '../components/Testimonials';
+import Footer from '../components/Footer';
 
-const montserrat = Montserrat({ subsets: ["latin"] });
-
-import Timeline from "../components/Timeline";
-// const Timeline = dynamic(() => import("../components/Timeline"), {
-//   ssr: false,
-// });
+const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function Home() {
   return (
