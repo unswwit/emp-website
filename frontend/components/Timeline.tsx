@@ -1,6 +1,6 @@
 // Imports
-import * as React from "react";
-import { Container, Box, SwipeableDrawer } from "@mui/material";
+import * as React from 'react';
+import { Container, Box, SwipeableDrawer } from '@mui/material';
 import {
   TextalignJustifycenter,
   Grid2,
@@ -8,22 +8,22 @@ import {
   Calendar,
   Clock,
   Global,
-} from "iconsax-react";
-import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
-import { differenceInDays } from "date-fns";
+} from 'iconsax-react';
+import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
+import { differenceInDays } from 'date-fns';
 
 // FullCalendar
-import FullCalendar from "@fullcalendar/react"; // must go before plugins
-import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
+import FullCalendar from '@fullcalendar/react'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 
 // Custom imports
-import { timeline } from "../data/timeline";
-import styles from "../styles/Timeline.module.css";
+import { timeline } from '../data/timeline';
+import styles from '../styles/Timeline.module.css';
 import {
   StyledCalendar,
   StyledTabs,
   StyledTab,
-} from "../styles/Timeline.module";
+} from '../styles/Timeline.module';
 
 // import { Montserrat } from "@next/font/google";
 // const montserrat = Montserrat({ subsets: ["latin"] });
@@ -59,7 +59,7 @@ function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: '100%' }}>
       <StyledTabs
         value={value}
         onChange={handleChange}
@@ -112,8 +112,8 @@ function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
         // eventTextColor="#feb14b"
         // eventTextColor="#d18c32"
         height={700}
-        titleFormat={{ year: "numeric", month: "short" }}
-        buttonText={{ today: "Today" }}
+        titleFormat={{ year: 'numeric', month: 'short' }}
+        buttonText={{ today: 'Today' }}
         eventClick={(e) => {
           handleEventNo(parseInt(e.event.id));
           handleDrawer();
@@ -130,28 +130,28 @@ function InfoPanel({ event, drawer, handleDrawer }: any) {
   const daysLeftUntilEventStarts = differenceInDays(eventDateStart, new Date());
   const daysLeftUntilEventEnds = differenceInDays(eventDateEnd, new Date());
 
-  const startDate = eventDateStart.toLocaleString("en-US", {
-    month: "long",
-    day: "numeric",
-    weekday: "long",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
+  const startDate = eventDateStart.toLocaleString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
   });
 
-  const endDate = eventDateEnd.toLocaleString("en-US", {
-    month: "long",
-    day: "numeric",
-    weekday: "long",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
+  const endDate = eventDateEnd.toLocaleString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
   });
 
   const handleBackgroundScroll = () => {
-    document.head.style.overflowY == "scroll"
-      ? (document.head.style.overflowY = "hidden")
-      : (document.head.style.overflowY = "scroll");
+    document.head.style.overflowY == 'scroll'
+      ? (document.head.style.overflowY = 'hidden')
+      : (document.head.style.overflowY = 'scroll');
   };
 
   return (
@@ -177,13 +177,13 @@ function InfoPanel({ event, drawer, handleDrawer }: any) {
           {/* Banner */}
           <div className={styles.banner}>
             <img
-              src={event.data.photo.src || "WIT-banner.png"}
-              alt={event.data.photo.alt || "wit-banner"}
+              src={event.data.photo.src || 'WIT-banner.png'}
+              alt={event.data.photo.alt || 'wit-banner'}
             />
           </div>
 
           {/* Heading */}
-          <div className={styles.heading || "Event Title"}>
+          <div className={styles.heading || 'Event Title'}>
             <h1>{event.title}</h1>
           </div>
 
@@ -191,17 +191,17 @@ function InfoPanel({ event, drawer, handleDrawer }: any) {
           <div className={styles.subheading}>
             {/* Link */}
             <div>
-              <Link2 style={{ rotate: "135deg" }} />
+              <Link2 style={{ rotate: '135deg' }} />
               {event.data.link ? (
                 <a href={event.data.link}>{event.data.link}</a>
               ) : (
-                "-"
+                '-'
               )}
             </div>
             {/* Start date */}
             <div>
               <Calendar />
-              <span>{startDate || "-"}</span>
+              <span>{startDate || '-'}</span>
               {/* <span>{startDate + " until " + endDate || "-"}</span> */}
             </div>
             {/* Days left until event starts */}
@@ -209,20 +209,20 @@ function InfoPanel({ event, drawer, handleDrawer }: any) {
               <Clock />
               <span>
                 {daysLeftUntilEventStarts > 0
-                  ? "Starting in " + daysLeftUntilEventStarts + " days"
+                  ? 'Starting in ' + daysLeftUntilEventStarts + ' days'
                   : daysLeftUntilEventEnds > 0
-                  ? "Ending in " + daysLeftUntilEventEnds + " days"
+                  ? 'Ending in ' + daysLeftUntilEventEnds + ' days'
                   : daysLeftUntilEventStarts == 0
-                  ? "Today"
+                  ? 'Today'
                   : daysLeftUntilEventEnds == 0
-                  ? "Last day"
-                  : "Ended"}
+                  ? 'Last day'
+                  : 'Ended'}
               </span>
             </div>
             {/* Location */}
             <div>
               <Global />
-              <span>{event.data.location || "-"}</span>
+              <span>{event.data.location || '-'}</span>
             </div>
             {/* Labels */}
             <p className={styles.labels}>

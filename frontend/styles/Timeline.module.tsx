@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import { styled as mui_styled } from "@mui/material/styles";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import styled from '@emotion/styled';
+import { styled as mui_styled } from '@mui/material/styles';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 /* #313638, #feb14b, #e85f5c, #f3f3f3 */
 // styles available: https://github.com/fullcalendar/fullcalendar/tree/main/packages/core/src/styles
@@ -86,7 +86,7 @@ export const StyledCalendar = styled.div`
 interface StyledTabProps {
   label: string;
   icon: string | React.ReactElement;
-  iconPosition?: "top" | "bottom" | "start" | "end";
+  iconPosition?: 'top' | 'bottom' | 'start' | 'end';
 }
 
 const tabHeight = 34; // default: '48px'
@@ -95,11 +95,11 @@ const tabIndicatorTopPadding = 34;
 const tabIndicatorBottomMargin = 13;
 
 export const StyledTabs = mui_styled(Tabs)({
-  borderBottom: "1px solid #e8e8e8",
+  borderBottom: '1px solid #e8e8e8',
 
-  "& .MuiTabs-indicator": {
-    zIndex: "0",
-    backgroundColor: "#404040",
+  '& .MuiTabs-indicator': {
+    zIndex: '0',
+    backgroundColor: '#404040',
     paddingTop: tabIndicatorTopPadding,
     marginBottom: tabIndicatorBottomMargin,
     borderRadius: tabBorderRadius,
@@ -109,12 +109,12 @@ export const StyledTabs = mui_styled(Tabs)({
 export const StyledTab = mui_styled((props: StyledTabProps) => (
   <Tab disableRipple {...props} />
 ))(({ theme }) => ({
-  zIndex: "1",
-  fontFamily: "Montserrat, sans-serif",
-  fontSize: "15px",
+  zIndex: '1',
+  fontFamily: 'Montserrat, sans-serif',
+  fontSize: '15px',
   fontWeight: theme.typography.fontWeightMedium,
   // color: "#FEB14B",
-  color: "#313638",
+  color: '#313638',
   borderRadius: tabBorderRadius,
 
   marginRight: theme.spacing(1),
@@ -124,21 +124,21 @@ export const StyledTab = mui_styled((props: StyledTabProps) => (
   minWidth: 0,
   minHeight: tabHeight,
   height: tabHeight,
-  transition: "200ms",
+  transition: '200ms',
 
-  "&:hover": {
-    color: "#FEB14B",
+  '&:hover': {
+    color: '#FEB14B',
     // backgroundColor: "#40404088",
   },
 
-  "&.Mui-selected": {
-    color: "#FEB14B",
-    backgroundColor: "transparent",
+  '&.Mui-selected': {
+    color: '#FEB14B',
+    backgroundColor: 'transparent',
   },
 
-  "&& > svg": {
+  '&& > svg': {
     marginRight: 3,
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down('xs')]: {
       marginRight: 1,
     },
   },
