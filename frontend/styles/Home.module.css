@@ -17,7 +17,7 @@
 }
 
 .navbar > ul {
-  list-style-type: none;  
+  list-style-type: none;
   align-items: center;
 }
 
@@ -42,7 +42,7 @@
 
 .hero {
   margin-top: 7em;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   padding: 0rem 0rem 0rem 5rem;
   display: flex;
   align-items: center;
@@ -63,12 +63,12 @@
 }
 
 .heroText > h1 {
-  color: #E85F5C;
+  color: #e85f5c;
   font-size: 3em;
 }
 
 .heroText > h3 {
-  color: #6e6e70
+  color: #6e6e70;
 }
 
 .divider {
@@ -84,12 +84,12 @@
 }
 
 .graySection {
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
   padding: 5rem;
 }
 
 .graySection > h1 {
-  color: #E85F5C;
+  color: #e85f5c;
   font-size: 3rem;
   text-align: center;
   margin-bottom: 2rem;
@@ -101,7 +101,7 @@
 }
 
 .section > h1 {
-  color: #E85F5C;
+  color: #e85f5c;
   font-size: 3rem;
   text-align: center;
   margin-bottom: 2rem;
@@ -117,7 +117,7 @@
 }
 
 .button {
-  background-color: #E85F5C;
+  background-color: #e85f5c;
   font-size: 1.3rem;
   color: white;
   padding: 1em;
@@ -127,7 +127,7 @@
 }
 
 .navButton {
-  background-color: #E85F5C;
+  background-color: #e85f5c;
   font-size: 1rem;
   color: white;
   padding: 1em;
@@ -150,7 +150,7 @@
 
 .footerButton {
   float: right;
-  background-color: #E85F5C;
+  background-color: #e85f5c;
   font-size: 1rem;
   color: white;
   padding: 1em;

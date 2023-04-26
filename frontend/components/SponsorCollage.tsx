@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
 
 export default function SponsorCollage() {
   return (
@@ -11,5 +11,5 @@ export default function SponsorCollage() {
       height={800}
       priority
     />
-  )
+  );
 }
