@@ -1,4 +1,4 @@
-import styles from "../styles/Quotes.module.css";
+import styles from '../styles/Quotes.module.css';
 import {
   MDBCard,
   MDBCardBody,
@@ -10,10 +10,10 @@ import {
   MDBCarouselItem,
   MDBTypography,
   MDBIcon,
-} from "mdb-react-ui-kit";
-import { Slide } from "react-slideshow-image";
-import "react-slideshow-image/dist/styles.css";
-import { testimonials } from "../data/testimonials";
+} from 'mdb-react-ui-kit';
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
+import { testimonials } from '../data/testimonials';
 
 function QuoteCard({ data }: any) {
   return (
@@ -27,23 +27,23 @@ function QuoteCard({ data }: any) {
                   <img
                     src={
                       data.photo.src ||
-                      "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+                      'https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp'
                     }
-                    alt={data.photo.alt || "Example Avatar"}
+                    alt={data.photo.alt || 'Example Avatar'}
                   />
                 </div>
                 <div>
                   <MDBTypography blockquote>
                     <span className="font-italic">
                       {data.description ||
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit.\
+                        'Lorem ipsum dolor sit amet consectetur adipisicing elit.\
                       Pariatur sint nesciunt ad itaque aperiam expedita officiis\
                       incidunt minus facere, molestias quisquam impedit\
-                      inventore."}
+                      inventore.'}
                     </span>
                   </MDBTypography>
                   <br />
-                  <figcaption>{data.name || "Example Name"}</figcaption>
+                  <figcaption>{data.name || 'Example Name'}</figcaption>
                 </div>
               </div>
             </MDBCol>
