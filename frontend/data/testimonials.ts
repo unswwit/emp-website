@@ -35,8 +35,8 @@ const mentees = [
 const mentors = [
   {
     name: 'Isobel Young, Software Engineer at CBA',
-    description: 
-    'It was such a joy to be a part of the UNSW WIT Industry Mentoring Program. I loved being inspired by the next generation of talent, especially by my mentee\'s passion for the industry. It was rewarding to see her success following our mentorship, and share insights into what it means to work as a professional in today\'s tech landscape.',
+    description:
+      "It was such a joy to be a part of the UNSW WIT Industry Mentoring Program. I loved being inspired by the next generation of talent, especially by my mentee's passion for the industry. It was rewarding to see her success following our mentorship, and share insights into what it means to work as a professional in today's tech landscape.",
     photo: {
       src: '',
       alt: '',
@@ -45,12 +45,13 @@ const mentors = [
 
   {
     name: 'Teebana Balakumar, Software Engineer at Macquarie Group',
-    description: 'The WIT Empowerment Mentoring program was a very humbling and rewarding experience. It was a pleasure to meet and guide enthusiastic students by passing on advice that was given to me when I was in their position, as well as my own tips and tricks that I picked up along the way. I enjoyed helping them pave their way through the industry, just as I did before them, and understanding what life is like as a student in this new era of technology',
+    description:
+      'The WIT Empowerment Mentoring program was a very humbling and rewarding experience. It was a pleasure to meet and guide enthusiastic students by passing on advice that was given to me when I was in their position, as well as my own tips and tricks that I picked up along the way. I enjoyed helping them pave their way through the industry, just as I did before them, and understanding what life is like as a student in this new era of technology',
     photo: {
       src: '',
       alt: '',
     },
-  }
+  },
 ];
 
 // export const testimonials = [...mentees, ...mentors];
