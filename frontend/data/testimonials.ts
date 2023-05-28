@@ -36,7 +36,7 @@ const mentors = [
   {
     name: 'Isobel Young, Software Engineer at CBA',
     description: 
-      'It was such a joy to be a part of the UNSW WIT Industry Mentoring Program. I loved being inspired by the next generation of talent, especially by my mentee\'s passion for the industry. It was rewarding to see her success following our mentorship, and share insights into what it means to work as a professional in today\'s tech landscape. ',
+    'It was such a joy to be a part of the UNSW WIT Industry Mentoring Program. I loved being inspired by the next generation of talent, especially by my mentee\'s passion for the industry. It was rewarding to see her success following our mentorship, and share insights into what it means to work as a professional in today\'s tech landscape.',
     photo: {
       src: '',
       alt: '',
