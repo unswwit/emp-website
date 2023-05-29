@@ -14,7 +14,14 @@ export default function Footer() {
           priority
         />
         <p>© UNSW Women in Technology 2023</p>
-        <button className={styles.footerButton}><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSc6IwF0yrpmglANWJ4ski-zrsfFMtdtpVkzqTTgVGxbPjKo4A/viewform">Register Now</a></button>
+        <button className={styles.footerButton}>
+          <a
+            target="_blank"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSc6IwF0yrpmglANWJ4ski-zrsfFMtdtpVkzqTTgVGxbPjKo4A/viewform"
+          >
+            Register Now
+          </a>
+        </button>
       </div>
       <Image
         src="/icons.png"

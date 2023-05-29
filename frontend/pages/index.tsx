@@ -17,7 +17,10 @@ export default function Home() {
     <div className={styles.home}>
       <Head>
         <title>WIT Empowerment Mentoring</title>
-        <meta name="description" content="women in technology empowerment website" />
+        <meta
+          name="description"
+          content="women in technology empowerment website"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/WIT-logo-black.png" />
       </Head>
@@ -41,7 +44,14 @@ export default function Home() {
             dicta sunt explicabo.
           </p>
           <div className={styles.wrapper}>
-          <button className={styles.button}><a target="_blank" href="https://www.facebook.com/events/545237864225826">Learn More</a></button>
+            <button className={styles.button}>
+              <a
+                target="_blank"
+                href="https://www.facebook.com/events/545237864225826"
+              >
+                Learn More
+              </a>
+            </button>
           </div>
         </div>
         <div className={styles.graySection}>
@@ -50,7 +60,14 @@ export default function Home() {
         </div>
         <div className={styles.divider}>
           <h2>Sign up to the reminder list here:</h2>
-          <button className={styles.button}><a target="_blank" href="https://www.facebook.com/events/545237864225826">Remind me</a></button>
+          <button className={styles.button}>
+            <a
+              target="_blank"
+              href="https://www.facebook.com/events/545237864225826"
+            >
+              Remind me
+            </a>
+          </button>
         </div>
         <div className={styles.section}>
           <h1>TIMELINE</h1>
