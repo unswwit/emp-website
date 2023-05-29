@@ -22,7 +22,14 @@ export default function NavBar() {
           <li>About</li>
           <li>Timeline</li>
           <li>Mentors</li>
-          <button className={styles.navButton}>Register Now</button>
+          <button className={styles.navButton}>
+            <a
+              target="_blank"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSc6IwF0yrpmglANWJ4ski-zrsfFMtdtpVkzqTTgVGxbPjKo4A/viewform"
+            >
+              Register Now
+            </a>
+          </button>
         </div>
       </ul>
     </nav>
