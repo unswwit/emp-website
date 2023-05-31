@@ -26,20 +26,13 @@
 }
 
 /* --- Timeline Card --- */
-.timelineList {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
-
 .timelineCard {
+  cursor: pointer;
   display: flex;
-  width: 1000px;
+  /* width: 1000px; */
+  width: 100%;
   gap: 36px;
   align-items: center;
-  place-self: center;
   border-radius: 20px;
   background-color: #292a2e;
   padding: 20px 36px;
@@ -52,12 +45,15 @@
 }
 
 .timelineCard .dateInfo .day {
-  font-size: 4rem;
-  font-weight: bold;
+  /* font-size: 4rem; */
+  font-size: 48px;
+  /* font-weight: bold; */
 }
 
 .timelineCard .dateInfo .month {
-  font-size: 2rem;
+  /* font-size: 2rem; */
+  font-size: 26px;
+  font-weight: normal;
 }
 
 .timelineCard .eventInfo {
@@ -66,19 +62,25 @@
   gap: 10px;
 }
 
+.timelineCard .date,
+.timelineCard .location {
+  font-size: 14px;
+}
+
 .timelineCard .eventInfo .date {
-  font-weight: bold;
+  /* font-weight: bold; */
   color: white;
 }
 
 .timelineCard .eventInfo .title {
-  font-size: 32px;
-  font-weight: bold;
+  /* font-size: 32px; */
+  font-size: 24px;
+  /* font-weight: bold; */
   color: #feb14b;
 }
 
 .timelineCard .eventInfo .location {
-  font-weight: bold;
+  /* font-weight: bold; */
   color: #f3afae;
 }
 
@@ -160,16 +162,6 @@
   font-style: italic;
 }
 
-@media screen and (max-width: 600px) {
-  .infoPanel .subheading a {
-    display: block;
-    width: 80vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-}
-
 .infoPanel .body h2 {
   margin-bottom: 10px;
   color: #f3afae;
@@ -181,13 +173,32 @@
   overflow-wrap: break-word;
 }
 
-@media screen and (max-width: 370px) {
-  .infoPanel .body p {
-    width: 90vw;
-  }
-}
-
 .infoPanel .labels {
   margin-top: 10px;
   gap: 10px;
+}
+
+/* === Media Query === */
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 0 -4rem;
+  }
+
+  .infoPanel .subheading a {
+    display: block;
+    width: 80vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .timelineCard {
+    padding: 20px 10px;
+  }
+
+  .infoPanel .body p {
+    width: 90vw;
+  }
 }
