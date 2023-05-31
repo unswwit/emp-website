@@ -1,6 +1,6 @@
 // Imports
 import * as React from 'react';
-import { Container, Box, SwipeableDrawer } from '@mui/material';
+import { Container, Box, SwipeableDrawer, Pagination } from '@mui/material';
 import {
   TextalignJustifycenter,
   Grid2,
@@ -95,10 +95,26 @@ function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
 }
 
 function TimelineList({ events, handleDrawer, handleEventNo }: any) {
+  const itemsPerPage = 5;
+  const pages = Math.ceil(events.length / itemsPerPage);
+
+  const [someEvents, setSomeEvents] = React.useState(
+    events.slice(0, itemsPerPage - 1)
+  );
+
+  const handlePage = (currentPage: any) => {
+    setSomeEvents(
+      events.slice(
+        itemsPerPage * (currentPage - 1),
+        itemsPerPage * (currentPage - 1) + itemsPerPage
+      )
+    );
+  };
+
   return (
     <div>
       <div className={styles.container}>
-        {events.map((e: any) => {
+        {someEvents.map((e: any) => {
           return (
             <TimelineCard
               key={e.id}
@@ -108,7 +124,15 @@ function TimelineList({ events, handleDrawer, handleEventNo }: any) {
             />
           );
         })}
+        {console.log(events.length)}
       </div>
+      <Pagination
+        count={pages}
+        size="large"
+        onChange={(_, value) => {
+          handlePage(value);
+        }}
+      />
     </div>
   );
 }

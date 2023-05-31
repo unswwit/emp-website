@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { styled as mui_styled } from '@mui/material/styles';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import { Tabs, Tab } from '@mui/material';
 
 /* #313638, #feb14b, #e85f5c, #f3f3f3 */
 // styles available: https://github.com/fullcalendar/fullcalendar/tree/main/packages/core/src/styles
