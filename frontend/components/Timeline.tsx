@@ -94,48 +94,77 @@ function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
   );
 }
 
-function TimelineList({ event, handleDrawer, handleEventNo }: any) {
+function TimelineList({ events, handleDrawer, handleEventNo }: any) {
   return (
-    <div className={styles.timelineList}>
-      {timeline.map((event, index) => (
-        <div key={index}>
-          <div className={styles.timelineCard}>
-            {/* DATE INFORMATION */}
-            <div className={styles.dateInfo}>
-              {/* DATE DAY */}
-              <h1 className={styles.day}>{event.start.slice(8, 10)}</h1>
-              {/* DATE MONTH */}
-              <h1 className={styles.month}>
-                {new Date(event.start)
-                  .toLocaleString('default', { month: 'short' })
-                  .toUpperCase()}
-              </h1>
-            </div>
+    <div>
+      <div className={styles.container}>
+        {events.map((e: any) => {
+          return (
+            <TimelineCard
+              key={e.id}
+              event={e}
+              handleDrawer={handleDrawer}
+              handleEventNo={handleEventNo}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
-            {/* EVENT INFORMATION */}
-            <div className={styles.eventInfo}>
-              {/* DATE */}
-              <h3 className={styles.date}>
-                {new Date(event.start).toLocaleString('en-US', {
-                  weekday: 'long',
-                  hour: 'numeric',
-                  minute: 'numeric',
-                })}
-              </h3>
-              {/* EVENT TITLE */}
-              <h1 className={styles.title}>{event.title}</h1>
-              {/* LOCATION */}
-              <h3 className={styles.location}>{event.data.location}</h3>
-              {/* TAGS */}
-              <p className={styles.labels}>
-                {event.data.labels.map((l: any, id: any) => (
-                  <span key={id}>{l}</span>
-                ))}
-              </p>
-            </div>
-          </div>
-        </div>
-      ))}
+function TimelineCard({ event, handleDrawer, handleEventNo }: any) {
+  const eventDateStart = new Date(event.start);
+
+  const startDateDay = eventDateStart.getDate().toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+  });
+
+  const startDateMonth = eventDateStart.toLocaleString('en-US', {
+    month: 'short',
+  });
+
+  const startDateWeekday = eventDateStart.toLocaleString('en-US', {
+    weekday: 'long',
+  });
+
+  const startDateTime = eventDateStart.toLocaleString('en-US', {
+    hour12: false,
+    hour: 'numeric',
+    minute: 'numeric',
+  });
+
+  return (
+    <div className={styles.timelineCard}>
+      {/* DATE INFORMATION */}
+      <div className={styles.dateInfo}>
+        {/* DATE DAY */}
+        <h1 className={styles.day}>{startDateDay}</h1>
+        {/* DATE MONTH */}
+        <h1 className={styles.month}>{startDateMonth}</h1>
+      </div>
+
+      {/* EVENT INFORMATION */}
+      <div className={styles.eventInfo}>
+        {/* DATE */}
+        <h3 className={styles.date}>
+          {startDateWeekday} at {startDateTime}
+        </h3>
+        {/* EVENT TITLE */}
+        <h1 className={styles.title}>{event.title}</h1>
+        {/* LOCATION */}
+        <h3 className={styles.location}>
+          {event.data.location.toLowerCase().includes('online')
+            ? 'online'
+            : event.data.location || '-'}
+        </h3>
+        {/* TAGS */}
+        <p className={styles.labels}>
+          {event.data.labels.map((l: any, id: any) => (
+            <span key={id}>{l}</span>
+          ))}
+        </p>
+      </div>
     </div>
   );
 }

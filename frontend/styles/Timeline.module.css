@@ -43,6 +43,7 @@
   border-radius: 20px;
   background-color: #292a2e;
   padding: 20px 36px;
+  text-transform: uppercase;
 }
 
 .timelineCard .dateInfo {
@@ -68,20 +69,17 @@
 .timelineCard .eventInfo .date {
   font-weight: bold;
   color: white;
-  text-transform: uppercase;
 }
 
 .timelineCard .eventInfo .title {
   font-size: 32px;
   font-weight: bold;
   color: #feb14b;
-  text-transform: uppercase;
 }
 
 .timelineCard .eventInfo .location {
   font-weight: bold;
   color: #f3afae;
-  text-transform: uppercase;
 }
 
 /* --- Info Panel --- */
