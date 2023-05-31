@@ -135,7 +135,13 @@ function TimelineCard({ event, handleDrawer, handleEventNo }: any) {
   });
 
   return (
-    <div className={styles.timelineCard}>
+    <div
+      className={styles.timelineCard}
+      onClick={() => {
+        handleEventNo(event.id);
+        handleDrawer();
+      }}
+    >
       {/* DATE INFORMATION */}
       <div className={styles.dateInfo}>
         {/* DATE DAY */}
