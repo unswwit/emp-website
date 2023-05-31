@@ -77,7 +77,11 @@ function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
         />
       </StyledTabs>
       <TabPanel value={value} index={0}>
-        <TimelineList />
+        <TimelineList
+          events={events}
+          handleDrawer={handleDrawer}
+          handleEventNo={handleEventNo}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <TimelineCalendarFC
@@ -90,39 +94,18 @@ function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
   );
 }
 
-function TimelineList() {
+function TimelineList({ event, handleDrawer, handleEventNo }: any) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '20px',
-      }}
-    >
+    <div className={styles.timelineList}>
       {timeline.map((event, index) => (
         <div key={index}>
-          <div
-            style={{
-              display: 'flex',
-              width: '1000px',
-              gap: '36px',
-              alignItems: 'center',
-              placeSelf: 'center',
-              borderRadius: '20px',
-              backgroundColor: '#292A2E',
-              padding: '20px 36px',
-            }}
-          >
+          <div className={styles.timelineCard}>
             {/* DATE INFORMATION */}
-            <div style={{ textAlign: 'center', color: 'white' }}>
+            <div className={styles.dateInfo}>
               {/* DATE DAY */}
-              <h1 style={{ fontSize: '4rem', fontWeight: 'bold' }}>
-                {event.start.slice(8, 10)}
-              </h1>
+              <h1 className={styles.day}>{event.start.slice(8, 10)}</h1>
               {/* DATE MONTH */}
-              <h1 style={{ fontSize: '2rem' }}>
+              <h1 className={styles.month}>
                 {new Date(event.start)
                   .toLocaleString('default', { month: 'short' })
                   .toUpperCase()}
@@ -130,17 +113,9 @@ function TimelineList() {
             </div>
 
             {/* EVENT INFORMATION */}
-            <div
-              style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
-            >
+            <div className={styles.eventInfo}>
               {/* DATE */}
-              <h3
-                style={{
-                  fontWeight: 'bold',
-                  color: 'white',
-                  textTransform: 'uppercase',
-                }}
-              >
+              <h3 className={styles.date}>
                 {new Date(event.start).toLocaleString('en-US', {
                   weekday: 'long',
                   hour: 'numeric',
@@ -148,26 +123,9 @@ function TimelineList() {
                 })}
               </h3>
               {/* EVENT TITLE */}
-              <h1
-                style={{
-                  fontSize: '32px',
-                  fontWeight: 'bold',
-                  color: '#FEB14B',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {event.title}
-              </h1>
+              <h1 className={styles.title}>{event.title}</h1>
               {/* LOCATION */}
-              <h3
-                style={{
-                  fontWeight: 'bold',
-                  color: '#F3AFAE',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {event.data.location}
-              </h3>
+              <h3 className={styles.location}>{event.data.location}</h3>
               {/* TAGS */}
               <p className={styles.labels}>
                 {event.data.labels.map((l: any, id: any) => (

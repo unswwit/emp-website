@@ -25,6 +25,65 @@
   padding-right: 10px;
 }
 
+/* --- Timeline Card --- */
+.timelineList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.timelineCard {
+  display: flex;
+  width: 1000px;
+  gap: 36px;
+  align-items: center;
+  place-self: center;
+  border-radius: 20px;
+  background-color: #292a2e;
+  padding: 20px 36px;
+}
+
+.timelineCard .dateInfo {
+  text-align: center;
+  color: white;
+}
+
+.timelineCard .dateInfo .day {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.timelineCard .dateInfo .month {
+  font-size: 2rem;
+}
+
+.timelineCard .eventInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.timelineCard .eventInfo .date {
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+}
+
+.timelineCard .eventInfo .title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #feb14b;
+  text-transform: uppercase;
+}
+
+.timelineCard .eventInfo .location {
+  font-weight: bold;
+  color: #f3afae;
+  text-transform: uppercase;
+}
+
 /* --- Info Panel --- */
 .infoPanel {
   background-color: #292a2e;
