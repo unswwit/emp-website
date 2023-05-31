@@ -99,7 +99,7 @@ function TimelineList({ events, handleDrawer, handleEventNo }: any) {
   const pages = Math.ceil(events.length / itemsPerPage);
 
   const [someEvents, setSomeEvents] = React.useState(
-    events.slice(0, itemsPerPage - 1)
+    events.slice(0, itemsPerPage)
   );
 
   const handlePage = (currentPage: any) => {
@@ -138,21 +138,19 @@ function TimelineList({ events, handleDrawer, handleEventNo }: any) {
 }
 
 function TimelineCard({ event, handleDrawer, handleEventNo }: any) {
-  const eventDateStart = new Date(event.start);
-
-  const startDateDay = eventDateStart.getDate().toLocaleString('en-US', {
+  const startDateDay = event.start.getDate().toLocaleString('en-US', {
     minimumIntegerDigits: 2,
   });
 
-  const startDateMonth = eventDateStart.toLocaleString('en-US', {
+  const startDateMonth = event.start.toLocaleString('en-US', {
     month: 'short',
   });
 
-  const startDateWeekday = eventDateStart.toLocaleString('en-US', {
+  const startDateWeekday = event.start.toLocaleString('en-US', {
     weekday: 'long',
   });
 
-  const startDateTime = eventDateStart.toLocaleString('en-US', {
+  const startDateTime = event.start.toLocaleString('en-US', {
     hour12: false,
     hour: 'numeric',
     minute: 'numeric',
@@ -225,12 +223,10 @@ function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
 }
 
 function InfoPanel({ event, drawer, handleDrawer }: any) {
-  const eventDateStart = new Date(event.start);
-  const eventDateEnd = new Date(event.end);
-  const daysLeftUntilEventStarts = differenceInDays(eventDateStart, new Date());
-  const daysLeftUntilEventEnds = differenceInDays(eventDateEnd, new Date());
+  const daysLeftUntilEventStarts = differenceInDays(event.start, new Date());
+  const daysLeftUntilEventEnds = differenceInDays(event.end, new Date());
 
-  const startDate = eventDateStart.toLocaleString('en-US', {
+  const startDate = event.start.toLocaleString('en-US', {
     month: 'long',
     day: 'numeric',
     weekday: 'long',
@@ -239,7 +235,7 @@ function InfoPanel({ event, drawer, handleDrawer }: any) {
     minute: 'numeric',
   });
 
-  const endDate = eventDateEnd.toLocaleString('en-US', {
+  const endDate = event.end.toLocaleString('en-US', {
     month: 'long',
     day: 'numeric',
     weekday: 'long',
@@ -348,16 +344,19 @@ function InfoPanel({ event, drawer, handleDrawer }: any) {
 export default function Timeline() {
   const [drawer, setDrawer] = React.useState(false);
   const [events, setEvents] = React.useState(
-    timeline.map((e: any, id: number) => {
-      return {
-        id: id,
-        title: e.title,
-        start: e.start,
-        end: e.end,
-        data: e.data,
-      };
-    })
+    timeline
+      .map((e: any, id: number) => {
+        return {
+          id: id,
+          title: e.title,
+          start: new Date(e.start),
+          end: new Date(e.end),
+          data: e.data,
+        };
+      })
+      .sort((a: any, b: any) => b.start - a.start)
   );
+
   const [eventNo, setEventNo] = React.useState(0);
 
   const handleDrawer = () => {
