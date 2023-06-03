@@ -34,12 +34,24 @@
   gap: 36px;
   align-items: center;
   border-radius: 20px;
-  background-color: #292a2e;
+  /* background-color: #292a2e; */
+  background-color: #efefee;
   padding: 20px 36px;
   text-transform: uppercase;
+  transition: all 200ms;
+}
+
+.timelineCard:hover {
+  background-color: #404040;
 }
 
 .timelineCard .dateInfo {
+  text-align: center;
+  color: #404040;
+  transition: all 200ms;
+}
+
+.timelineCard:hover .dateInfo {
   text-align: center;
   color: white;
 }
@@ -47,7 +59,6 @@
 .timelineCard .dateInfo .day {
   /* font-size: 4rem; */
   font-size: 48px;
-  /* font-weight: bold; */
 }
 
 .timelineCard .dateInfo .month {
@@ -68,19 +79,31 @@
 }
 
 .timelineCard .eventInfo .date {
-  /* font-weight: bold; */
+  color: #404040;
+  transition: all 200ms;
+}
+
+.timelineCard:hover .eventInfo .date {
   color: white;
 }
 
 .timelineCard .eventInfo .title {
   /* font-size: 32px; */
   font-size: 24px;
-  /* font-weight: bold; */
+  color: #74747d;
+  transition: all 200ms;
+}
+
+.timelineCard:hover .eventInfo .title {
   color: #feb14b;
 }
 
 .timelineCard .eventInfo .location {
-  /* font-weight: bold; */
+  color: #74747d;
+  transition: all 200ms;
+}
+
+.timelineCard:hover .eventInfo .location {
   color: #f3afae;
 }
 
