@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { styled as mui_styled } from '@mui/material/styles';
 import { Tabs, Tab } from '@mui/material';
 
-/* #313638, #feb14b, #e85f5c, #f3f3f3 */
 // styles available: https://github.com/fullcalendar/fullcalendar/tree/main/packages/core/src/styles
 export const StyledCalendar = styled.div`
   .fc {
@@ -62,14 +61,12 @@ export const StyledCalendar = styled.div`
 
   .fc-h-event {
     display: block;
-    /* border: 1px solid var(--fc-event-border-color); */
     border: 1px solid #efefef;
     background-color: #efefef;
     transition: 200ms;
     overflow: hidden;
 
     & .fc-event-main {
-      /* color: #d18c32; */
       color: #404040;
       transition: all 200ms;
     }
@@ -112,7 +109,6 @@ export const StyledTab = mui_styled((props: StyledTabProps) => (
   fontFamily: 'Montserrat, sans-serif',
   fontSize: '15px',
   fontWeight: theme.typography.fontWeightMedium,
-  // color: "#FEB14B",
   color: '#313638',
   borderRadius: tabBorderRadius,
 
@@ -127,7 +123,6 @@ export const StyledTab = mui_styled((props: StyledTabProps) => (
 
   '&:hover': {
     color: '#FEB14B',
-    // backgroundColor: "#40404088",
   },
 
   '&.Mui-selected': {

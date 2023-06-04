@@ -25,9 +25,6 @@ import {
   StyledTab,
 } from '../styles/Timeline.module';
 
-// import { Montserrat } from "@next/font/google";
-// const montserrat = Montserrat({ subsets: ["latin"] });
-
 // docs: https://mui.com/material-ui/react-tabs/
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -203,12 +200,7 @@ function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
-        // initialView="dayGridWeek"
         weekends={true}
-        // eventColor="#313638"
-        // eventColor="#EFEFEF"
-        // eventTextColor="#feb14b"
-        // eventTextColor="#d18c32"
         height={700}
         titleFormat={{ year: 'numeric', month: 'short' }}
         buttonText={{ today: 'Today' }}

@@ -29,12 +29,10 @@
 .timelineCard {
   cursor: pointer;
   display: flex;
-  /* width: 1000px; */
   width: 100%;
   gap: 36px;
   align-items: center;
   border-radius: 20px;
-  /* background-color: #292a2e; */
   background-color: #efefee;
   padding: 20px 36px;
   text-transform: uppercase;
@@ -57,12 +55,10 @@
 }
 
 .timelineCard .dateInfo .day {
-  /* font-size: 4rem; */
   font-size: 48px;
 }
 
 .timelineCard .dateInfo .month {
-  /* font-size: 2rem; */
   font-size: 26px;
   font-weight: normal;
 }
@@ -88,7 +84,6 @@
 }
 
 .timelineCard .eventInfo .title {
-  /* font-size: 32px; */
   font-size: 24px;
   color: #74747d;
   transition: all 200ms;
