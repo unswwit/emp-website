@@ -19,6 +19,7 @@
     #0071ff33 160deg,
     transparent 360deg
   );
+
   --secondary-glow: radial-gradient(
     rgba(255, 255, 255, 1),
     rgba(255, 255, 255, 0)
@@ -40,6 +41,20 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+  /* Colour palatte */
+  --yellow: #feb14b;
+  --red: #e85f5c;
+  --pink: #f3afae;
+
+  --gray: #74747d;
+
+  --dark: #404040;
+  --darker: #313638;
+  --darkest: #292a2e;
+
+  --light: #efefee;
+  --lighter: #f3f3f3;
 }
 
 @media (prefers-color-scheme: dark) {

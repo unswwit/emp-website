@@ -16,7 +16,7 @@
 
 .labels span {
   text-transform: uppercase;
-  background-color: #74747d;
+  background-color: var(--gray);
   color: white;
   border-radius: 18px;
   padding-top: 5px;
@@ -33,19 +33,19 @@
   gap: 36px;
   align-items: center;
   border-radius: 20px;
-  background-color: #efefee;
+  background-color: var(--light);
   padding: 20px 36px;
   text-transform: uppercase;
   transition: all 200ms;
 }
 
 .timelineCard:hover {
-  background-color: #404040;
+  background-color: var(--dark);
 }
 
 .timelineCard .dateInfo {
   text-align: center;
-  color: #404040;
+  color: var(--dark);
   transition: all 200ms;
 }
 
@@ -75,7 +75,7 @@
 }
 
 .timelineCard .eventInfo .date {
-  color: #404040;
+  color: var(--dark);
   transition: all 200ms;
 }
 
@@ -85,26 +85,26 @@
 
 .timelineCard .eventInfo .title {
   font-size: 24px;
-  color: #74747d;
+  color: var(--gray);
   transition: all 200ms;
 }
 
 .timelineCard:hover .eventInfo .title {
-  color: #feb14b;
+  color: var(--yellow);
 }
 
 .timelineCard .eventInfo .location {
-  color: #74747d;
+  color: var(--gray);
   transition: all 200ms;
 }
 
 .timelineCard:hover .eventInfo .location {
-  color: #f3afae;
+  color: var(--pink);
 }
 
 /* --- Info Panel --- */
 .infoPanel {
-  background-color: #292a2e;
+  background-color: var(--dark);
   color: white;
   padding-bottom: 2em;
   flex-grow: 1;
@@ -130,7 +130,7 @@
 }
 
 .infoPanel .header button:hover {
-  color: #feb14b;
+  color: var(--primary);
 }
 
 .infoPanel .header button > svg {
@@ -150,7 +150,7 @@
 }
 
 .infoPanel .heading {
-  color: #feb14b;
+  color: var(--primary);
 }
 
 .infoPanel .heading h1 {
@@ -182,7 +182,7 @@
 
 .infoPanel .body h2 {
   margin-bottom: 10px;
-  color: #f3afae;
+  color: var(--pink);
 }
 
 .infoPanel .body p {

@@ -95,7 +95,7 @@ export const StyledTabs = mui_styled(Tabs)({
 
   '& .MuiTabs-indicator': {
     zIndex: '0',
-    backgroundColor: '#404040',
+    backgroundColor: 'var(--dark)',
     paddingTop: tabIndicatorTopPadding,
     marginBottom: tabIndicatorBottomMargin,
     borderRadius: tabBorderRadius,
@@ -109,7 +109,7 @@ export const StyledTab = mui_styled((props: StyledTabProps) => (
   fontFamily: 'Montserrat, sans-serif',
   fontSize: '15px',
   fontWeight: theme.typography.fontWeightMedium,
-  color: '#313638',
+  color: 'var(--dark)',
   borderRadius: tabBorderRadius,
 
   marginRight: theme.spacing(1),
@@ -122,11 +122,11 @@ export const StyledTab = mui_styled((props: StyledTabProps) => (
   transition: '200ms',
 
   '&:hover': {
-    color: '#FEB14B',
+    color: 'var(--yellow)',
   },
 
   '&.Mui-selected': {
-    color: '#FEB14B',
+    color: 'var(--yellow)',
     backgroundColor: 'transparent',
   },
 
