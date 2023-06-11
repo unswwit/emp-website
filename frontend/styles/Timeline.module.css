@@ -33,7 +33,7 @@
   gap: 36px;
   align-items: center;
   border-radius: 20px;
-  background-color: var(--light);
+  background-color: var(--lighter);
   padding: 20px 36px;
   text-transform: uppercase;
   transition: all 200ms;

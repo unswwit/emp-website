@@ -48,13 +48,15 @@
   --pink: #f3afae;
 
   --gray: #74747d;
+  --gray-dark: #6e6e70;
 
   --dark: #404040;
   --darker: #313638;
   --darkest: #292a2e;
 
-  --light: #efefee;
-  --lighter: #f3f3f3;
+  --light: #e8e8e8;
+  --lighter: #efefee;
+  --lightest: #f5f5f5;
 }
 
 @media (prefers-color-scheme: dark) {

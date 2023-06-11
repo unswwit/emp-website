@@ -91,7 +91,7 @@ const tabIndicatorTopPadding = 34;
 const tabIndicatorBottomMargin = 13;
 
 export const StyledTabs = mui_styled(Tabs)({
-  borderBottom: '1px solid #e8e8e8',
+  borderBottom: '1px solid var(--light)',
 
   '& .MuiTabs-indicator': {
     zIndex: '0',
