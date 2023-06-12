@@ -148,6 +148,16 @@
   float: left;
 }
 
+.footerIcons > div{
+  margin-right: 10px;
+}
+
+.footerIcons{
+  display: flex;
+  flex-direction: row;
+}
+
+
 .footerButton {
   float: right;
   background-color: #e85f5c;
@@ -157,6 +167,11 @@
   border-width: 0;
   border-radius: 15px;
   margin-left: auto;
+}
+
+.footerButton:hover {
+  background-color: #983d3b; 
+  color: white;
 }
 
 .footerIcons {
