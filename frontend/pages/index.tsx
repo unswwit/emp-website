@@ -9,10 +9,12 @@ import SponsorCollage from '../components/SponsorCollage';
 import Timeline from '../components/Timeline';
 import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
+import { filterSponsors } from '../lib/helpers/sponsor';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function Home() {
+  const tempSponsors = filterSponsors(sponsors);
   return (
     <div className={styles.home}>
       <Head>
@@ -79,7 +81,7 @@ export default function Home() {
         <div className={styles.section}>
           <h1>SPONSORS AND AFFILIATIONS</h1>
           <div className={styles.wrapper}>
-            <SponsorCollage />
+            <SponsorCollage tempSponsors={tempSponsors}/>
           </div>
         </div>
         <Footer />
