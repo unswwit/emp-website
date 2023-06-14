@@ -10,10 +10,12 @@ import Timeline from '../components/Timeline';
 import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 import { filterSponsors } from '../lib/helpers/sponsor';
+import { loadSponsors } from '../lib/api';
+import { revalidate } from '../lib/helpers/constants';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-export default function Home() {
+export default function Home({ sponsors }: any) {
   const tempSponsors = filterSponsors(sponsors);
   return (
     <div className={styles.home}>
@@ -88,4 +90,12 @@ export default function Home() {
       </main>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const sponsors = await loadSponsors();
+  return {
+    props: { sponsors },
+    revalidate: revalidate
+  };
 }

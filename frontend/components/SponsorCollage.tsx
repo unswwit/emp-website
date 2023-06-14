@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/legacy/image';
 import styles from '../styles/SponsorCollage.module.css';
-import { loadSponsors } from '../lib/helpers/api';
 
 const SponsorCollage = ({ tempSponsors }: any) => {
   return (
@@ -14,10 +13,7 @@ const SponsorCollage = ({ tempSponsors }: any) => {
                 <Image
                   className={styles.logo}
                   src={
-                    window.matchMedia &&
-                    window.matchMedia('(prefers-color-scheme: dark)').matches
-                      ? 'https:' + sponsor.fields.darkModeLogo.fields.file.url
-                      : 'https:' + sponsor.fields.lightModeLogo.fields.file.url
+                      'https:' + sponsor.fields.lightModeLogo.fields.file.url
                   }
                   alt={'sponsor logo'}
                   width="100"
@@ -31,13 +27,5 @@ const SponsorCollage = ({ tempSponsors }: any) => {
     </div>
   );
 };
-
-export async function getStaticProps() {
-  const sponsors = await loadSponsors();
-  return {
-    props: { sponsors },
-    revalidate: revalidate
-  };
-}
 
 export default SponsorCollage;
