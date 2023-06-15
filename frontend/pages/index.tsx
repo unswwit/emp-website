@@ -32,7 +32,7 @@ export default function Home({ sponsors }: any) {
         <NavBar />
         <Hero />
         <Countdown />
-        <div className={styles.section}>
+        <div id="About" className={styles.section}>
           <h1>EMPOWERMENT MENTORING</h1>
           <p>
           WIT's Empowerment Mentoring Program, run over Term 2 and 3, offers a unique opportunity for students to enhance their skills and connect with industry professionals. Prepare to level up your interview skills, master technical interviews, and strengthen your communication, teamwork, and leadership abilities.
@@ -54,7 +54,7 @@ export default function Home({ sponsors }: any) {
             </button>
           </div>
         </div>
-        <div className={styles.graySection}>
+        <div id="Testimonials" className={styles.graySection}>
           <h1>TESTIMONIALS</h1>
           <Testimonials />
         </div>
@@ -69,7 +69,7 @@ export default function Home({ sponsors }: any) {
             </a>
           </button>
         </div>
-        <div className={styles.section}>
+        <div id="Timeline" className={styles.section}>
           <h1>TIMELINE</h1>
           <Timeline />
         </div>

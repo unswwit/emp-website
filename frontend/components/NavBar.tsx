@@ -19,9 +19,9 @@ export default function NavBar() {
           </li>
         </div>
         <div className={styles.navRight}>
-          <li>About</li>
-          <li>Timeline</li>
-          <li>Mentors</li>
+          <li><a href="#About">About</a></li>
+          <li><a href="#Timeline">Timeline</a></li>
+          <li><a href="#Testimonials">Testimonials</a></li>
           <button className={styles.navButton}>
             <a
               target="_blank"
