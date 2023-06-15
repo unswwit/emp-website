@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Montserrat } from '@next/font/google';
 import styles from '../styles/Home.module.css';
 import React from 'react';
-import NavBar from '../components/NavBar';
+import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Countdown from '../components/Countdown';
 import SponsorCollage from '../components/SponsorCollage';
@@ -29,7 +29,7 @@ export default function Home({ sponsors }: any) {
         <link rel="icon" href="/WIT-logo-black.png" />
       </Head>
       <main className={montserrat.className}>
-        <NavBar />
+        <Navbar />
         <Hero />
         <Countdown />
         <div id="About" className={styles.section}>
@@ -54,10 +54,10 @@ export default function Home({ sponsors }: any) {
             </button>
           </div>
         </div>
-        <div id="Testimonials" className={styles.graySection}>
+        {/* <div id="Testimonials" className={styles.graySection}>
           <h1>TESTIMONIALS</h1>
           <Testimonials />
-        </div>
+        </div> */}
         <div className={styles.divider}>
           <h2>Sign up to the reminder list here:</h2>
           <button className={styles.button}>
