@@ -35,17 +35,13 @@ export default function Home({ sponsors }: any) {
         <div className={styles.section}>
           <h1>EMPOWERMENT MENTORING</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu.
+          WIT's Empowerment Mentoring Program, run over Term 2 and 3, offers a unique opportunity for students to enhance their skills and connect with industry professionals. Prepare to level up your interview skills, master technical interviews, and strengthen your communication, teamwork, and leadership abilities.
           </p>
           <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-            quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo.
+          As a mentee, you'll be paired with an experienced industry mentor who will provide personalized guidance on starting your professional career. With a wide range of mentor companies, you'll gain exposure to diverse professional environments and expand your professional network. By completing the program, you'll also earn AHEGS accreditation, a recognised achievement by UNSW that showcases your commitment to ongoing growth and development. 
+          </p>
+          <p>
+          Don't miss this opportunity to empower yourself and thrive in the world of technology! 
           </p>
           <div className={styles.wrapper}>
             <button className={styles.button}>
