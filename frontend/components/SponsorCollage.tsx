@@ -12,9 +12,7 @@ const SponsorCollage = ({ tempSponsors }: any) => {
               <div key={index} className={styles.logoContainer}>
                 <Image
                   className={styles.logo}
-                  src={
-                      'https:' + sponsor.fields.lightModeLogo.fields.file.url
-                  }
+                  src={'https:' + sponsor.fields.lightModeLogo.fields.file.url}
                   alt={'sponsor logo'}
                   width="100"
                   height="100"

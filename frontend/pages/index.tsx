@@ -35,13 +35,24 @@ export default function Home({ sponsors }: any) {
         <div id="About" className={styles.section}>
           <h1>EMPOWERMENT MENTORING</h1>
           <p>
-          WIT's Empowerment Mentoring Program, run over Term 2 and 3, offers a unique opportunity for students to enhance their skills and connect with industry professionals. Prepare to level up your interview skills, master technical interviews, and strengthen your communication, teamwork, and leadership abilities.
+            WIT's Empowerment Mentoring Program, run over Term 2 and 3, offers a
+            unique opportunity for students to enhance their skills and connect
+            with industry professionals. Prepare to level up your interview
+            skills, master technical interviews, and strengthen your
+            communication, teamwork, and leadership abilities.
           </p>
           <p>
-          As a mentee, you'll be paired with an experienced industry mentor who will provide personalized guidance on starting your professional career. With a wide range of mentor companies, you'll gain exposure to diverse professional environments and expand your professional network. By completing the program, you'll also earn AHEGS accreditation, a recognised achievement by UNSW that showcases your commitment to ongoing growth and development. 
+            As a mentee, you'll be paired with an experienced industry mentor
+            who will provide personalized guidance on starting your professional
+            career. With a wide range of mentor companies, you'll gain exposure
+            to diverse professional environments and expand your professional
+            network. By completing the program, you'll also earn AHEGS
+            accreditation, a recognised achievement by UNSW that showcases your
+            commitment to ongoing growth and development.
           </p>
           <p>
-          Don't miss this opportunity to empower yourself and thrive in the world of technology! 
+            Don't miss this opportunity to empower yourself and thrive in the
+            world of technology!
           </p>
           <div className={styles.wrapper}>
             <button className={styles.button}>
@@ -79,7 +90,7 @@ export default function Home({ sponsors }: any) {
         <div className={styles.section}>
           <h1>SPONSORS AND AFFILIATIONS</h1>
           <div className={styles.wrapper}>
-            <SponsorCollage tempSponsors={tempSponsors}/>
+            <SponsorCollage tempSponsors={tempSponsors} />
           </div>
         </div>
         <Footer />
@@ -92,6 +103,6 @@ export async function getStaticProps() {
   const sponsors = await loadSponsors();
   return {
     props: { sponsors },
-    revalidate: revalidate
+    revalidate: revalidate,
   };
 }

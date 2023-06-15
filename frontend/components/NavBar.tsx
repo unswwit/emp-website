@@ -33,7 +33,10 @@ const useStyles = createStyles((theme) => ({
     },
 
     ...theme.fn.hover({
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+      backgroundColor:
+        theme.colorScheme === 'dark'
+          ? theme.colors.dark[6]
+          : theme.colors.gray[0],
     }),
   },
 
@@ -53,7 +56,8 @@ const useStyles = createStyles((theme) => ({
 
 const Navbar = () => {
   const { classes, theme } = useStyles();
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
+    useDisclosure(false);
 
   return (
     <nav className={styles.navbar}>
@@ -82,7 +86,12 @@ const Navbar = () => {
           </button>
         </Group>
         <div className={styles.burgerWrapper}>
-          <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop} color="white" />
+          <Burger
+            opened={drawerOpened}
+            onClick={toggleDrawer}
+            className={classes.hiddenDesktop}
+            color="white"
+          />
         </div>
       </div>
 
@@ -97,7 +106,10 @@ const Navbar = () => {
         zIndex={1000000}
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
-          <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
+          <Divider
+            my="sm"
+            color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
+          />
           <div className="column">
             <a href="#About" className={classes.link}>
               About
@@ -109,7 +121,10 @@ const Navbar = () => {
               Timeline
             </a>
           </div>
-          <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
+          <Divider
+            my="sm"
+            color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
+          />
 
           <Group position="center" grow pb="xl" px="md">
             <button className={styles.navButton}>

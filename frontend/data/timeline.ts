@@ -7,8 +7,7 @@ export const timeline = [
       link: 'TBA',
       location: 'TBA',
       labels: ['compulsory'],
-      description:
-        "TBA",
+      description: 'TBA',
       photo: {
         src: './placeholder-event.jpg',
         alt: 'training-induction',
@@ -23,8 +22,7 @@ export const timeline = [
       link: 'TBA',
       location: 'TBA',
       labels: ['compulsory'],
-      description:
-        "TBA",
+      description: 'TBA',
       photo: {
         src: './placeholder-event.jpg',
         alt: 'training-induction',
@@ -39,8 +37,7 @@ export const timeline = [
       link: 'TBA',
       location: 'TBA',
       labels: ['compulsory'],
-      description:
-        "TBA",
+      description: 'TBA',
       photo: {
         src: './placeholder-event.jpg',
         alt: 'training-induction',
