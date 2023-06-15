@@ -2,17 +2,21 @@ import Head from 'next/head';
 import { Montserrat } from '@next/font/google';
 import styles from '../styles/Home.module.css';
 import React from 'react';
-import NavBar from '../components/NavBar';
+import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Countdown from '../components/Countdown';
 import SponsorCollage from '../components/SponsorCollage';
 import Timeline from '../components/Timeline';
 import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
+import { filterSponsors } from '../lib/helpers/sponsor';
+import { loadSponsors } from '../lib/api';
+import { revalidate } from '../lib/helpers/constants';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-export default function Home() {
+export default function Home({ sponsors }: any) {
+  const tempSponsors = filterSponsors(sponsors);
   return (
     <div className={styles.home}>
       <Head>
@@ -25,23 +29,30 @@ export default function Home() {
         <link rel="icon" href="/WIT-logo-black.png" />
       </Head>
       <main className={montserrat.className}>
-        <NavBar />
+        <Navbar />
         <Hero />
         <Countdown />
-        <div className={styles.section}>
+        <div id="About" className={styles.section}>
           <h1>EMPOWERMENT MENTORING</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu.
+            WIT's Empowerment Mentoring Program, run over Term 2 and 3, offers a
+            unique opportunity for students to enhance their skills and connect
+            with industry professionals. Prepare to level up your interview
+            skills, master technical interviews, and strengthen your
+            communication, teamwork, and leadership abilities.
           </p>
           <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-            quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo.
+            As a mentee, you'll be paired with an experienced industry mentor
+            who will provide personalized guidance on starting your professional
+            career. With a wide range of mentor companies, you'll gain exposure
+            to diverse professional environments and expand your professional
+            network. By completing the program, you'll also earn AHEGS
+            accreditation, a recognised achievement by UNSW that showcases your
+            commitment to ongoing growth and development.
+          </p>
+          <p>
+            Don't miss this opportunity to empower yourself and thrive in the
+            world of technology!
           </p>
           <div className={styles.wrapper}>
             <button className={styles.button}>
@@ -54,10 +65,10 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className={styles.graySection}>
+        {/* <div id="Testimonials" className={styles.graySection}>
           <h1>TESTIMONIALS</h1>
           <Testimonials />
-        </div>
+        </div> */}
         <div className={styles.divider}>
           <h2>Sign up to the reminder list here:</h2>
           <button className={styles.button}>
@@ -69,7 +80,7 @@ export default function Home() {
             </a>
           </button>
         </div>
-        <div className={styles.section}>
+        <div id="Timeline" className={styles.section}>
           <h1>TIMELINE</h1>
           <Timeline />
         </div>
@@ -79,11 +90,19 @@ export default function Home() {
         <div className={styles.section}>
           <h1>SPONSORS AND AFFILIATIONS</h1>
           <div className={styles.wrapper}>
-            <SponsorCollage />
+            <SponsorCollage tempSponsors={tempSponsors} />
           </div>
         </div>
         <Footer />
       </main>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const sponsors = await loadSponsors();
+  return {
+    props: { sponsors },
+    revalidate: revalidate,
+  };
 }

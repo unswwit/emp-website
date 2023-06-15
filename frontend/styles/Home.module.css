@@ -14,6 +14,7 @@
   position: fixed;
   top: 0;
   z-index: 999;
+  align-items: center;
 }
 
 .navbar > ul {
@@ -30,6 +31,7 @@
 }
 
 .navLeft {
+  width: 100rem;
   float: left;
   display: flex;
   align-items: center;
@@ -47,6 +49,10 @@
   display: flex;
   align-items: center;
   gap: 5em;
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+    padding: 7rem 2rem 2rem 2rem;
+  }
 }
 
 .heroImage {
@@ -142,6 +148,19 @@
   align-items: center;
   width: 100%;
   gap: 3em;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.burgerWrapper {
+  display: flex;
+  align-items: center;
+  float: right;
 }
 
 .footerLogo {

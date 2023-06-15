@@ -1,15 +1,29 @@
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+import React from 'react';
+import Image from 'next/legacy/image';
+import styles from '../styles/SponsorCollage.module.css';
 
-export default function SponsorCollage() {
+const SponsorCollage = ({ tempSponsors }: any) => {
   return (
-    <Image
-      src="/sponsor-collage-light-mode.png"
-      alt="Sponsors"
-      className={styles.heroImage}
-      width={1100}
-      height={800}
-      priority
-    />
+    <div className={styles.sponsors}>
+      <div className={styles.collageContainer}>
+        {Object.keys(tempSponsors).map((sponsorType, index) => (
+          <div key={index} className={styles.rowContainer}>
+            {tempSponsors[sponsorType].map((sponsor: any, index: any) => (
+              <div key={index} className={styles.logoContainer}>
+                <Image
+                  className={styles.logo}
+                  src={'https:' + sponsor.fields.lightModeLogo.fields.file.url}
+                  alt={'sponsor logo'}
+                  width="100"
+                  height="100"
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
   );
-}
+};
+
+export default SponsorCollage;
