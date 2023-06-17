@@ -7,7 +7,7 @@ import Hero from '../components/Hero';
 import Countdown from '../components/Countdown';
 import SponsorCollage from '../components/SponsorCollage';
 import Timeline from '../components/Timeline';
-import Testimonials from '../components/Testimonials';
+// import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 import { filterSponsors } from '../lib/helpers/sponsor';
 import { loadSponsors } from '../lib/api';
