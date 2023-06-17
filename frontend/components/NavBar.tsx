@@ -76,14 +76,14 @@ const Navbar = () => {
           <a href="#About">About</a>
           {/* <a href="#Testimonials">Testimonials</a> */}
           <a href="#Timeline">Timeline</a>
-          <button className={styles.navButton}>
+          {/* <button className={styles.navButton}>
             <a
               target="_blank"
               href="https://docs.google.com/forms/d/e/1FAIpQLSc6IwF0yrpmglANWJ4ski-zrsfFMtdtpVkzqTTgVGxbPjKo4A/viewform"
             >
               Register Now
             </a>
-          </button>
+          </button> */}
         </Group>
         <div className={styles.burgerWrapper}>
           <Burger
@@ -127,14 +127,14 @@ const Navbar = () => {
           />
 
           <Group position="center" grow pb="xl" px="md">
-            <button className={styles.navButton}>
+            {/* <button className={styles.navButton}>
               <a
                 target="_blank"
                 href="https://docs.google.com/forms/d/e/1FAIpQLSc6IwF0yrpmglANWJ4ski-zrsfFMtdtpVkzqTTgVGxbPjKo4A/viewform"
               >
                 Register Now
               </a>
-            </button>
+            </button> */}
           </Group>
         </ScrollArea>
       </Drawer>
