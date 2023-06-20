@@ -1,47 +1,25 @@
-import type { EntryFieldTypes } from 'contentful';
-
-type ITypeSponsorsFields = {
-  fields: {
-    index: EntryFieldTypes.Number;
-    name: EntryFieldTypes.Symbol;
-    website: EntryFieldTypes.Symbol;
-    lightModeLogo: EntryFieldTypes.AssetLink;
-    darkModeLogo: EntryFieldTypes.AssetLink;
-    type: EntryFieldTypes.Symbol<
-      'affiliations' | 'bronze' | 'diamond' | 'gold' | 'partnerships' | 'silver'
-    >;
-    description: EntryFieldTypes.RichText;
-    year: EntryFieldTypes.Integer;
-  };
-};
-
-const filterSponsors = (sponsors: ITypeSponsorsFields[]) => {
+const filterSponsors = (sponsors: any) => {
   const filteredSponsors = sponsors.filter(
-    (sponsor: ITypeSponsorsFields) => sponsor.fields.year.valueOf() === 2023
+    (sponsor: any) => sponsor.year === 2023
   );
   const tempSponsors = {
     'Diamond Sponsors': filteredSponsors.filter(
-      (sponsor: ITypeSponsorsFields) =>
-        sponsor.fields.type.valueOf() === 'diamond'
+      (sponsor: any) => sponsor.type === 'diamond'
     ),
     'Gold Sponsors': filteredSponsors.filter(
-      (sponsor: ITypeSponsorsFields) => sponsor.fields.type.valueOf() === 'gold'
+      (sponsor: any) => sponsor.type === 'gold'
     ),
     'Silver Sponsors': filteredSponsors.filter(
-      (sponsor: ITypeSponsorsFields) =>
-        sponsor.fields.type.valueOf() === 'silver'
+      (sponsor: any) => sponsor.type === 'silver'
     ),
     'Bronze Sponsors': filteredSponsors.filter(
-      (sponsor: ITypeSponsorsFields) =>
-        sponsor.fields.type.valueOf() === 'bronze'
+      (sponsor: any) => sponsor.type === 'bronze'
     ),
     Affiliations: filteredSponsors.filter(
-      (sponsor: ITypeSponsorsFields) =>
-        sponsor.fields.type.valueOf() === 'affiliations'
+      (sponsor: any) => sponsor.type === 'affiliations'
     ),
     Partnerships: filteredSponsors.filter(
-      (sponsor: ITypeSponsorsFields) =>
-        sponsor.fields.type.valueOf() === 'partnerships'
+      (sponsor: any) => sponsor.type === 'partnerships'
     ),
   };
   return tempSponsors;

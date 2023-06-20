@@ -10,20 +10,18 @@ import Timeline from '../components/Timeline';
 // import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 import { filterSponsors } from '../lib/helpers/sponsor';
-import { TypeSponsorsFields, TypeSponsorsSkeleton } from '../types/sponsors';
+import { ITypeSponsorsFields, TypeSponsorsSkeleton } from '../types/sponsors';
 import ContentService from '../lib/api';
 import { GetStaticProps } from 'next';
 
-const montserrat = Montserrat({ subsets: ['latin'] });
-
 type Sponsors = {
-  sponsors: TypeSponsorsFields[];
+  sponsors: ITypeSponsorsFields[];
 };
+
+const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function Home({ sponsors }: Sponsors) {
   console.log(sponsors);
-
-  // const tempSponsors = filterSponsors(sponsors);
   return (
     <div className={styles.home}>
       <Head>
@@ -97,7 +95,7 @@ export default function Home({ sponsors }: Sponsors) {
         <div className={styles.section}>
           <h1>SPONSORS AND AFFILIATIONS</h1>
           <div className={styles.wrapper}>
-            {/* <SponsorCollage tempSponsors={tempSponsors} /> */}
+            <SponsorCollage tempSponsors={sponsors} />
           </div>
         </div>
         <Footer />
@@ -107,14 +105,12 @@ export default function Home({ sponsors }: Sponsors) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const sponsors = (
+  const s = (
     await ContentService.instance.getEntriesByType<TypeSponsorsSkeleton>(
       'sponsors'
     )
   ).map((s) => s.fields);
-  // TODO: find more efficient way to sort
-  sponsors.sort((a, b) => a.index - b.index);
-
+  const sponsors = filterSponsors(s);
   return {
     props: {
       sponsors,

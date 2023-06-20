@@ -25,12 +25,11 @@ import {
   StyledTab,
 } from '../styles/Timeline.module';
 
-// docs: https://mui.com/material-ui/react-tabs/
-interface TabPanelProps {
+type TabPanelProps = {
   children?: React.ReactNode;
   index: number;
   value: number;
-}
+};
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -121,7 +120,6 @@ function TimelineList({ events, handleDrawer, handleEventNo }: any) {
             />
           );
         })}
-        {console.log(events.length)}
       </div>
       <Pagination
         count={pages}
@@ -314,7 +312,7 @@ function InfoPanel({ event, drawer, handleDrawer }: any) {
             </div>
             {/* Labels */}
             <p className={styles.labels}>
-              {event.data.labels.map((l: any, id: any) => (
+              {event.data.labels.map((l: any, id: number) => (
                 <span key={id}>{l}</span>
               ))}
             </p>
@@ -355,9 +353,7 @@ export default function Timeline() {
     setDrawer((open) => !open);
   };
 
-  const handleEventNo = (n: any) => {
-    setEventNo(n);
-  };
+  const handleEventNo = (n: number) => setEventNo(n);
 
   return (
     <div className={styles.wrapper}>
