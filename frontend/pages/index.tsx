@@ -21,7 +21,6 @@ type Sponsors = {
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function Home({ sponsors }: Sponsors) {
-  console.log(sponsors);
   return (
     <div className={styles.home}>
       <Head>
