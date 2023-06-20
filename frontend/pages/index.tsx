@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Montserrat } from '@next/font/google';
 import styles from '../styles/Home.module.css';
 import React from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/NavBar';
 import Hero from '../components/Hero';
 import Countdown from '../components/Countdown';
 import SponsorCollage from '../components/SponsorCollage';
@@ -10,13 +10,20 @@ import Timeline from '../components/Timeline';
 // import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 import { filterSponsors } from '../lib/helpers/sponsor';
-import { loadSponsors } from '../lib/api';
-import { revalidate } from '../lib/helpers/constants';
+import { TypeSponsorsFields, TypeSponsorsSkeleton } from '../types/sponsors';
+import ContentService from '../lib/api';
+import { GetStaticProps } from 'next';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-export default function Home({ sponsors }: any) {
-  const tempSponsors = filterSponsors(sponsors);
+type Sponsors = {
+  sponsors: TypeSponsorsFields[];
+};
+
+export default function Home({ sponsors }: Sponsors) {
+  console.log(sponsors);
+
+  // const tempSponsors = filterSponsors(sponsors);
   return (
     <div className={styles.home}>
       <Head>
@@ -90,7 +97,7 @@ export default function Home({ sponsors }: any) {
         <div className={styles.section}>
           <h1>SPONSORS AND AFFILIATIONS</h1>
           <div className={styles.wrapper}>
-            <SponsorCollage tempSponsors={tempSponsors} />
+            {/* <SponsorCollage tempSponsors={tempSponsors} /> */}
           </div>
         </div>
         <Footer />
@@ -99,10 +106,18 @@ export default function Home({ sponsors }: any) {
   );
 }
 
-export async function getStaticProps() {
-  const sponsors = await loadSponsors();
+export const getStaticProps: GetStaticProps = async () => {
+  const sponsors = (
+    await ContentService.instance.getEntriesByType<TypeSponsorsSkeleton>(
+      'sponsors'
+    )
+  ).map((s) => s.fields);
+  // TODO: find more efficient way to sort
+  sponsors.sort((a, b) => a.index - b.index);
+
   return {
-    props: { sponsors },
-    revalidate: revalidate,
+    props: {
+      sponsors,
+    },
   };
-}
+};
