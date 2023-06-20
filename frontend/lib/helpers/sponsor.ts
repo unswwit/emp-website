@@ -1,25 +1,25 @@
 const filterSponsors = (sponsors: any) => {
   const filteredSponsors = sponsors.filter(
-    (sponsor: any) => sponsor.fields.year === 2023
+    (sponsor: any) => sponsor.year === 2023
   );
   const tempSponsors = {
     'Diamond Sponsors': filteredSponsors.filter(
-      (sponsor: any) => sponsor.fields.type === 'diamond'
+      (sponsor: any) => sponsor.type === 'diamond'
     ),
     'Gold Sponsors': filteredSponsors.filter(
-      (sponsor: any) => sponsor.fields.type === 'gold'
+      (sponsor: any) => sponsor.type === 'gold'
     ),
     'Silver Sponsors': filteredSponsors.filter(
-      (sponsor: any) => sponsor.fields.type === 'silver'
+      (sponsor: any) => sponsor.type === 'silver'
     ),
     'Bronze Sponsors': filteredSponsors.filter(
-      (sponsor: any) => sponsor.fields.type === 'bronze'
+      (sponsor: any) => sponsor.type === 'bronze'
     ),
     Affiliations: filteredSponsors.filter(
-      (sponsor: any) => sponsor.fields.type === 'affiliations'
+      (sponsor: any) => sponsor.type === 'affiliations'
     ),
     Partnerships: filteredSponsors.filter(
-      (sponsor: any) => sponsor.fields.type === 'partnerships'
+      (sponsor: any) => sponsor.type === 'partnerships'
     ),
   };
   return tempSponsors;
