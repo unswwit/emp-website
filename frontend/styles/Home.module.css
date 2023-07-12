@@ -171,11 +171,6 @@
   margin-left: auto;
 }
 
-.footerButton:hover {
-  background-color: #e8827e; 
-  color: white;
-}
-
 .footerIcons {
   margin-right: auto;
   padding-left: 6em;
