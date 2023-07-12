@@ -3,6 +3,9 @@ import styles from '../styles/Home.module.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { SocialIcon } from 'react-social-icons';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+
 
 
 export default function Footer() {
@@ -20,9 +23,21 @@ export default function Footer() {
         <button className={styles.footerButton}>Register Now</button>
       </div>
       <div className={styles.footerIcons}>
-        <div><SocialIcon url="https://www.instagram.com/wit.unsw/?hl=en" network="instagram" /></div>
-        <div><SocialIcon url="https://www.facebook.com/unsw.wit" network="facebook" /></div>
-        <div><SocialIcon url="https://discord.gg/XDr9qmtQ" network="discord" /></div>
+        <Tooltip title="Instagram" arrow>
+          <IconButton>
+            <div><SocialIcon url="https://www.instagram.com/wit.unsw/?hl=en" network="instagram" bgColor = "#F48B01" /></div>
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Facebook" arrow>
+          <IconButton>
+            <div><SocialIcon url="https://www.facebook.com/unsw.wit" network="facebook" bgColor = "#F48B01" /></div>
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Discord" arrow>
+          <IconButton>
+            <div><SocialIcon url="https://discord.gg/XDr9qmtQ" network="discord" bgColor = "#F48B01"/></div>
+          </IconButton>
+        </Tooltip>
       </div>
     </div></>
   );

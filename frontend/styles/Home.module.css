@@ -1,3 +1,5 @@
+
+
 .main {
   display: flex;
   flex-direction: column;
@@ -170,11 +172,14 @@
 }
 
 .footerButton:hover {
-  background-color: #983d3b; 
+  background-color: #e8827e; 
   color: white;
 }
 
 .footerIcons {
   margin-right: auto;
   padding-left: 6em;
+  position: relative;
+  top: -2em;
 }
+

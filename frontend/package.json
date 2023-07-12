@@ -11,6 +11,10 @@
     "prettier": "prettier '**/*.{ts,tsx}' --write"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.0",
+    "@mui/material": "^5.14.0",
     "@next/font": "^13.1.1",
     "@types/node": "18.11.17",
     "@types/react": "18.0.26",
@@ -24,7 +28,8 @@
     "react-dom": "18.2.0",
     "react-slideshow-image": "^4.2.1",
     "react-vertical-timeline-component": "^3.6.0",
-    "typescript": "4.9.4"
+    "typescript": "4.9.4",
+    "typography": "^0.16.24"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.0",
