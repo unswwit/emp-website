@@ -1,0 +1,222 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 1em;
+  padding-bottom: 2em;
+}
+
+.labels {
+  display: flex;
+  flex-wrap: wrap;
+  user-select: none;
+  gap: 10px;
+  align-items: center;
+}
+
+.labels span {
+  text-transform: uppercase;
+  background-color: var(--gray);
+  color: white;
+  border-radius: 18px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* --- Timeline Card --- */
+.timelineCard {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  gap: 36px;
+  align-items: center;
+  border-radius: 20px;
+  background-color: var(--lighter);
+  padding: 20px 36px;
+  text-transform: uppercase;
+  transition: all 200ms;
+}
+
+.timelineCard:hover {
+  background-color: var(--dark);
+}
+
+.timelineCard .dateInfo {
+  text-align: center;
+  color: var(--dark);
+  transition: all 200ms;
+}
+
+.timelineCard:hover .dateInfo {
+  text-align: center;
+  color: white;
+}
+
+.timelineCard .dateInfo .day {
+  font-size: 48px;
+}
+
+.timelineCard .dateInfo .month {
+  font-size: 26px;
+  font-weight: normal;
+}
+
+.timelineCard .eventInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.timelineCard .date,
+.timelineCard .location {
+  font-size: 14px;
+}
+
+.timelineCard .eventInfo .date {
+  color: var(--dark);
+  transition: all 200ms;
+}
+
+.timelineCard:hover .eventInfo .date {
+  color: white;
+}
+
+.timelineCard .eventInfo .title {
+  font-size: 24px;
+  color: var(--gray);
+  transition: all 200ms;
+}
+
+.timelineCard:hover .eventInfo .title {
+  color: var(--yellow);
+}
+
+.timelineCard .eventInfo .location {
+  color: var(--gray);
+  transition: all 200ms;
+}
+
+.timelineCard:hover .eventInfo .location {
+  color: var(--pink);
+}
+
+/* --- Info Panel --- */
+.infoPanel {
+  background-color: var(--dark);
+  color: white;
+  padding-bottom: 2em;
+  flex-grow: 1;
+
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.infoPanel .header {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.infoPanel .header button {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  color: inherit;
+  transition: 200ms;
+}
+
+.infoPanel .header button:hover {
+  color: var(--primary);
+}
+
+.infoPanel .header button > svg {
+  width: 100%;
+  height: 100%;
+}
+
+.infoPanel .banner {
+  pointer-events: none;
+  user-select: none;
+}
+
+.infoPanel .banner img {
+  border-radius: 18px;
+  margin-bottom: 1em;
+  width: 100%;
+}
+
+.infoPanel .heading {
+  color: var(--primary);
+}
+
+.infoPanel .heading h1 {
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.infoPanel .subheading {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2em;
+}
+
+.infoPanel .subheading div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.infoPanel .subheading svg {
+  height: 20px;
+  width: 20px;
+}
+
+.infoPanel .subheading a {
+  font-style: italic;
+}
+
+.infoPanel .body h2 {
+  margin-bottom: 10px;
+  color: var(--pink);
+}
+
+.infoPanel .body p {
+  width: 100%;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}
+
+.infoPanel .labels {
+  margin-top: 10px;
+  gap: 10px;
+}
+
+/* === Media Query === */
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 0 -4rem;
+  }
+
+  .infoPanel .subheading a {
+    display: block;
+    width: 80vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .timelineCard {
+    padding: 20px 10px;
+  }
+
+  .infoPanel .body p {
+    width: 90vw;
+  }
+}
