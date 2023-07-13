@@ -20,7 +20,6 @@ export default function Footer() {
           height={50}
           priority />
         <p>© UNSW Women in Technology 2023</p>
-        <button className={styles.footerButton}>Register Now</button>
       </div>
       <div className={styles.footerIcons}>
         <Tooltip title="Instagram" arrow>
