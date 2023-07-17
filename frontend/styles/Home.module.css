@@ -1,3 +1,5 @@
+
+
 .main {
   display: flex;
   flex-direction: column;
@@ -167,6 +169,16 @@
   float: left;
 }
 
+.footerIcons > div{
+  margin-right: 10px;
+}
+
+.footerIcons{
+  display: flex;
+  flex-direction: row;
+}
+
+
 .footerButton {
   float: right;
   background-color: var(--red);
@@ -181,4 +193,7 @@
 .footerIcons {
   margin-right: auto;
   padding-left: 6em;
+  position: relative;
+  top: -2em;
 }
+
