@@ -1,7 +1,7 @@
 import React from 'react';
 import { Montserrat } from '@next/font/google';
-import styles from '../../styles/User.module.css';
 import { signIn } from 'next-auth/react';
+import styles from '../../styles/User.module.css';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
