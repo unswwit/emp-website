@@ -137,8 +137,13 @@
   background-color: var(--lemon);
 }
 
+.panel a:hover {
+  color: var(--lemon);
+}
+
 .panel form input,
-.panel form button {
+.panel form button,
+.panel a {
   transition: all 125ms;
 }
 

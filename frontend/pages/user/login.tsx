@@ -57,8 +57,7 @@ export default function login() {
               </form>
               <p>
                 Haven't registered yet?{' '}
-                {/* <a href="/user/register" className={monsterratBold.className}> */}
-                <a href="#" className={monsterratBold.className}>
+                <a href="/user/register" className={monsterratBold.className}>
                   Sign up
                 </a>
               </p>
