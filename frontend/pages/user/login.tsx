@@ -39,7 +39,7 @@ export default function login() {
                     id="id"
                     name="id"
                     placeholder="Enter your email or zID"
-                    pattern="[a-zA-Z0-9_\.]+@[a-zA-Z0-9]+\.[a-zA-Z]+$|^z[0-9]{7}$"
+                    pattern="[a-zA-Z0-9_\.]+@[a-zA-Z0-9]+(\.[a-zA-Z]+)+$|^z[0-9]{7}$"
                     title="name@example.com or z1234567"
                   />
                 </div>
