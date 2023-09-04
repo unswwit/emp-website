@@ -185,8 +185,7 @@
 }
 
 /* === Media Query === */
-@media screen and (min-width: 1600px),
-screen and (max-height: 845px){
+@media screen and (min-width: 1600px), screen and (max-height: 845px) {
   .panel .right img {
     min-height: unset;
     width: 100%;
@@ -197,7 +196,7 @@ screen and (max-height: 845px){
   .panel {
     grid-template-columns: 100% 0%;
   }
-  
+
   .panel .right {
     display: none;
   }
