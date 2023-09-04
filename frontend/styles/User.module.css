@@ -8,14 +8,21 @@
   color: white;
 }
 
+.user main {
+  display: block;
+  background-color: var(--darker);
+  z-index: 1;
+}
+
 .panel {
   display: grid;
   grid-template-columns: 50% 50%;
   height: 80vh;
   width: 75vw;
-  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
 }
 
 .panel h1 {
@@ -155,6 +162,28 @@
   min-height: 100%;
 }
 
+/* --- Vector background --- */
+.bg {
+  z-index: 0;
+  opacity: 0.2;
+}
+
+.bg .decor1,
+.bg .decor2 {
+  position: fixed;
+  height: 200px;
+}
+
+.bg .decor1 {
+  bottom: 0;
+  left: 0;
+}
+
+.bg .decor2 {
+  top: 0;
+  right: 0;
+}
+
 /* === Media Query === */
 @media screen and (min-width: 1600px),
 screen and (max-height: 845px){
@@ -208,5 +237,9 @@ screen and (max-height: 845px){
   .panel .content {
     width: 80%;
     max-width: unset;
+  }
+
+  .bg {
+    opacity: 0.05;
   }
 }

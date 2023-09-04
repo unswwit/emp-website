@@ -68,10 +68,14 @@ export default function login() {
             </div>
           </div>
           <div className={styles.right}>
-            <img src="/login-image.png" alt="woman engineers" />
+            <img src="/login/image.png" alt="woman engineers" />
           </div>
         </div>
       </main>
+      <div className={styles.bg}>
+        <img className={styles.decor1} src="/login/bottom-left.svg" />
+        <img className={styles.decor2} src="/login/top-right.svg" />
+      </div>
     </div>
   );
 }
