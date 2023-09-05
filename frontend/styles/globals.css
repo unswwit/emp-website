@@ -44,6 +44,7 @@
 
   /* Colour palette */
   --yellow: #feb14b;
+  --lemon: #ffd297;
   --red: #e85f5c;
   --pink: #f3afae;
 
@@ -57,6 +58,8 @@
   --light: #e8e8e8;
   --lighter: #efefee;
   --lightest: #f5f5f5;
+
+  --placeholder: #828282;
 }
 
 @media (prefers-color-scheme: dark) {
