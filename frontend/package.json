@@ -40,7 +40,7 @@
     "react-device-detect": "^2.2.2",
     "react-dom": "18.2.0",
     "react-slideshow-image": "^4.2.1",
-    "react-social-icons": "^5.15.0",
+    "react-social-icons": "^6.0.0",
     "react-vertical-timeline-component": "^3.6.0",
     "typescript": "5.2.2",
     "typography": "^0.16.24"
