@@ -637,18 +637,18 @@
   dependencies:
     tslib "^2.4.0"
 
-"@tabler/icons-react@^2.22.0":
-  version "2.33.0"
-  resolved "https://registry.npmjs.org/@tabler/icons-react/-/icons-react-2.33.0.tgz"
-  integrity sha512-b+LOKRYe8NJWNTbUeCz6GJV/ha+4nTnChXathzSU/Yqh4u01A3fxmtn1IlzJHYS3yew539L/F5wFr12sMoS7FQ==
+"@tabler/icons-react@^2.34.0":
+  version "2.34.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-react/-/icons-react-2.34.0.tgz#fd112ab70269f114a4cb6f76e959a6649b86f009"
+  integrity sha512-HNNTdwwAW8IwUxLPY2HWFw+d7nPVByieamIx90qM1+Rq8UfvLjwsBFNcUKaJcfRFIAa80o4g6ZGy/NMD/Zw73A==
   dependencies:
-    "@tabler/icons" "2.33.0"
+    "@tabler/icons" "2.34.0"
     prop-types "^15.7.2"
 
-"@tabler/icons@2.33.0":
-  version "2.33.0"
-  resolved "https://registry.npmjs.org/@tabler/icons/-/icons-2.33.0.tgz"
-  integrity sha512-cmVBeVANYGniLa0Q9gSUXU3SY0V9D3bfvHAq2bE+S0sdvnbMRNCHAmVQQv1lV6LT/aT7kzpwHAQz+6Iz1rPPsA==
+"@tabler/icons@2.34.0":
+  version "2.34.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-2.34.0.tgz#cfa4b762259102cc91f52708253745b6438a5425"
+  integrity sha512-65GsJsT4ZBETWcdrNxbsjsbRoZvbVk3CcU2SafaElrzP1wpOeuAn9aELVEbxhdyZyP9dg2SCfgH6iAArJgp7lw==
 
 "@tweenjs/tween.js@^18.6.4":
   version "18.6.4"
@@ -2577,7 +2577,7 @@ oauth@^0.9.15:
 
 object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
-  resolved "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
+  resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==
 
 object-hash@^2.2.0:
