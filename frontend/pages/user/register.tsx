@@ -101,7 +101,7 @@ export default function register() {
                     name="password"
                     placeholder="Enter your password"
                     onInput={(e) => {
-                      setPassword(e.target.value);
+                      setPassword((e.target as HTMLTextAreaElement).value);
                     }}
                   />
                 </div>
