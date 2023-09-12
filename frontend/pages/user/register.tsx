@@ -9,6 +9,8 @@ const montserrat = Montserrat({ subsets: ['latin'] });
 const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
 
 export default function register() {
+  const [password, setPassword] = React.useState('');
+
   return (
     <div className={styles.user}>
       <Script
@@ -98,6 +100,9 @@ export default function register() {
                     id="password"
                     name="password"
                     placeholder="Enter your password"
+                    onInput={(e) => {
+                      setPassword(e.target.value);
+                    }}
                   />
                 </div>
                 <div>
@@ -106,9 +111,11 @@ export default function register() {
                     required
                     className={montserrat.className}
                     type="password"
-                    id="password"
-                    name="password"
+                    id="confirm-password"
+                    name="confirm-password"
                     placeholder="Confirm your password"
+                    pattern={password}
+                    title="Must match password"
                   />
                 </div>
                 <hr />
