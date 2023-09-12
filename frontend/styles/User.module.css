@@ -39,9 +39,22 @@
 .panel .right {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+}
+
+.panel .left {
+  overflow-y: auto;
+}
+
+.panel .right {
   overflow: hidden;
+}
+
+.panel .left::before,
+.panel .left::after {
+  content: '';
+  padding: 1em;
+  flex-grow: 1;
 }
 
 /* --- Panel's item(s) properties --- */
@@ -202,30 +215,6 @@
 
   .panel .right {
     display: none;
-  }
-}
-
-@media screen and (max-height: 650px) {
-  .panel .content {
-    transform: scale(0.9);
-  }
-}
-
-@media screen and (max-height: 580px) {
-  .panel .content {
-    transform: scale(0.8);
-  }
-}
-
-@media screen and (max-height: 530px) {
-  .panel .content {
-    transform: scale(0.7);
-  }
-}
-
-@media screen and (max-height: 450px) {
-  .panel .content {
-    transform: scale(0.6);
   }
 }
 
