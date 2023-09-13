@@ -79,7 +79,7 @@ const Navbar = () => {
           { <button className={styles.logoutButton}>
             Logout
           </button>}
-        </Group>
+        </Group> 
         <div className={styles.burgerWrapper}>
           <Burger
             opened={drawerOpened}
@@ -122,14 +122,9 @@ const Navbar = () => {
           />
 
           <Group position="center" grow pb="xl" px="md">
-            {/* <button className={styles.navButton}>
-              <a
-                target="_blank"
-                href="https://docs.google.com/forms/d/e/1FAIpQLSc6IwF0yrpmglANWJ4ski-zrsfFMtdtpVkzqTTgVGxbPjKo4A/viewform"
-              >
-                Register Now
-              </a>
-            </button> */}
+            {<button className={styles.logoutButton}>
+            Logout
+          </button>}
           </Group>
         </ScrollArea>
       </Drawer>
