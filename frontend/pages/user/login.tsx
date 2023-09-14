@@ -1,5 +1,5 @@
 import React from 'react';
-import { Montserrat } from '@next/font/google';
+import { Montserrat } from "next/font/google";
 import { signIn } from 'next-auth/react';
 import styles from '../../styles/User.module.css';
 

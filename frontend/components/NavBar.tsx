@@ -76,24 +76,29 @@ const Navbar = () => {
           <a href="#About">About</a>
           {/* <a href="#Testimonials">Testimonials</a> */}
           <a href="#Timeline">Timeline</a>
-          {/* <button className={styles.navButton}>
-            <a
-              target="_blank"
-              href="https://docs.google.com/forms/d/e/1FAIpQLSc6IwF0yrpmglANWJ4ski-zrsfFMtdtpVkzqTTgVGxbPjKo4A/viewform"
-            >
-              Register Now
-            </a>
-          </button> */}
-        </Group>
-        <div className={styles.burgerWrapper}>
+          
+        </Group> 
+        
+
+          <div className={styles.burgerWrapper}>
           <Burger
             opened={drawerOpened}
             onClick={toggleDrawer}
             className={classes.hiddenDesktop}
             color="white"
           />
+          
         </div>
+        
+        
       </div>
+      
+        <button className={styles.logoutButton}>
+            Logout
+          </button>
+          
+
+      
 
       <Drawer
         opened={drawerOpened}
@@ -127,14 +132,9 @@ const Navbar = () => {
           />
 
           <Group position="center" grow pb="xl" px="md">
-            {/* <button className={styles.navButton}>
-              <a
-                target="_blank"
-                href="https://docs.google.com/forms/d/e/1FAIpQLSc6IwF0yrpmglANWJ4ski-zrsfFMtdtpVkzqTTgVGxbPjKo4A/viewform"
-              >
-                Register Now
-              </a>
-            </button> */}
+            {<button className={styles.logoutButton}>
+            Logout
+          </button>}
           </Group>
         </ScrollArea>
       </Drawer>

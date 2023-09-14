@@ -2,6 +2,7 @@ import React from 'react';
 import { Montserrat } from '@next/font/google';
 import { signIn } from 'next-auth/react';
 import Script from 'next/script';
+
 import styles from '../../styles/User.module.css';
 
 const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY;

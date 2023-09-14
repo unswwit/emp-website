@@ -14,8 +14,11 @@
   position: fixed;
   top: 0;
   z-index: 999;
+  display: flex; 
   align-items: center;
 }
+
+
 
 .navbar > ul {
   list-style-type: none;
@@ -142,6 +145,24 @@
   margin: auto;
 }
 
+
+
+.logoutButton {
+  float: right;
+  background-color: var(--red);
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+  padding: 1em;
+  border-width: 0;
+  border-radius: 15px;
+  margin-left: auto;
+}
+
+.logoutButton:hover {
+  background-color: #a01616; /* Green */
+  color: white;
+}
+
 .flex {
   display: flex;
   flex-direction: row;
@@ -177,7 +198,6 @@
 }
 
 .footerButton {
-  float: right;
   background-color: var(--red);
   font-size: 1rem;
   color: white;
