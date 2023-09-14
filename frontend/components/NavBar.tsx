@@ -76,19 +76,29 @@ const Navbar = () => {
           <a href="#About">About</a>
           {/* <a href="#Testimonials">Testimonials</a> */}
           <a href="#Timeline">Timeline</a>
-          { <button className={styles.logoutButton}>
-            Logout
-          </button>}
+          
         </Group> 
-        <div className={styles.burgerWrapper}>
+        
+
+          <div className={styles.burgerWrapper}>
           <Burger
             opened={drawerOpened}
             onClick={toggleDrawer}
             className={classes.hiddenDesktop}
             color="white"
           />
+          
         </div>
+        
+        
       </div>
+      
+        <button className={styles.logoutButton}>
+            Logout
+          </button>
+          
+
+      
 
       <Drawer
         opened={drawerOpened}
