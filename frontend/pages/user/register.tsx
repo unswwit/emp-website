@@ -2,6 +2,7 @@ import React from 'react';
 import { Montserrat } from '@next/font/google';
 import { signIn } from 'next-auth/react';
 import Script from 'next/script';
+import { doRegister } from '../api/user';
 
 import styles from '../../styles/User.module.css';
 
@@ -37,15 +38,21 @@ export default function register() {
                 OR
                 <hr />
               </div>
-              <form method="POST">
+              <form
+                method="POST"
+                action="/user/register"
+                onSubmit={(e) => {
+                  doRegister(e);
+                }}
+              >
                 <div>
                   <label>Email</label>
                   <input
                     required
                     className={montserrat.className}
                     type="text"
-                    id="id"
-                    name="id"
+                    id="email"
+                    name="email"
                     placeholder="Enter your preferred email"
                     pattern="[a-zA-Z0-9_\.]+@[a-zA-Z0-9]+(\.[a-zA-Z]+)+$"
                     title="name@example.com"
@@ -58,8 +65,8 @@ export default function register() {
                       required
                       className={montserrat.className}
                       type="text"
-                      id="id"
-                      name="id"
+                      id="fname"
+                      name="fname"
                       placeholder="Enter your first name"
                       pattern="[a-zA-Z]{2,}"
                       title="Alphabets only and at least 2 characters"
@@ -71,8 +78,8 @@ export default function register() {
                       required
                       className={montserrat.className}
                       type="text"
-                      id="id"
-                      name="id"
+                      id="lname"
+                      name="lname"
                       placeholder="Enter your last name"
                       pattern="[a-zA-Z]{2,}"
                       title="Alphabets only and at least 2 characters"
@@ -85,8 +92,8 @@ export default function register() {
                     required
                     className={montserrat.className}
                     type="text"
-                    id="id"
-                    name="id"
+                    id="zid"
+                    name="zid"
                     placeholder="Enter your zID"
                     pattern="^z[0-9]{7}$"
                     title="z1234567"
@@ -112,8 +119,8 @@ export default function register() {
                     required
                     className={montserrat.className}
                     type="password"
-                    id="confirm-password"
-                    name="confirm-password"
+                    id="cpassword"
+                    name="cpassword"
                     placeholder="Confirm your password"
                     pattern={password}
                     title="Must match password"

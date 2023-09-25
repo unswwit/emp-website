@@ -14,13 +14,14 @@ export default async function register(
   res: NextApiResponse<Data>
 ) {
   const SECRET_KEY = process.env.RECAPTCHA_SECRETKEY;
-  const { name, email, zid, password, recaptchaResponse } = req.body;
+  const { recaptchaResponse } = req.body;
   const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${SECRET_KEY}&response=${recaptchaResponse}`;
 
   try {
     const recaptchaRes = await fetch(verifyUrl, { method: 'POST' });
     const recaptchaJson = await recaptchaRes.json();
-    res.status(200).json({ name, email, zid, password, ...recaptchaJson });
+    res.status(200).json({ ...recaptchaJson });
+    // res.status(200).json({ name, email, zid, password, ...recaptchaJson });
   } catch (e) {
     // res.status(400).json(e);
     res.status(400);
