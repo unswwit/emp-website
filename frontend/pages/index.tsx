@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Montserrat } from "next/font/google";
+import { Montserrat } from 'next/font/google';
 import styles from '../styles/Home.module.css';
 import React from 'react';
 import Navbar from '../components/NavBar';
