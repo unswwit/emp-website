@@ -128,11 +128,16 @@
 .button {
   background-color: var(--red);
   font-size: 1.3rem;
-  color: white;
+  color: rgb(255, 255, 255);
   padding: 1em;
   border-width: 0;
   border-radius: 15px;
   margin: auto;
+}
+
+.button:hover {
+  background-color: #a01616; /* Green */
+  color: white;
 }
 
 .navButton {
