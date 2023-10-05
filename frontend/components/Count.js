@@ -114,10 +114,7 @@ const CountDown = ({ targetDate }) => {
     <div className="countdown">
       <h1>Countdown to {targetDate.toLocaleDateString()}</h1>
       <ul className="countdown-values">
-        <li>{months} months &nbsp; {weeks} weeks &nbsp; {days} days</li>
-        <li>{hours} hours</li>
-        <li>{minutes} minutes</li>
-        <li>{seconds} seconds</li>
+        <li>{months} months &nbsp; {weeks} weeks &nbsp; {days} days &nbsp;{hours} hours &nbsp;{minutes} minutes &nbsp;{seconds} seconds</li>
       </ul>
     </div>
   );
