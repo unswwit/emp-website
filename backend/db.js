@@ -16,24 +16,24 @@ const registerUser = (req, res) => {
 
 // User login
 const loginUser = (req, res) => {
-  const { typeId, userId, password } = req.body;
-  db.query(
-    `SELECT ${typeId}, password FROM users WHERE ${typeId}='${userId}'`,
-    (err, results) => {
-      if (err) {
-        console.error(err.stack);
-      }
+  const { userId, password } = req.body;
+  const params = [userId];
+  const q = "SELECT * FROM users WHERE zid=$1 OR email=$1";
 
-      // if zid/email does not exist, or password does not match
-      if (results.rows.length === 0 || results.rows[0].password !== password) {
-        // console.log(`${userId} login fail`); // FOR DEBUGGING
-        return res.status(401).json({ message: "Invalid credentials" });
-      }
-
-      // console.log(`${userId} login success`); // FOR DEBUGGING
-      return res.status(200).json({ message: "Login successful" });
+  db.query(q, params, (err, results) => {
+    if (err) {
+      console.error(err.stack);
     }
-  );
+
+    // if zid/email does not exist, or password does not match
+    if (results.rows.length === 0 || results.rows[0].password !== password) {
+      console.log(`${userId} login fail`); // FOR DEBUGGING
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    console.log(`${userId} login success`); // FOR DEBUGGING
+    return res.status(200).json({ message: "Login successful" });
+  });
 };
 
 module.exports = {
