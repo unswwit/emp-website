@@ -27,11 +27,11 @@ const loginUser = (req, res) => {
 
     // if zid/email does not exist, or password does not match
     if (results.rows.length === 0 || results.rows[0].password !== password) {
-      console.log(`${userId} login fail`); // FOR DEBUGGING
+      // console.log(`${userId} login fail`); // FOR DEBUGGING
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    console.log(`${userId} login success`); // FOR DEBUGGING
+    // console.log(`${userId} login success`); // FOR DEBUGGING
     return res.status(200).json({ message: "Login successful" });
   });
 };
