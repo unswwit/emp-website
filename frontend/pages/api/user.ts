@@ -16,3 +16,23 @@ export async function doRegister(event: React.FormEvent<HTMLFormElement>) {
     }),
   }).then((res) => res.json());
 }
+
+export async function doLogin(event: React.FormEvent<HTMLFormElement>) {
+  // event.preventDefault(); // FOR DEBUGGING
+  const e = event.currentTarget;
+  const userId = e.userId.value;
+  const typeId = userId.includes('@') ? 'email' : 'zid';
+
+  await fetch(`http://localhost:${port}/user/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      typeId,
+      userId,
+      password: e.password.value,
+    }),
+  }).then((res) => {
+    res.json();
+    // console.log(res.status); // FOR DEBUGGING
+  });
+}
