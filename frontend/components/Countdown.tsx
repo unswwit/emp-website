@@ -4,7 +4,7 @@ import CountDown from './Count.js'
 
 export default function Countdown() {
   const current_date = new Date();
-  const targetDate = new Date('2023-11-04T23:00:00Z');
+  const targetDate = new Date('2023-11-22T00:00:00Z');
   const variable = compareAsc(current_date, new Date(2023, 10, 5, 2, 0, 0));
   // today's date is after the date given by developer
   if (variable === 1) {

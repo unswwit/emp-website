@@ -57,64 +57,11 @@ const CountDown = ({ targetDate }) => {
   const minutes = calculateMinutes();
   const seconds = calculateSeconds();
 
-  if (weeks >= 4) {
-    return (
-      <div className="countdown">
-        <h1>Countdown to {targetDate.toLocaleDateString()}</h1>
-        <ul className="countdown-values">
-          <li>{months} months</li>
-        </ul>
-      </div>
-    );
-  }
-
-  if (days >= 7) {
-    return (
-      <div className="countdown">
-        <h1>Countdown to {targetDate.toLocaleDateString()}</h1>
-        <ul className="countdown-values">
-          <p>{months} months &nbsp; {weeks} weeks </p>
-        </ul>
-      </div>
-    );
-  }
-
-  if (hours >= 24) {
-    return (
-      <div className="countdown">
-        <h1>Countdown to {targetDate.toLocaleDateString()}</h1>
-        <ul className="countdown-values">
-          <li>{months} months &nbsp; {weeks} weeks &nbsp; {days} days</li>
-        </ul>
-      </div>
-    );
-  }
-
-  if (minutes >= 60) {
-    return (
-      <div className="countdown">
-        <h1>Countdown to {targetDate.toLocaleDateString()}</h1>
-        <ul className="countdown-values">
-          <li>{months} months &nbsp; {weeks} weeks &nbsp; {days} days &nbsp; {hours} hours</li>
-        </ul>
-      </div>
-    );
-  }
-
-  if (seconds >= 60) {
-    <div className="countdown">
-      <h1>Countdown to {targetDate.toLocaleDateString()}</h1>
-      <ul className="countdown-values">
-        <li>{months} months &nbsp; {weeks} weeks &nbsp; {days} days &nbsp; {hours} hours &nbsp; {minutes} minutes</li>
-      </ul>
-    </div>
-  }
-
   return (
     <div className="countdown">
       <h1>Countdown to {targetDate.toLocaleDateString()}</h1>
       <ul className="countdown-values">
-        <li>{months} months &nbsp; {weeks} weeks &nbsp; {days} days &nbsp;{hours} hours &nbsp;{minutes} minutes &nbsp;{seconds} seconds</li>
+        {months !== 0 && <span> {months} months </span>} &nbsp; {weeks < 4 && weeks!== 0 && <span> {weeks} weeks </span>} &nbsp; {days <= 31 && days !== 0 && <span> {days} days </span>} &nbsp;{hours <= 24 && hours !== 0 && <span> {hours} hours</span>} &nbsp;{minutes <= 60 && minutes !== 0 && <span> {minutes} minutes</span>} &nbsp;{seconds >= 60 && <span> {seconds} seconds</span>}
       </ul>
     </div>
   );
