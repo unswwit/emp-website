@@ -1,17 +1,26 @@
+require("dotenv").config();
 const Pool = require("pg").Pool;
 const db = new Pool({
-  user: "dummy",
-  password: "dummy",
-  database: "emp",
-  host: "localhost",
-  port: 5432,
+  user: process.env.PG_USER,
+  password: process.env.PG_PASSWORD,
+  database: process.env.PG_DATABASE,
+  host: process.env.PG_HOST,
+  port: process.env.PG_PORT,
 });
 
 // User registration
 const registerUser = (req, res) => {
-  const { email, zid, fname, lname, password } = req.body;
-  res.json({ requestData: { email, zid } });
-  // console.log(req.body); // FOR DEBUGGING
+  const { email, zid, firstName, lastName, password } = req.body;
+  const params = [email, zid, firstName, lastName, password]
+  const q = "INSERT INTO users (zid, firstname, lastname, email, password) VALUES ($2, $3, $4, $1, $5)";
+
+  db.query(q, params, (err, results) => {
+    if (err) {
+      console.error(err.stack);
+    }
+
+    return res.status(200).json({ message: "Register successful" });
+  });
 };
 
 // User login
