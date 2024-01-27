@@ -2,6 +2,7 @@ import React from 'react';
 import { Montserrat } from 'next/font/google';
 import { signIn } from 'next-auth/react';
 import styles from '../../styles/User.module.css';
+import { doLogin } from '../api/user';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
@@ -29,15 +30,21 @@ export default function login() {
                 OR
                 <hr />
               </div>
-              <form method="POST">
+              <form
+                method="POST"
+                action="/user/login"
+                onSubmit={(e) => {
+                  doLogin(e);
+                }}
+              >
                 <div>
                   <label>Email or zID</label>
                   <input
                     required
                     className={montserrat.className}
                     type="text"
-                    id="id"
-                    name="id"
+                    id="userId"
+                    name="userId"
                     placeholder="Enter your email or zID"
                     pattern="[a-zA-Z0-9_\.]+@[a-zA-Z0-9]+(\.[a-zA-Z]+)+$|^z[0-9]{7}$"
                     title="name@example.com or z1234567"
