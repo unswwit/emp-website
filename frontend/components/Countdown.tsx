@@ -1,6 +1,11 @@
 import styles from '../styles/Home.module.css';
-import { format, compareAsc, formatDistanceToNowStrict, formatDistanceToNow } from 'date-fns'
-import CountDown from './Count.js'
+import {
+  format,
+  compareAsc,
+  formatDistanceToNowStrict,
+  formatDistanceToNow,
+} from 'date-fns';
+import CountDown from './Count.js';
 
 export default function Countdown() {
   const current_date = new Date();
@@ -16,11 +21,8 @@ export default function Countdown() {
   } else {
     return (
       <div className={styles.divider}>
-        <CountDown targetDate={targetDate} /> 
+        <CountDown targetDate={targetDate} />
       </div>
     );
   }
-  
-  
 }
-
