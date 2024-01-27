@@ -297,12 +297,12 @@ function InfoPanel({ event, drawer, handleDrawer }: any) {
                 {daysLeftUntilEventStarts > 0
                   ? 'Starting in ' + daysLeftUntilEventStarts + ' days'
                   : daysLeftUntilEventEnds > 0
-                    ? 'Ending in ' + daysLeftUntilEventEnds + ' days'
-                    : daysLeftUntilEventStarts == 0
-                      ? 'Today'
-                      : daysLeftUntilEventEnds == 0
-                        ? 'Last day'
-                        : 'Ended'}
+                  ? 'Ending in ' + daysLeftUntilEventEnds + ' days'
+                  : daysLeftUntilEventStarts == 0
+                  ? 'Today'
+                  : daysLeftUntilEventEnds == 0
+                  ? 'Last day'
+                  : 'Ended'}
               </span>
             </div>
             {/* Location */}
