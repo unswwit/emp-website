@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { SocialIcon } from 'react-social-icons';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';

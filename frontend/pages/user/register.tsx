@@ -145,8 +145,16 @@ export default function register() {
         </div>
       </main>
       <div className={styles.bg}>
-        <img className={styles.decor1} src="/login/bottom-left.svg" />
-        <img className={styles.decor2} src="/login/top-right.svg" />
+        <img
+          className={styles.decor1}
+          src="/login/bottom-left.svg"
+          alt="bottom left vector"
+        />
+        <img
+          className={styles.decor2}
+          src="/login/top-right.svg"
+          alt="top right vector"
+        />
       </div>
     </div>
   );

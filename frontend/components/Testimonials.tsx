@@ -5,11 +5,11 @@ import {
   MDBCol,
   MDBContainer,
   MDBRow,
-  MDBCarousel,
+  // MDBCarousel,
   // MDBCarouselInner,
-  MDBCarouselItem,
+  // MDBCarouselItem,
   MDBTypography,
-  MDBIcon,
+  // MDBIcon,
 } from 'mdb-react-ui-kit';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
