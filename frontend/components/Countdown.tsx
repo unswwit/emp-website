@@ -1,10 +1,5 @@
 import styles from '../styles/Home.module.css';
-import {
-  format,
-  compareAsc,
-  formatDistanceToNowStrict,
-  formatDistanceToNow,
-} from 'date-fns';
+import { compareAsc } from 'date-fns';
 import CountDown from './Count.js';
 
 export default function Countdown() {
