@@ -31,7 +31,7 @@
     "contentful": "^10.2.3",
     "countdown": "^2.6.0",
     "date-fns": "^2.29.3",
-    "eslint": "8.49.0",
+    "eslint": "8.57.0",
     "eslint-config-next": "13.4.19",
     "iconsax-react": "^0.0.8",
     "next": "^13.4.4",
