@@ -2,10 +2,9 @@ import styles from '../styles/Home.module.css';
 import { compareAsc, getWeekYear } from 'date-fns';
 import CountDown from './Count.js';
 
-export default function Countdown({date}: {date: Date}) {
+export default function Countdown({ date }: { date: Date }) {
   const targetDate = new Date('2024-04-22T00:00:00Z');
   const variable = compareAsc(date, targetDate);
-
 
   // today's date is after the date given by developer
   if (variable === 1) {
