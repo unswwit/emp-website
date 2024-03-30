@@ -53,7 +53,7 @@
   padding: 0rem 0rem 0rem 0rem;
   display: flex;
   align-items: center;
- 
+  gap: 5em;
   @media screen and (max-width: 1000px) {
     flex-direction: column;
     padding: 7rem 2rem 2rem 2rem;
