@@ -50,7 +50,7 @@
 .hero {
   margin-top: 7em;
   background-color: var(--lightest);
-  padding: 0rem 0rem 0rem 0rem;
+  padding: 0rem 0rem 0rem 5rem;
   display: flex;
   align-items: center;
   gap: 5em;
