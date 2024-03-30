@@ -50,10 +50,10 @@
 .hero {
   margin-top: 7em;
   background-color: var(--lightest);
-  padding: 0rem 0rem 0rem 5rem;
+  padding: 0rem 0rem 0rem 0rem;
   display: flex;
   align-items: center;
-  gap: 5em;
+ 
   @media screen and (max-width: 1000px) {
     flex-direction: column;
     padding: 7rem 2rem 2rem 2rem;
@@ -62,7 +62,7 @@
 
 .heroImage {
   border-radius: 100px 0px 0px 100px;
-  margin-bottom: 3em;
+ 
 }
 
 .heroText {
