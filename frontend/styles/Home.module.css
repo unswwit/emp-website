@@ -58,7 +58,12 @@
     flex-direction: column;
     padding: 7rem 2rem 2rem 2rem;
   }
+  @media screen and (min-width: 1700px) {
+    padding: 0rem 0rem 0rem 10rem;
+    gap: 10em;
+  }  
 }
+
 
 .heroImage {
   border-radius: 100px 0px 0px 100px;
