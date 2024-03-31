@@ -20,7 +20,14 @@
   align-items: center;
 }
 
+.navbar a {
+  color: white;
+}
 
+.navbar a:hover {
+  cursor: pointer;
+  color: #F08080;
+}
 
 .navbar > ul {
   list-style-type: none;
@@ -142,7 +149,8 @@
 }
 
 .button:hover {
-  background-color: #a01616; 
+  cursor: pointer;
+  background-color: #DC143C;
   color: white;
 }
 
@@ -170,7 +178,8 @@
 }
 
 .logoutButton:hover {
-  background-color: #a01616; /* Green */
+  cursor: pointer;
+  background-color: #DC143C;
   color: white;
 }
 
