@@ -54,16 +54,16 @@
   display: flex;
   align-items: center;
   gap: 5em;
+
   @media screen and (max-width: 1100px) {
     flex-direction: column;
-    padding: 7rem 2rem 0rem 2rem;
+    padding: 7rem 2rem 2rem 2rem;
   }
+
   @media screen and (min-width: 1700px) {
-    gap: 15em;
-    justify-content: flex-end;
+    justify-content: space-between;
   } 
 }
-
 
 .heroImage {
   border-radius: 100px 0px 0px 100px;
