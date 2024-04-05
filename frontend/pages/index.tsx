@@ -35,7 +35,7 @@ export default function Home({ sponsors }: Sponsors) {
       <main className={montserrat.className}>
         <Navbar />
         <Hero />
-        <Countdown date={new Date()}  />
+        <Countdown />
         <div id="About" className={styles.section}>
           <h1>EMPOWERMENT MENTORING</h1>
           <p>
