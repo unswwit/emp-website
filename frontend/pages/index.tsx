@@ -59,7 +59,6 @@ export default function Home({ sponsors }: Sponsors) {
             world of technology!
           </p>
           <div className={styles.wrapper}>
-            <button 
               <a
                 target="_blank"
                 href="https://www.facebook.com/events/545237864225826"
