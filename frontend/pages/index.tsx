@@ -59,14 +59,16 @@ export default function Home({ sponsors }: Sponsors) {
             world of technology!
           </p>
           <div className={styles.wrapper}>
-            <button className={styles.button}>
+            <button 
               <a
                 target="_blank"
                 href="https://www.facebook.com/events/545237864225826"
+                className={styles.button}>
               >
-                Learn More
-              </a>
-            </button>
+                <button>
+                  Learn More
+                </button>
+            </a>
           </div>
         </div>
         {/* <div id="Testimonials" className={styles.graySection}>
