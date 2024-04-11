@@ -139,8 +139,6 @@
 }
 
 .button {
-  height: 100%
-  width: 100%
   background-color: var(--red);
   font-size: 1.3rem;
   color: rgb(255, 255, 255);
