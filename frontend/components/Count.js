@@ -58,15 +58,15 @@ const CountDown = ({ targetDate }) => {
 
   return (
     <div className="countdown">
-      <h1>Countdown to {targetDate.toLocaleDateString()}</h1>
-      <ul className="countdown-values">
+      <h1>Registration opens in </h1>
+      <h1 className="countdown-values">
         {months !== 0 && <span> {months} months </span>} &nbsp;{' '}
         {weeks < 4 && weeks !== 0 && <span> {weeks} weeks </span>} &nbsp;{' '}
         {days <= 31 && days !== 0 && <span> {days} days </span>} &nbsp;
         {hours <= 24 && hours !== 0 && <span> {hours} hours</span>} &nbsp;
         {minutes <= 60 && minutes !== 0 && <span> {minutes} minutes</span>}{' '}
         &nbsp;{seconds >= 60 && <span> {seconds} seconds</span>}
-      </ul>
+      </h1>
     </div>
   );
 };
