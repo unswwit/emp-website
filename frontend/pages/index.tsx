@@ -59,14 +59,14 @@ export default function Home({ sponsors }: Sponsors) {
             world of technology!
           </p>
           <div className={styles.wrapper}>
-            <button className={styles.button}>
-              <a
-                target="_blank"
-                href="https://www.facebook.com/events/545237864225826"
-              >
+            <a
+              target="_blank"
+              href="https://www.facebook.com/events/545237864225826"
+            >
+              <button className={styles.button}>
                 Learn More
-              </a>
-            </button>
+              </button>
+            </a>
           </div>
         </div>
         {/* <div id="Testimonials" className={styles.graySection}>
@@ -75,14 +75,14 @@ export default function Home({ sponsors }: Sponsors) {
         </div> */}
         <div className={styles.divider}>
           <h2>Sign up to the reminder list here:</h2>
-          <button className={styles.button}>
             <a
               target="_blank"
               href="https://www.facebook.com/events/545237864225826"
             >
-              Remind me
+              <button className={styles.button}>
+                Remind me
+              </button>
             </a>
-          </button>
         </div>
         <div id="Timeline" className={styles.section}>
           <h1>TIMELINE</h1>
