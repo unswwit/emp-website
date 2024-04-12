@@ -59,13 +59,13 @@ export default function Home({ sponsors }: Sponsors) {
             world of technology!
           </p>
           <div className={styles.wrapper}>
-              <a
-                target="_blank"
-                href="https://www.facebook.com/events/545237864225826"
-              >
-                <button className={styles.button}>
-                  Learn More
-                </button>
+            <a
+              target="_blank"
+              href="https://www.facebook.com/events/545237864225826"
+            >
+              <button className={styles.button}>
+                Learn More
+              </button>
             </a>
           </div>
         </div>
@@ -79,10 +79,10 @@ export default function Home({ sponsors }: Sponsors) {
               target="_blank"
               href="https://www.facebook.com/events/545237864225826"
             >
-            <button className={styles.button}>
-            Remind me
-          </button>
-          </a>
+              <button className={styles.button}>
+                Remind me
+              </button>
+            </a>
         </div>
         <div id="Timeline" className={styles.section}>
           <h1>TIMELINE</h1>
