@@ -235,3 +235,10 @@
   top: -2em;
 }
 
+.countdownValues {
+  margin: auto;
+  text-align: center;
+  word-spacing: 10px;
+}
+
+
