@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import {
   createStyles,
   Group,
@@ -58,6 +59,8 @@ const Navbar = () => {
   const { classes, theme } = useStyles();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
+  
+  const router = useRouter();
 
   return (
     <nav className={styles.navbar}>
@@ -88,7 +91,12 @@ const Navbar = () => {
         </div>
       </div>
 
-      <button className={styles.logoutButton}>Logout</button>
+      <button 
+        className={styles.logoutButton} 
+        onClick={() => router.push('/user/login')}
+      >
+        Login
+      </button>
 
       <Drawer
         opened={drawerOpened}

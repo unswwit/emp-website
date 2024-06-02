@@ -1,10 +1,10 @@
 const port = process.env.port || 4000;
 
 export async function doRegister(event: React.FormEvent<HTMLFormElement>) {
-  // event.preventDefault(); // FOR DEBUGGING
+  event.preventDefault(); // FOR DEBUGGING
   const e = event.currentTarget;
 
-  await fetch(`http://localhost:${port}/user/register`, {
+  const res = await fetch(`http://localhost:${port}/user/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -14,7 +14,13 @@ export async function doRegister(event: React.FormEvent<HTMLFormElement>) {
       lastName: e.lname.value,
       password: e.password.value,
     }),
-  }).then((res) => res.json());
+  });
+
+  if (res.ok) {
+    console.log("Successful registration");
+  } else {
+    console.error('Registration failed');
+  }
 }
 
 export async function doLogin(event: React.FormEvent<HTMLFormElement>) {
