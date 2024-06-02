@@ -1,6 +1,6 @@
 import React from 'react';
 import { Montserrat } from '@next/font/google';
-import { signIn } from 'next-auth/react';
+// import { signIn } from 'next-auth/react';
 import Script from 'next/script';
 import { doRegister } from '../api/user';
 
@@ -10,7 +10,7 @@ const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY;
 const montserrat = Montserrat({ subsets: ['latin'] });
 const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
 
-export default function register() {
+export default function Register() {
   const [password, setPassword] = React.useState('');
 
   return (
@@ -25,19 +25,19 @@ export default function register() {
               <h1>Create an account</h1>
               <div className={styles.auth}>
                 {/* guide: https://mattermost.com/blog/add-google-and-github-login-to-next-js-app-with-nextauth/ */}
-                <button
+                {/* <button
                   className={montserrat.className}
                   onClick={() => signIn('google')}
                 >
                   <img src="/google.svg" alt="google logo" />
                   Sign up with Google
-                </button>
+                </button> */}
               </div>
-              <div className={styles.dividerLabel}>
+              {/* <div className={styles.dividerLabel}>
                 <hr />
                 OR
                 <hr />
-              </div>
+              </div> */}
               <form
                 method="POST"
                 action="/user/register"

@@ -17,14 +17,14 @@ export async function doRegister(event: React.FormEvent<HTMLFormElement>) {
   });
 
   if (res.ok) {
-    console.log("Successful registration");
+    console.log('Successful registration');
   } else {
     console.error('Registration failed');
   }
 }
 
 export async function doLogin(event: React.FormEvent<HTMLFormElement>) {
-  // event.preventDefault(); // FOR DEBUGGING
+  event.preventDefault(); // FOR DEBUGGING
   const e = event.currentTarget;
   const userId = e.userId.value;
 
@@ -37,6 +37,5 @@ export async function doLogin(event: React.FormEvent<HTMLFormElement>) {
     }),
   }).then((res) => {
     res.json();
-    // console.log(res.status); // FOR DEBUGGING
   });
 }
