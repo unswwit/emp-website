@@ -253,3 +253,8 @@
     color-scheme: light;
   }
 }
+
+/* --- Error Message style --- */
+.error {
+  color: red;
+}

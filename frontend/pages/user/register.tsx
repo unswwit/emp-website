@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Montserrat } from '@next/font/google';
 // import { signIn } from 'next-auth/react';
 import Script from 'next/script';
 import { doRegister } from '../api/user';
+import { useRouter } from 'next/router';
 
 import styles from '../../styles/User.module.css';
 
@@ -12,6 +13,8 @@ const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
 
 export default function Register() {
   const [password, setPassword] = React.useState('');
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   return (
     <div className={styles.user}>
@@ -42,7 +45,7 @@ export default function Register() {
                 method="POST"
                 action="/user/register"
                 onSubmit={(e) => {
-                  doRegister(e);
+                  doRegister(e, router, setError);
                 }}
               >
                 <div>
@@ -127,6 +130,7 @@ export default function Register() {
                   />
                 </div>
                 <hr />
+                {error && <p className={styles.error}>{error}</p>}
                 <button className={montserrat.className} type="submit">
                   Continue
                 </button>
