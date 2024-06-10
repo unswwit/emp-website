@@ -5,9 +5,9 @@ import Navbar from '../../components/NavBar';
 import MainContent from '../../components/MainContent';
 import { Button } from '@mui/material';
 import { Flex } from '@mantine/core';
-import { getAuthToken } from '../api/session';
 import { useRouter } from 'next/router';
 import { checkAuth } from '../../utils/auth';
+import LoadingOverlay from '../../components/LoadingOverlay';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 // const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
@@ -34,13 +34,18 @@ const dummyUser2 = {
 export default function UserHome() {
   const router = useRouter();
 
+  const [isLoading, setLoading] = React.useState(true);
+
   useEffect(() => {
+    setLoading(true);
     checkAuth(router);
+    setInterval(() => setLoading(false), 1000);
   }, []);
 
   return (
     <div className={styles.userHome}>
       <main className={montserrat.className}>
+        <LoadingOverlay isLoading={isLoading} />
         <Navbar />
         <MainContent>
           <div className={styles.section}>
