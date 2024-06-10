@@ -1,7 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-const Navbar = () => {
-};
+const MenteeNavbar = () => {};
 
-export default Navbar;
+export default MenteeNavbar;

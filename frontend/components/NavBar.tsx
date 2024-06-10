@@ -59,7 +59,7 @@ const Navbar = () => {
   const { classes, theme } = useStyles();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
-  
+
   const router = useRouter();
 
   return (
@@ -91,8 +91,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      <button 
-        className={styles.logoutButton} 
+      <button
+        className={styles.logoutButton}
         onClick={() => router.push('/user/login')}
       >
         Login

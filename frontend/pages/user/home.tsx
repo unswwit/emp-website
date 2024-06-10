@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Montserrat } from 'next/font/google';
 import styles from '../../styles/User.module.css';
 import Navbar from '../../components/NavBar';
 import MainContent from '../../components/MainContent';
 import { Button } from '@mui/material';
 import { Flex } from '@mantine/core';
+import { getAuthToken } from '../api/session';
+import { useRouter } from 'next/router';
+import { checkAuth } from '../../utils/auth';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 // const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
@@ -29,6 +32,12 @@ const dummyUser2 = {
 };
 
 export default function UserHome() {
+  const router = useRouter();
+
+  useEffect(() => {
+    checkAuth(router);
+  }, []);
+
   return (
     <div className={styles.userHome}>
       <main className={montserrat.className}>
