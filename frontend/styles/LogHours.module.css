@@ -1,0 +1,56 @@
+.page {
+    margin-top: 5em;
+
+    @media screen and (max-width: 600px) {
+        margin-top: 15em;
+    }
+}
+
+.page h1 {
+    width: 100%;
+    color: var(--red);
+    font-size: 4.5em;
+}
+
+.sectionTable {
+    padding-top: 15px;
+}
+
+.sectionTable table {
+    padding-top: 15px;
+    width: 100%;
+    table-layout: fixed;
+    font-size: 14px;
+    border-collapse: collapse;
+
+    @media screen and (max-width: 900px) {
+        display: block;
+        overflow: scroll;
+        width: 100%;
+        justify-content: space-between;
+        flex-flow: column;
+    }
+}
+
+.sectionTable th {
+    font-weight: bold;
+}
+
+.sectionTable th,
+.sectionTable td {
+    display: table-cell;
+    padding: 6px;
+    text-align: left;
+
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+.sectionTable tr:hover {
+    background-color: rgb(255, 160, 122, 0.5);
+}
+
+.sectionTable a {
+    text-decoration: underline;
+    color: blue;
+}
