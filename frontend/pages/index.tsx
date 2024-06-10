@@ -7,7 +7,7 @@ import Hero from '../components/Hero';
 import Countdown from '../components/Countdown';
 import SponsorCollage from '../components/SponsorCollage';
 import Timeline from '../components/Timeline';
-// import Testimonials from '../components/Testimonials';
+import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 import { filterSponsors } from '../lib/helpers/sponsor';
 import { ITypeSponsorsFields, TypeSponsorsSkeleton } from '../types/sponsors';
@@ -69,10 +69,10 @@ export default function Home({ sponsors }: Sponsors) {
             </a>
           </div>
         </div>
-        {/* <div id="Testimonials" className={styles.graySection}>
+        <div id="Testimonials" className={styles.graySection}>
           <h1>TESTIMONIALS</h1>
           <Testimonials />
-        </div> */}
+        </div>
         <div className={styles.divider}>
           <h2>Sign up to the reminder list here:</h2>
             <a
