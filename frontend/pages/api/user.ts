@@ -1,9 +1,10 @@
-import { NextRouter } from "next/router";
+import { NextRouter } from 'next/router';
+import { storeAuthToken } from './session';
 
 const port = process.env.port || 4000;
 
 export async function doRegister(
-  event: React.FormEvent<HTMLFormElement>, 
+  event: React.FormEvent<HTMLFormElement>,
   router: NextRouter | string[],
   setError: React.Dispatch<React.SetStateAction<string | null>>
 ) {
@@ -25,7 +26,7 @@ export async function doRegister(
 
   if (res.ok) {
     console.log('Successful registration');
-    router.push('/user/login')
+    router.push('/user/login');
   } else {
     console.error(data.message);
     setError(data.message);
@@ -33,7 +34,7 @@ export async function doRegister(
 }
 
 export async function doLogin(
-  event: React.FormEvent<HTMLFormElement>, 
+  event: React.FormEvent<HTMLFormElement>,
   router: NextRouter | string[],
   setError: React.Dispatch<React.SetStateAction<string | null>>
 ) {
@@ -50,9 +51,10 @@ export async function doLogin(
     }),
   });
   const data = await res.json();
-  
+
   if (res.ok) {
     console.log('Successful login');
+    storeAuthToken(data.token);
     router.push('/user/home');
   } else {
     console.error('Login failed');
