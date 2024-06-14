@@ -44,6 +44,11 @@ enum hoursStatus {
   REJECTED = 'rejected',
 }
 
+enum hoursType {
+  LOGGED = 'logged',
+  REQUESTED = 'requested',
+}
+
 const mapStatusColor = (status: hoursStatus) => {
   switch (status) {
     case hoursStatus.APPROVED:
@@ -57,13 +62,19 @@ const mapStatusColor = (status: hoursStatus) => {
   }
 };
 
-const HoursTable = ({ hours, type }: { hours: hoursInfo[]; type: string }) => {
+const HoursTable = ({
+  hours,
+  type,
+}: {
+  hours: hoursInfo[];
+  type: hoursType;
+}) => {
   const [filteredHours, setFilteredHours] = useState([] as hoursInfo[]);
 
   useEffect(() => {
-    if (type === 'logged')
+    if (type === hoursType.LOGGED)
       setFilteredHours(hours?.filter((h) => h.status === hoursStatus.APPROVED));
-    else if (type === 'requested')
+    else if (type === hoursType.REQUESTED)
       setFilteredHours(hours?.filter((h) => h.status !== hoursStatus.APPROVED));
   }, []);
 
@@ -108,14 +119,14 @@ const HoursCollapsible = ({
   defaultExpanded,
 }: {
   hours: hoursInfo[];
-  type: string;
+  type: hoursType;
   defaultExpanded: boolean;
 }) => {
   return (
     <div>
       <Accordion defaultExpanded={defaultExpanded}>
         <AccordionSummary expandIcon={<ExpandMoreOutlined />}>
-          <h3>{type === 'logged' ? 'Logged Hours' : 'Requested'}</h3>
+          <h3>{type === hoursType.LOGGED ? 'Logged Hours' : 'Requested'}</h3>
         </AccordionSummary>
         <AccordionDetails>
           <HoursTable hours={hours} type={type} />
@@ -189,12 +200,12 @@ export default function MenteeHome() {
             <Stack spacing={2}>
               <HoursCollapsible
                 hours={hoursList}
-                type="logged"
+                type={hoursType.LOGGED}
                 defaultExpanded={true}
               />
               <HoursCollapsible
                 hours={hoursList}
-                type="requested"
+                type={hoursType.REQUESTED}
                 defaultExpanded={false}
               />
             </Stack>
