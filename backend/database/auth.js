@@ -1,13 +1,9 @@
 require("dotenv").config();
 const db = require('./db');
+const { Roles } = require('../enums.js');
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
-const Roles = {
-  ADMIN: 'admin',
-  MENTEE: 'mentee'
-};
 
 // User registration
 const registerUser = async (req, res) => {
@@ -72,7 +68,8 @@ const loginUser = async (req, res) => {
 };
 
 // Verify and decode token
-const verifyToken = (token_header, res) => {
+const 
+verifyToken = (token_header, res) => {
   if (!token_header) {
     return res.status(403).json({ message: "No token provided" });
   }

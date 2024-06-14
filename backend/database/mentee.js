@@ -4,12 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const db = require('./db');
 const { verifyToken } = require('./auth');
 const { checkUserExists } = require('./helper');
-
-const Status = {
-  PENDING: 'pending',
-  APPROVED: 'approved',
-  REJECTED: 'rejected'
-};
+const { Status } = require('../enums.js');
 
 // Mentee requests hours
 const requestHours = async (req, res) => {
