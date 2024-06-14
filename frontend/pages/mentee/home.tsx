@@ -135,7 +135,11 @@ const HoursCollapsible = ({
           <h3>{type === hoursType.LOGGED ? 'Logged Hours' : 'Requested'}</h3>
         </AccordionSummary>
         <AccordionDetails>
-          <HoursTable hours={hours} type={type} />
+          {hours.length > 0 ? (
+            <HoursTable hours={hours} type={type} />
+          ) : (
+            'Nothing to see here.'
+          )}
         </AccordionDetails>
       </Accordion>
     </div>
