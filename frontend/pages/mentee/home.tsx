@@ -120,14 +120,16 @@ const HoursCollapsible = ({
   defaultExpanded: boolean;
 }) => {
   return (
-    <Accordion defaultExpanded={defaultExpanded}>
-      <AccordionSummary expandIcon={<ExpandMoreOutlined />}>
-        <h3>{type === 'logged' ? 'Logged Hours' : 'Requested'}</h3>
-      </AccordionSummary>
-      <AccordionDetails>
-        <HoursTable hours={hours} type={type} />
-      </AccordionDetails>
-    </Accordion>
+    <div>
+      <Accordion defaultExpanded={defaultExpanded}>
+        <AccordionSummary expandIcon={<ExpandMoreOutlined />}>
+          <h3>{type === 'logged' ? 'Logged Hours' : 'Requested'}</h3>
+        </AccordionSummary>
+        <AccordionDetails>
+          <HoursTable hours={hours} type={type} />
+        </AccordionDetails>
+      </Accordion>
+    </div>
   );
 };
 
