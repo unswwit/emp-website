@@ -15,6 +15,7 @@ import {
   Fade,
   Modal,
   Paper,
+  Snackbar,
   Stack,
   Table,
   TableBody,
@@ -263,11 +264,16 @@ export default function MenteeHome() {
   // const [hoursList, setHoursList] = useState({} as hoursData);
   const [hoursList, setHoursList] = useState(hoursInitList);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const [isAddNotifyOpen, setAddNotifyOpen] = useState(false);
 
   const handleAddModalOpen = () => setAddModalOpen(true);
   const handleAddModalClose = () => setAddModalOpen(false);
 
+  const handleAddNotifyOpen = () => setAddNotifyOpen(true);
+  const handleAddNotifyClose = () => setAddNotifyOpen(false);
+
   const handleAddRequest = () => {
+    handleAddNotifyOpen();
     handleRefresh();
     handleAddModalClose();
   };
@@ -325,10 +331,20 @@ export default function MenteeHome() {
             </Stack>
           </div>
         </MainContent>
+
+        {/* Modals */}
         <AddHoursModal
           isOpen={isAddModalOpen}
           onAdd={handleAddRequest}
           onClose={handleAddModalClose}
+        />
+
+        {/* Toast */}
+        <Snackbar
+          open={isAddNotifyOpen}
+          autoHideDuration={1500}
+          onClose={handleAddNotifyClose}
+          message="Hours request sent!"
         />
       </main>
     </div>
