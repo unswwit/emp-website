@@ -14,9 +14,9 @@ const Status = {
 // Mentee requests hours
 const requestHours = async (req, res) => {
   const { numHours, description, timestamp, imageUrl } = req.body;
-  const zid = verifyToken(req.headers['authorization']);
+  const zid = verifyToken(req.headers['authorization'], res);
 
-  checkUserExists(zid);
+  checkUserExists(zid, res);
   try {
     // Insert hours request into the database
     const insertQuery = `
@@ -37,9 +37,9 @@ const requestHours = async (req, res) => {
 }
 
 // Mentee view hours
-const viewHours = async (req, res) => {
-  const zid = verifyToken(req.headers['authorization']);
-  checkUserExists(zid);
+const menteeViewHours = async (req, res) => {
+  const zid = verifyToken(req.headers['authorization'], res);
+  checkUserExists(zid, res);
 
   try {
     // Fetch hours data for a specific zid
@@ -60,6 +60,6 @@ const viewHours = async (req, res) => {
 }
 
 module.exports = {
-    requestHours,
-    viewHours
+  requestHours,
+  menteeViewHours
 };

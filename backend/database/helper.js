@@ -1,7 +1,7 @@
 const db = require('./db');
 
 // Helper to check if user with zid exists
-const checkUserExists = async (zid) => {
+const checkUserExists = async (zid, res) => {
   const checkZidQuery = "SELECT zid FROM users WHERE zid=$1";
   const zidResult = await db.query(checkZidQuery, [zid]);
 
