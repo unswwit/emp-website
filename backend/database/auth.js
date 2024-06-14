@@ -36,43 +36,56 @@ const registerUser = async (req, res) => {
     });
   };
   
-  // User login
-  const loginUser = async (req, res) => {
-    const { userId, password } = req.body;
-    const params = [userId];
-    const q = "SELECT * FROM users WHERE zid=$1 OR email=$1";
-  
-    db.query(q, params, async (err, results) => {
-      if (err) {
-        console.error(err.stack);
-      }
-  
-      // if zid/email does not exist
-      if (results.rows.length === 0) {
-        // console.log(`${userId} login fail`); // FOR DEBUGGING
-        return res.status(401).json({ message: `Email/zID is not registered.` });
-      }
-  
-      const user = results.rows[0];
-  
-      // Password does not match
-      const isPasswordMatch = await bcrypt.compare(password, user.password);
-      if (!isPasswordMatch) {
-        return res.status(401).json({ message: "Invalid credentials" });
-      }
-  
-      var token = jwt.sign({ userId: user.zid }, process.env.SECRET_KEY, {
-        expiresIn: "1d"
-      });
-      console.log(token);
-  
-      // console.log(`${userId} login success`); // FOR DEBUGGING
-      return res.status(200).json({ message: "Login successful", token: token, role: user.role});
+// User login
+const loginUser = async (req, res) => {
+  const { userId, password } = req.body;
+  const params = [userId];
+  const q = "SELECT * FROM users WHERE zid=$1 OR email=$1";
+
+  db.query(q, params, async (err, results) => {
+    if (err) {
+      console.error(err.stack);
+    }
+
+    // if zid/email does not exist
+    if (results.rows.length === 0) {
+      // console.log(`${userId} login fail`); // FOR DEBUGGING
+      return res.status(401).json({ message: `Email/zID is not registered.` });
+    }
+
+    const user = results.rows[0];
+
+    // Password does not match
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    if (!isPasswordMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    var token = jwt.sign({ userId: user.zid }, process.env.SECRET_KEY, {
+      expiresIn: "1d"
     });
-  };
+    console.log(token);
+
+    // console.log(`${userId} login success`); // FOR DEBUGGING
+    return res.status(200).json({ message: "Login successful", token: token, role: user.role});
+  });
+};
+
+// Verify and decode token
+const verifyToken = (token_header) => {
+  const token = token_header.split(' ')[1];;
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.SECRET_KEY);
+  } catch (err) {
+    return res.status(401).json({ message: "Failed to authenticate token" });
+  }
+  return decoded.userId;
+}
   
-  module.exports = {
-    registerUser,
-    loginUser,
-  };
-  
+module.exports = {
+  registerUser,
+  loginUser,
+  verifyToken
+};

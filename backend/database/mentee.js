@@ -1,7 +1,9 @@
 require("dotenv").config();
-const jwt = require('jsonwebtoken');
-const shortid = require('shortid');
+const { v4: uuidv4 } = require('uuid');
+
 const db = require('./db');
+const { verifyToken } = require('./auth');
+const { checkUserExists } = require('./helper');
 
 const Status = {
   PENDING: 'pending',
@@ -12,33 +14,16 @@ const Status = {
 // Mentee requests hours
 const requestHours = async (req, res) => {
   const { numHours, description, timestamp, imageUrl } = req.body;
-  console.log(req.body);
-  const token = req.headers['authorization'].split(' ')[1];;
+  const zid = verifyToken(req.headers['authorization']);
 
-  // Verify and decode the token
-  let decoded;
+  checkUserExists(zid);
   try {
-    decoded = jwt.verify(token, process.env.SECRET_KEY);
-  } catch (err) {
-    return res.status(401).json({ message: "Failed to authenticate token" });
-  }
-  const zid = decoded.userId;
-
-  // Check if zid exists
-  const checkZidQuery = "SELECT zid FROM users WHERE zid=$1";
-  try {
-    const zidResult = await db.query(checkZidQuery, [zid]);
-
-    if (zidResult.rows.length === 0) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
     // Insert hours request into the database
     const insertQuery = `
       INSERT INTO hours (id, zid, num_hours, description, timestamp, image_url, status)
       VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
-    const id = shortid.generate();
+    const id = uuidv4();
     console.log(numHours);
     const values = [id, zid, numHours, description, timestamp, imageUrl, Status.PENDING];
 
@@ -53,7 +38,25 @@ const requestHours = async (req, res) => {
 
 // Mentee view hours
 const viewHours = async (req, res) => {
-  
+  const zid = verifyToken(req.headers['authorization']);
+  checkUserExists(zid);
+
+  try {
+    // Fetch hours data for a specific zid
+    const query = `
+      SELECT id, num_hours, description, timestamp, image_url, status
+      FROM hours
+      WHERE zid = $1
+    `;
+
+    const params = [zid];
+    const { rows } = await db.query(query, params);
+    res.status(200).json(rows);
+
+  } catch (error) {
+    console.error('Error retrieving hours:', error);
+    res.status(500).json({ message: "Failed to retrieve hours data" });
+  }
 }
 
 module.exports = {
