@@ -1,3 +1,9 @@
+/* start - move somewhere later on */
+.mainContent {
+  padding: 3rem;
+}
+/* end - move somewhere later on */
+
 .user {
   display: flex;
   flex-direction: column;
@@ -12,6 +18,13 @@
   display: block;
   background-color: var(--darker);
   z-index: 1;
+}
+
+.userHome {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 114.5px);
+  margin-top: 7rem;
 }
 
 .panel {
@@ -239,4 +252,9 @@
   .user {
     color-scheme: light;
   }
+}
+
+/* --- Error Message style --- */
+.error {
+  color: red;
 }

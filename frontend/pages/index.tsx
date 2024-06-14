@@ -63,9 +63,7 @@ export default function Home({ sponsors }: Sponsors) {
               target="_blank"
               href="https://www.facebook.com/events/545237864225826"
             >
-              <button className={styles.button}>
-                Learn More
-              </button>
+              <button className={styles.button}>Learn More</button>
             </a>
           </div>
         </div>
@@ -75,14 +73,12 @@ export default function Home({ sponsors }: Sponsors) {
         </div> */}
         <div className={styles.divider}>
           <h2>Sign up to the reminder list here:</h2>
-            <a
-              target="_blank"
-              href="https://www.facebook.com/events/545237864225826"
-            >
-              <button className={styles.button}>
-                Remind me
-              </button>
-            </a>
+          <a
+            target="_blank"
+            href="https://www.facebook.com/events/545237864225826"
+          >
+            <button className={styles.button}>Remind me</button>
+          </a>
         </div>
         <div id="Timeline" className={styles.section}>
           <h1>TIMELINE</h1>

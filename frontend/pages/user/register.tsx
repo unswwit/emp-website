@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Montserrat } from '@next/font/google';
-import { signIn } from 'next-auth/react';
+// import { signIn } from 'next-auth/react';
 import Script from 'next/script';
 import { doRegister } from '../api/user';
+import { useRouter } from 'next/router';
 
 import styles from '../../styles/User.module.css';
 
@@ -10,8 +11,10 @@ const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY;
 const montserrat = Montserrat({ subsets: ['latin'] });
 const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
 
-export default function register() {
+export default function Register() {
   const [password, setPassword] = React.useState('');
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   return (
     <div className={styles.user}>
@@ -25,24 +28,24 @@ export default function register() {
               <h1>Create an account</h1>
               <div className={styles.auth}>
                 {/* guide: https://mattermost.com/blog/add-google-and-github-login-to-next-js-app-with-nextauth/ */}
-                <button
+                {/* <button
                   className={montserrat.className}
                   onClick={() => signIn('google')}
                 >
                   <img src="/google.svg" alt="google logo" />
                   Sign up with Google
-                </button>
+                </button> */}
               </div>
-              <div className={styles.dividerLabel}>
+              {/* <div className={styles.dividerLabel}>
                 <hr />
                 OR
                 <hr />
-              </div>
+              </div> */}
               <form
                 method="POST"
                 action="/user/register"
                 onSubmit={(e) => {
-                  doRegister(e);
+                  doRegister(e, router, setError);
                 }}
               >
                 <div>
@@ -127,6 +130,7 @@ export default function register() {
                   />
                 </div>
                 <hr />
+                {error && <p className={styles.error}>{error}</p>}
                 <button className={montserrat.className} type="submit">
                   Continue
                 </button>

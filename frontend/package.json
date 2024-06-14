@@ -29,6 +29,7 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "contentful": "^10.2.3",
+    "cookies-next": "^4.2.1",
     "countdown": "^2.6.0",
     "date-fns": "^2.29.3",
     "eslint": "8.57.0",
