@@ -7,9 +7,13 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Backdrop,
+  Box,
   Button,
   Chip,
   Divider,
+  Fade,
+  Modal,
   Paper,
   Stack,
   Table,
@@ -18,6 +22,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
+  Typography,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { checkAuth } from '../../utils/auth';
@@ -136,6 +142,80 @@ const HoursCollapsible = ({
   );
 };
 
+const AddHoursModal = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
+  return (
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={isOpen}
+      onClose={onClose}
+      closeAfterTransition
+      slots={{ backdrop: Backdrop }}
+      slotProps={{
+        backdrop: {
+          timeout: 500,
+        },
+      }}
+    >
+      <Fade in={isOpen}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 2,
+          }}
+        >
+          <Typography variant="h6" component="h2">
+            Add Hours Request
+          </Typography>
+          <Typography sx={{ mt: 2 }}>
+            Please convert your minutes to hours.
+          </Typography>
+          <Typography sx={{ mb: 2, mt: 1 }}>
+            e.g., 45 minutes is 0.75, 30 minutes is 0.5, 15 minutes is 0.25.
+          </Typography>
+          <Stack sx={{ mb: 2 }} spacing={1}>
+            <TextField
+              id="hours-input"
+              label="Hours"
+              variant="outlined"
+              required
+            />
+            <TextField
+              id="description-input"
+              label="Description"
+              variant="outlined"
+              rows={2}
+              multiline
+              required
+            />
+          </Stack>
+          <Stack direction="row" justifyContent="end" spacing={2}>
+            <Button variant="outlined" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button variant="contained" onClick={() => {}}>
+              Send Request
+            </Button>
+          </Stack>
+        </Box>
+      </Fade>
+    </Modal>
+  );
+};
+
 const hoursInitList = [
   {
     id: '1',
@@ -172,6 +252,10 @@ export default function MenteeHome() {
   const [isLoading, setLoading] = React.useState(true);
   // const [hoursList, setHoursList] = useState({} as hoursData);
   const [hoursList, setHoursList] = useState(hoursInitList);
+  const [isAddModalOpen, setAddModalOpen] = useState(false);
+
+  const handleAddModalOpen = () => setAddModalOpen(true);
+  const handleAddModalClose = () => setAddModalOpen(false);
 
   useEffect(() => {
     setLoading(true);
@@ -194,7 +278,9 @@ export default function MenteeHome() {
               spacing={2}
               marginY={2}
             >
-              <Button variant="contained">Add</Button>
+              <Button variant="contained" onClick={handleAddModalOpen}>
+                Add
+              </Button>
             </Stack>
 
             <Stack spacing={2}>
@@ -211,6 +297,7 @@ export default function MenteeHome() {
             </Stack>
           </div>
         </MainContent>
+        <AddHoursModal isOpen={isAddModalOpen} onClose={handleAddModalClose} />
       </main>
     </div>
   );
