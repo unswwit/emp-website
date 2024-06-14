@@ -278,13 +278,16 @@ export default function MenteeHome() {
     handleAddModalClose();
   };
 
-  const handleRefresh = () => {};
+  const handleRefresh = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 1000);
+  };
 
   useEffect(() => {
     setLoading(true);
     checkAuth(router);
     // getMenteeInfo();
-    setInterval(() => setLoading(false), 1000);
+    setTimeout(() => setLoading(false), 1000);
   }, []);
 
   return (
@@ -312,6 +315,7 @@ export default function MenteeHome() {
                 variant="outlined"
                 startIcon={<RefreshOutlined />}
                 onClick={handleRefresh}
+                disabled={isLoading}
               >
                 Refresh
               </Button>
