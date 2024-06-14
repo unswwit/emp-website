@@ -28,10 +28,6 @@ import { ExpandMoreOutlined } from '@mui/icons-material';
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 // TODO: to be updated with actual data
-interface hoursData {
-  data: hoursInfo[];
-}
-
 interface hoursInfo {
   id: string;
   zid: string;
@@ -61,18 +57,14 @@ const mapStatusColor = (status: hoursStatus) => {
   }
 };
 
-const HoursTable = ({ hours, type }: { hours: hoursData; type: string }) => {
+const HoursTable = ({ hours, type }: { hours: hoursInfo[]; type: string }) => {
   const [filteredHours, setFilteredHours] = useState([] as hoursInfo[]);
 
   useEffect(() => {
     if (type === 'logged')
-      setFilteredHours(
-        hours.data?.filter((h) => h.status === hoursStatus.APPROVED)
-      );
+      setFilteredHours(hours?.filter((h) => h.status === hoursStatus.APPROVED));
     else if (type === 'requested')
-      setFilteredHours(
-        hours.data?.filter((h) => h.status !== hoursStatus.APPROVED)
-      );
+      setFilteredHours(hours?.filter((h) => h.status !== hoursStatus.APPROVED));
   }, []);
 
   return (
@@ -115,7 +107,7 @@ const HoursCollapsible = ({
   type,
   defaultExpanded,
 }: {
-  hours: hoursData;
+  hours: hoursInfo[];
   type: string;
   defaultExpanded: boolean;
 }) => {
@@ -133,37 +125,35 @@ const HoursCollapsible = ({
   );
 };
 
-const hoursInitList = {
-  data: [
-    {
-      id: '1',
-      zid: 'z1231234',
-      timestamp: '01/01/2024',
-      num_hours: 10,
-      description: '',
-      status: hoursStatus.PENDING,
-      image_url: '',
-    },
-    {
-      id: '2',
-      zid: 'z1231234',
-      timestamp: '02/01/2024',
-      num_hours: 20,
-      description: '',
-      status: hoursStatus.APPROVED,
-      image_url: '',
-    },
-    {
-      id: '3',
-      zid: 'z1231234',
-      timestamp: '03/01/2024',
-      num_hours: 30,
-      description: '',
-      status: hoursStatus.REJECTED,
-      image_url: '',
-    },
-  ],
-} as hoursData;
+const hoursInitList = [
+  {
+    id: '1',
+    zid: 'z1231234',
+    timestamp: '01/01/2024',
+    num_hours: 10,
+    description: '',
+    status: hoursStatus.PENDING,
+    image_url: '',
+  },
+  {
+    id: '2',
+    zid: 'z1231234',
+    timestamp: '02/01/2024',
+    num_hours: 20,
+    description: '',
+    status: hoursStatus.APPROVED,
+    image_url: '',
+  },
+  {
+    id: '3',
+    zid: 'z1231234',
+    timestamp: '03/01/2024',
+    num_hours: 30,
+    description: '',
+    status: hoursStatus.REJECTED,
+    image_url: '',
+  },
+] as hoursInfo[];
 
 export default function MenteeHome() {
   const router = useRouter();
