@@ -29,7 +29,11 @@ import { useRouter } from 'next/router';
 import { checkAuth } from '../../utils/auth';
 import LoadingOverlay from '../../components/LoadingOverlay';
 // import { getMenteeInfo } from '../api/mentee';
-import { ExpandMoreOutlined } from '@mui/icons-material';
+import {
+  AddCircleRounded,
+  ExpandMoreOutlined,
+  RefreshOutlined,
+} from '@mui/icons-material';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -148,9 +152,11 @@ const HoursCollapsible = ({
 
 const AddHoursModal = ({
   isOpen,
+  onAdd,
   onClose,
 }: {
   isOpen: boolean;
+  onAdd: () => void;
   onClose: () => void;
 }) => {
   return (
@@ -210,7 +216,7 @@ const AddHoursModal = ({
             <Button variant="outlined" onClick={onClose}>
               Cancel
             </Button>
-            <Button variant="contained" onClick={() => {}}>
+            <Button variant="contained" onClick={onAdd}>
               Send Request
             </Button>
           </Stack>
@@ -261,6 +267,13 @@ export default function MenteeHome() {
   const handleAddModalOpen = () => setAddModalOpen(true);
   const handleAddModalClose = () => setAddModalOpen(false);
 
+  const handleAddRequest = () => {
+    handleRefresh();
+    handleAddModalClose();
+  };
+
+  const handleRefresh = () => {};
+
   useEffect(() => {
     setLoading(true);
     checkAuth(router);
@@ -279,11 +292,22 @@ export default function MenteeHome() {
             <Stack
               direction="row"
               divider={<Divider orientation="vertical" flexItem />}
-              spacing={2}
+              spacing={1}
               marginY={2}
             >
-              <Button variant="contained" onClick={handleAddModalOpen}>
+              <Button
+                variant="contained"
+                startIcon={<AddCircleRounded />}
+                onClick={handleAddModalOpen}
+              >
                 Add
+              </Button>
+              <Button
+                variant="outlined"
+                startIcon={<RefreshOutlined />}
+                onClick={handleRefresh}
+              >
+                Refresh
               </Button>
             </Stack>
 
@@ -301,7 +325,11 @@ export default function MenteeHome() {
             </Stack>
           </div>
         </MainContent>
-        <AddHoursModal isOpen={isAddModalOpen} onClose={handleAddModalClose} />
+        <AddHoursModal
+          isOpen={isAddModalOpen}
+          onAdd={handleAddRequest}
+          onClose={handleAddModalClose}
+        />
       </main>
     </div>
   );
