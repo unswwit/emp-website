@@ -91,9 +91,9 @@ const HoursTable = ({
         </TableHead>
 
         <TableBody>
-          {filteredHours?.map((h) => {
+          {filteredHours?.map((h, k) => {
             return (
-              <TableRow>
+              <TableRow key={k}>
                 <TableCell>{h.timestamp}</TableCell>
                 <TableCell>{h.num_hours}</TableCell>
                 <TableCell>{h.description}</TableCell>
