@@ -22,7 +22,6 @@ const registerUser = async (req, res) => {
   const currentYear = new Date().getFullYear();
   const mentor = null;
   const params = [email, zid, firstName, lastName, hashedPassword, defaultRole, currentYear, mentor]
-  const q = "INSERT INTO users (zid, firstname, lastname, email, password, role, year, mentor) VALUES ($2, $3, $4, $1, $5, $6, $7, $8)";
   db.query(q, params, (err, results) => {
     if (err) {
       console.error(err.stack);

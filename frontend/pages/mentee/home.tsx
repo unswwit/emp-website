@@ -35,43 +35,10 @@ import {
   ExpandMoreOutlined,
   RefreshOutlined,
 } from '@mui/icons-material';
+import { hoursInfo, hoursStatus, hoursType } from '../../types/hours';
+import { userRoles } from '../../types/user';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
-
-// TODO: to be updated with actual data
-interface hoursInfo {
-  id: string;
-  zid: string;
-  timestamp: string;
-  num_hours: number;
-  description: string;
-  status: hoursStatus;
-  image_url: string;
-}
-
-enum hoursStatus {
-  PENDING = 'pending',
-  APPROVED = 'approved',
-  REJECTED = 'rejected',
-}
-
-enum hoursType {
-  LOGGED = 'logged',
-  REQUESTED = 'requested',
-}
-
-const mapStatusColor = (status: hoursStatus) => {
-  switch (status) {
-    case hoursStatus.APPROVED:
-      return 'success';
-    case hoursStatus.PENDING:
-      return 'primary';
-    case hoursStatus.REJECTED:
-      return 'error';
-    default:
-      return 'primary';
-  }
-};
 
 const HoursTable = ({
   hours,
@@ -227,6 +194,7 @@ const AddHoursModal = ({
   );
 };
 
+// TODO: to be updated with actual data
 const hoursInitList = [
   {
     id: '1',
@@ -257,11 +225,24 @@ const hoursInitList = [
   },
 ] as hoursInfo[];
 
+const mapStatusColor = (status: hoursStatus) => {
+  switch (status) {
+    case hoursStatus.APPROVED:
+      return 'success';
+    case hoursStatus.PENDING:
+      return 'primary';
+    case hoursStatus.REJECTED:
+      return 'error';
+    default:
+      return 'primary';
+  }
+};
+
 export default function MenteeHome() {
   const router = useRouter();
 
   const [isLoading, setLoading] = React.useState(true);
-  // const [hoursList, setHoursList] = useState({} as hoursData);
+  // const [hoursList, setHoursList] = useState({} as hoursInfo[]);
   const [hoursList, setHoursList] = useState(hoursInitList);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [isAddNotifyOpen, setAddNotifyOpen] = useState(false);
@@ -285,7 +266,7 @@ export default function MenteeHome() {
 
   useEffect(() => {
     setLoading(true);
-    checkAuth(router);
+    checkAuth(router, userRoles.MENTEE);
     // getMenteeInfo();
     setTimeout(() => setLoading(false), 1000);
   }, []);
