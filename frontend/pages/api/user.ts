@@ -5,10 +5,10 @@ const port = process.env.port || 4000;
 
 export async function doRegister(
   event: React.FormEvent<HTMLFormElement>,
-  router: NextRouter | string[],
+  router: NextRouter,
   setError: React.Dispatch<React.SetStateAction<string | null>>
 ) {
-  event.preventDefault(); // FOR DEBUGGING
+  event.preventDefault();
   const e = event.currentTarget;
 
   const res = await fetch(`http://localhost:${port}/user/register`, {
@@ -24,21 +24,16 @@ export async function doRegister(
   });
   const data = await res.json();
 
-  if (res.ok) {
-    console.log('Successful registration');
-    router.push('/user/login');
-  } else {
-    console.error(data.message);
-    setError(data.message);
-  }
+  if (res.ok) router.push('/user/login');
+  else setError(data.message);
 }
 
 export async function doLogin(
   event: React.FormEvent<HTMLFormElement>,
-  router: NextRouter | string[],
+  router: NextRouter,
   setError: React.Dispatch<React.SetStateAction<string | null>>
 ) {
-  event.preventDefault(); // FOR DEBUGGING
+  event.preventDefault();
   const e = event.currentTarget;
   const userId = e.userId.value;
 
@@ -53,15 +48,10 @@ export async function doLogin(
   const data = await res.json();
 
   if (res.ok) {
-    console.log('Successful login');
     storeAuthToken(data.token);
-    if (data.role === 'mentee') {
-      router.push('/mentee/home');
-    } else if (data.role === 'admin') {
-      router.push('/admin/home');
-    }
+    // if (data.role === 'mentee') router.push('/mentee/home');
+    // else if (data.role === 'admin') router.push('/admin/home');
   } else {
-    console.error('Login failed');
     setError(data.message);
   }
 }
