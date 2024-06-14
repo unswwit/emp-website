@@ -31,7 +31,7 @@ const dummyUser2 = {
   year: [],
 };
 
-export default function UserHome() {
+export default function MenteeHome() {
   const router = useRouter();
 
   const [isLoading, setLoading] = React.useState(true);

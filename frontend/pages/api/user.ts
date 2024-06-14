@@ -55,7 +55,11 @@ export async function doLogin(
   if (res.ok) {
     console.log('Successful login');
     storeAuthToken(data.token);
-    router.push('/user/home');
+    if (data.role === 'mentee') {
+      router.push('/mentee/home');
+    } else if (data.role === 'admin') {
+      router.push('/admin/home');
+    }
   } else {
     console.error('Login failed');
     setError(data.message);
