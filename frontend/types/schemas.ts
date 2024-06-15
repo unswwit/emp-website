@@ -10,4 +10,5 @@ export const addHoursSchema = z.object({
     .string()
     .min(2, { message: 'Description must contain at least 2 characters' })
     .max(2000, { message: 'Description must be less than 2000 characters' }),
+  imageUrl: z.string().url({ message: 'Invalid URL' }),
 });

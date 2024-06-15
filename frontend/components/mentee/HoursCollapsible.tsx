@@ -1,5 +1,5 @@
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import { hoursInfo, hoursStatus } from '../../types/hours';
+import { hoursImage, hoursInfo, hoursStatus } from '../../types/hours';
 import { HoursTable } from './HoursTable';
 import { useEffect, useState } from 'react';
 import { ExpandMoreOutlined } from '@mui/icons-material';
@@ -10,12 +10,14 @@ export const HoursCollapsible = ({
   statuses,
   actions = false,
   defaultExpanded,
+  onImage,
 }: {
   title: string;
   hours: hoursInfo[];
   statuses: hoursStatus[];
   actions?: boolean;
   defaultExpanded: boolean;
+  onImage: (image: hoursImage) => void;
 }) => {
   const [filteredHours, setFilteredHours] = useState([] as hoursInfo[]);
 
@@ -34,7 +36,11 @@ export const HoursCollapsible = ({
           <h3>{`${title} ${isEmpty ? '' : `(${filteredHours.length})`}`}</h3>
         </AccordionSummary>
         <AccordionDetails>
-          {!isEmpty ? <HoursTable hours={filteredHours} actions={actions} /> : 'Nothing to see here.'}
+          {!isEmpty ? (
+            <HoursTable hours={filteredHours} actions={actions} onImage={onImage} />
+          ) : (
+            'Nothing to see here.'
+          )}
         </AccordionDetails>
       </Accordion>
     </div>

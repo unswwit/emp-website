@@ -25,3 +25,8 @@ export enum hoursStatus {
   APPROVED = 'approved',
   REJECTED = 'rejected',
 }
+
+export interface hoursImage {
+  imageSrc: string;
+  imageAlt: string;
+}

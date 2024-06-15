@@ -11,8 +11,9 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
-import { hoursInfo, hoursStatus } from '../../types/hours';
+import { hoursImage, hoursInfo, hoursStatus } from '../../types/hours';
 import { ChangeEvent, useMemo, useState } from 'react';
+import { UnstyledButton } from '@mantine/core';
 
 const mapStatusColor = (status: hoursStatus) => {
   switch (status) {
@@ -27,7 +28,15 @@ const mapStatusColor = (status: hoursStatus) => {
   }
 };
 
-export const HoursTable = ({ hours, actions }: { hours: hoursInfo[]; actions: boolean }) => {
+export const HoursTable = ({
+  hours,
+  actions,
+  onImage,
+}: {
+  hours: hoursInfo[];
+  actions: boolean;
+  onImage: (image: hoursImage) => void;
+}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -66,6 +75,9 @@ export const HoursTable = ({ hours, actions }: { hours: hoursInfo[]; actions: bo
               <TableCell>
                 <b>Description</b>
               </TableCell>
+              <TableCell>
+                <b>Proof</b>
+              </TableCell>
               <TableCell align={actions ? 'left' : 'right'}>
                 <b>Status</b>
               </TableCell>
@@ -80,8 +92,29 @@ export const HoursTable = ({ hours, actions }: { hours: hoursInfo[]; actions: bo
                   <TableCell>{h.timestamp}</TableCell>
                   <TableCell>{h.num_hours}</TableCell>
                   <TableCell>{h.description}</TableCell>
+                  <TableCell>
+                    <UnstyledButton
+                      onClick={() =>
+                        onImage({
+                          imageSrc: h.image_url,
+                          imageAlt: `Proof picture for ${h.description}`,
+                        })
+                      }
+                    >
+                      <img
+                        src={h.image_url}
+                        alt={`Proof picture for ${h.description}`}
+                        height={50}
+                        width={50}
+                      />
+                    </UnstyledButton>
+                  </TableCell>
                   <TableCell align={actions ? 'left' : 'right'}>
-                    <Chip sx={{ textTransform: 'uppercase' }} label={h.status} color={mapStatusColor(h.status)} />
+                    <Chip
+                      sx={{ textTransform: 'uppercase' }}
+                      label={h.status}
+                      color={mapStatusColor(h.status)}
+                    />
                   </TableCell>
                   {actions && (
                     <TableCell align="right">

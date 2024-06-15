@@ -8,12 +8,13 @@ import MainContent from '../../components/MainContent';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import { useRouter } from 'next/router';
 import { checkAuth } from '../../utils/auth';
-import { hoursInfo, hoursRequest, hoursStatus } from '../../types/hours';
+import { hoursImage, hoursInfo, hoursRequest, hoursStatus } from '../../types/hours';
 import { userRoles } from '../../types/user';
 import { getMenteeHours, sendMenteeHours } from '../api/mentee';
 import { HoursCollapsible } from '../../components/mentee/HoursCollapsible';
 import { AddHoursModal } from '../../components/mentee/AddHoursModal';
 import MenteeNavbar from '../../components/MenteeNavbar';
+import { ViewImageModal } from '../../components/mentee/ViewImageModal';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -21,13 +22,22 @@ export default function MenteeHome() {
   const router = useRouter();
 
   const [isLoading, setLoading] = useState(true);
-  const [hoursList, setHoursList] = useState({} as hoursInfo[]);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [isAddNotifyOpen, setAddNotifyOpen] = useState(false);
+  const [isImageModalOpen, setImageModalOpen] = useState(false);
+
+  const [hoursList, setHoursList] = useState({} as hoursInfo[]);
+  const [selectedImage, setSelectedImage] = useState({ imageSrc: '', imageAlt: '' } as hoursImage);
   const [toastMessage, setToastMessage] = useState('');
 
   const handleAddModalOpen = () => setAddModalOpen(true);
   const handleAddModalClose = () => setAddModalOpen(false);
+
+  const handleImageModalOpen = ({ imageSrc, imageAlt }: hoursImage) => {
+    setSelectedImage({ imageSrc, imageAlt });
+    setImageModalOpen(true);
+  };
+  const handleImageModalClose = () => setImageModalOpen(false);
 
   const handleAddNotifyOpen = () => setAddNotifyOpen(true);
   const handleAddNotifyClose = () => setAddNotifyOpen(false);
@@ -94,12 +104,14 @@ export default function MenteeHome() {
                 hours={hoursList}
                 statuses={[hoursStatus.APPROVED]}
                 defaultExpanded={true}
+                onImage={handleImageModalOpen}
               />
               <HoursCollapsible
                 title="Requested"
                 hours={hoursList}
                 statuses={[hoursStatus.PENDING, hoursStatus.REJECTED]}
                 defaultExpanded={false}
+                onImage={handleImageModalOpen}
               />
             </Stack>
           </div>
@@ -111,8 +123,13 @@ export default function MenteeHome() {
           onAdd={handleAddRequest}
           onClose={handleAddModalClose}
         />
+        <ViewImageModal
+          isOpen={isImageModalOpen}
+          onClose={handleImageModalClose}
+          image={selectedImage}
+        />
 
-        {/* Toast */}
+        {/* Toasts */}
         <Snackbar
           open={isAddNotifyOpen}
           autoHideDuration={1500}

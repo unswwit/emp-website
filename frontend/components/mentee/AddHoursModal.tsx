@@ -21,6 +21,7 @@ export const AddHoursModal = ({
     form.setValues({
       hours: 0,
       description: '',
+      imageUrl: '',
     });
 
     form.clearErrors();
@@ -92,7 +93,7 @@ export const AddHoursModal = ({
                 numHours: form.values?.hours,
                 description: form.values?.description,
                 timestamp: currentDateTime,
-                imageUrl: '',
+                imageUrl: form.values?.imageUrl,
               });
             }}
           >
@@ -121,6 +122,24 @@ export const AddHoursModal = ({
                 onBlur={() => form.validateField('description')}
                 error={form.errors?.description ? true : false}
                 helperText={form.errors?.description}
+              />
+              <TextField
+                id="image-url-input"
+                label="Image URL (for proof)"
+                variant="outlined"
+                required
+                onChange={(e) => form?.setFieldValue('imageUrl', e.target.value)}
+                onBlur={() => form.validateField('imageUrl')}
+                error={form.errors?.imageUrl ? true : false}
+                helperText={form.errors?.imageUrl}
+              />
+              <img
+                src={
+                  form.values?.imageUrl
+                    ? form.values?.imageUrl
+                    : 'https://placehold.co/600x400?text=Image+Preview'
+                }
+                style={{ width: '100%', height: 250 }}
               />
             </Stack>
             <Stack direction="row" justifyContent="end" spacing={2}>
