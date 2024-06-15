@@ -26,6 +26,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useForm, zodResolver } from '@mantine/form';
 import { useRouter } from 'next/router';
 import { checkAuth } from '../../utils/auth';
 import LoadingOverlay from '../../components/LoadingOverlay';
@@ -35,9 +36,15 @@ import {
   ExpandMoreOutlined,
   RefreshOutlined,
 } from '@mui/icons-material';
-import { hoursInfo, hoursStatus, hoursType } from '../../types/hours';
+import {
+  hoursInfo,
+  hoursRequest,
+  hoursStatus,
+  hoursType,
+} from '../../types/hours';
 import { userRoles } from '../../types/user';
-import { getMenteeHours } from '../api/mentee';
+import { getMenteeHours, sendMenteeHours } from '../api/mentee';
+import { addHoursSchema } from '../../types/schemas';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -89,11 +96,17 @@ const HoursCollapsible = ({
   const [filteredHours, setFilteredHours] = useState([] as hoursInfo[]);
 
   useEffect(() => {
-    if (type === hoursType.LOGGED)
-      setFilteredHours(hours?.filter((h) => h.status === hoursStatus.APPROVED));
-    else if (type === hoursType.REQUESTED)
-      setFilteredHours(hours?.filter((h) => h.status !== hoursStatus.APPROVED));
-  }, []);
+    if (hours?.length > 0) {
+      if (type === hoursType.LOGGED)
+        setFilteredHours(
+          hours?.filter((h) => h.status === hoursStatus.APPROVED)
+        );
+      else if (type === hoursType.REQUESTED)
+        setFilteredHours(
+          hours?.filter((h) => h.status !== hoursStatus.APPROVED)
+        );
+    }
+  }, [hours]);
 
   return (
     <div>
@@ -102,7 +115,7 @@ const HoursCollapsible = ({
           <h3>{type === hoursType.LOGGED ? 'Logged Hours' : 'Requested'}</h3>
         </AccordionSummary>
         <AccordionDetails>
-          {filteredHours.length > 0 ? (
+          {filteredHours?.length > 0 ? (
             <HoursTable hours={filteredHours} />
           ) : (
             'Nothing to see here.'
@@ -119,9 +132,26 @@ const AddHoursModal = ({
   onClose,
 }: {
   isOpen: boolean;
-  onAdd: () => void;
+  onAdd: (menteeHours: hoursRequest) => void;
   onClose: () => void;
 }) => {
+  const form = useForm({
+    validate: zodResolver(addHoursSchema),
+  });
+
+  const initForm = () => {
+    form.setValues({
+      hours: '',
+      description: '',
+    });
+
+    form.clearErrors();
+  };
+
+  useEffect(() => {
+    initForm();
+  }, []);
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -162,7 +192,16 @@ const AddHoursModal = ({
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              onAdd();
+              if (form.validate().hasErrors) return;
+
+              const currentDate = new Date().toLocaleDateString();
+
+              onAdd({
+                numHours: form.values?.hours,
+                description: form.values?.description,
+                timestamp: currentDate,
+                imageUrl: '',
+              });
             }}
           >
             <Stack sx={{ mb: 2 }} spacing={1}>
@@ -170,7 +209,16 @@ const AddHoursModal = ({
                 id="hours-input"
                 label="Hours"
                 variant="outlined"
+                type="number"
+                inputProps={{
+                  step: '0.01',
+                }}
                 required
+                autoFocus
+                onChange={(e) => form?.setFieldValue('hours', +e.target.value)}
+                onBlur={() => form.validateField('hours')}
+                error={form.errors?.hours ? true : false}
+                helperText={form.errors?.hours}
               />
               <TextField
                 id="description-input"
@@ -179,6 +227,12 @@ const AddHoursModal = ({
                 rows={2}
                 multiline
                 required
+                onChange={(e) =>
+                  form?.setFieldValue('description', e.target.value)
+                }
+                onBlur={() => form.validateField('description')}
+                error={form.errors?.description ? true : false}
+                helperText={form.errors?.description}
               />
             </Stack>
             <Stack direction="row" justifyContent="end" spacing={2}>
@@ -212,10 +266,11 @@ const mapStatusColor = (status: hoursStatus) => {
 export default function MenteeHome() {
   const router = useRouter();
 
-  const [isLoading, setLoading] = React.useState(true);
+  const [isLoading, setLoading] = useState(true);
   const [hoursList, setHoursList] = useState({} as hoursInfo[]);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [isAddNotifyOpen, setAddNotifyOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const handleAddModalOpen = () => setAddModalOpen(true);
   const handleAddModalClose = () => setAddModalOpen(false);
@@ -223,20 +278,22 @@ export default function MenteeHome() {
   const handleAddNotifyOpen = () => setAddNotifyOpen(true);
   const handleAddNotifyClose = () => setAddNotifyOpen(false);
 
-  const handleAddRequest = () => {
-    handleAddNotifyOpen();
-    handleRefresh();
-    handleAddModalClose();
+  const handleAddRequest = (menteeHours: hoursRequest) => {
+    sendMenteeHours(menteeHours).then((message: string) => {
+      setToastMessage(message);
+      handleAddNotifyOpen();
+      handleRefresh();
+      handleAddModalClose();
+    });
   };
 
   const handleRefresh = () => {
     setLoading(true);
-    setTimeout(() => {
-      getMenteeHours().then((res: hoursInfo[]) => {
-        setHoursList(res);
-        setLoading(false);
-      });
-    }, 250);
+    getMenteeHours().then((res: hoursInfo[]) => {
+      console.log(res);
+      setHoursList(res);
+      setTimeout(() => setLoading(false), 250);
+    });
   };
 
   useEffect(() => {
@@ -244,8 +301,9 @@ export default function MenteeHome() {
     checkAuth(router, userRoles.MENTEE);
     getMenteeHours().then((res: hoursInfo[]) => {
       setHoursList(res);
+      setLoading(false);
+      setTimeout(() => setLoading(false), 1000);
     });
-    setTimeout(() => setLoading(false), 1000);
   }, []);
 
   return (
@@ -306,7 +364,7 @@ export default function MenteeHome() {
           open={isAddNotifyOpen}
           autoHideDuration={1500}
           onClose={handleAddNotifyClose}
-          message="Hours request sent!"
+          message={toastMessage}
         />
       </main>
     </div>
