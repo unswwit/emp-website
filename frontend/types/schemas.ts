@@ -8,5 +8,6 @@ export const addHoursSchema = z.object({
     .multipleOf(0.01, { message: 'Hours must only contain 2 decimal places' }),
   description: z
     .string()
+    .min(2, { message: 'Description must contain at least 2 characters' })
     .max(2000, { message: 'Description must be less than 2000 characters' }),
 });
