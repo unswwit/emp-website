@@ -18,6 +18,7 @@ export async function getMenteeHours() {
     return data;
   } else {
     console.error(data.message);
+    throw new Error(data.message);
   }
 }
 
@@ -37,5 +38,6 @@ export async function sendMenteeHours(req: hoursRequest) {
     return data.message;
   } else {
     console.error(data.message);
+    throw new Error(data.message);
   }
 }

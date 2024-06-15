@@ -51,11 +51,10 @@ export default function MenteeHome() {
 
   useEffect(() => {
     setLoading(true);
-    checkAuth(router, userRoles.MENTEE);
-    getMenteeHours().then((res: hoursInfo[]) => {
-      setHoursList(res);
-      setTimeout(() => setLoading(false), 1000);
-    });
+    getMenteeHours()
+      .catch(() => checkAuth(router, userRoles.MENTEE))
+      .then((res: hoursInfo[]) => setHoursList(res))
+      .finally(() => setTimeout(() => setLoading(false), 1000));
   }, []);
 
   return (
