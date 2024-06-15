@@ -11,7 +11,7 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
-import { hoursImage, hoursInfo, hoursStatus } from '../../types/hours';
+import { hoursAdminActions, hoursImage, hoursInfo, hoursStatus } from '../../types/hours';
 import { ChangeEvent, useMemo, useState } from 'react';
 import { UnstyledButton } from '@mantine/core';
 
@@ -34,7 +34,7 @@ export const HoursTable = ({
   onImage,
 }: {
   hours: hoursInfo[];
-  actions: boolean;
+  actions?: hoursAdminActions;
   onImage: (image: hoursImage) => void;
 }) => {
   const [page, setPage] = useState(0);
@@ -119,10 +119,18 @@ export const HoursTable = ({
                   {actions && (
                     <TableCell align="right">
                       <ButtonGroup>
-                        <Button variant="contained" color="success">
+                        <Button
+                          variant="contained"
+                          color="success"
+                          onClick={() => actions.approveAction(h.id)}
+                        >
                           Approve
                         </Button>
-                        <Button variant="outlined" color="error">
+                        <Button
+                          variant="outlined"
+                          color="error"
+                          onClick={() => actions.rejectAction(h.id)}
+                        >
                           Reject
                         </Button>
                       </ButtonGroup>

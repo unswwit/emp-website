@@ -1,3 +1,4 @@
+// API response interfaces
 export interface hoursInfo {
   id: string;
   num_hours: number;
@@ -7,6 +8,7 @@ export interface hoursInfo {
   status: hoursStatus;
 }
 
+// API request interfaces
 export interface hoursRequest {
   numHours: number;
   description: string;
@@ -15,11 +17,11 @@ export interface hoursRequest {
 }
 
 export interface hoursApproveRequest {
-  menteeId: string;
   hourId: string;
   status: string;
 }
 
+// Frequently used hours related interfaces
 export enum hoursStatus {
   PENDING = 'pending',
   APPROVED = 'approved',
@@ -29,4 +31,9 @@ export enum hoursStatus {
 export interface hoursImage {
   imageSrc: string;
   imageAlt: string;
+}
+
+export interface hoursAdminActions {
+  approveAction: (hourId: string) => void;
+  rejectAction: (hourId: string) => void;
 }

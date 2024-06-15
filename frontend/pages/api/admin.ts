@@ -23,8 +23,8 @@ export async function getAllMenteeHours() {
 }
 
 export async function approveMenteeHours(req: hoursApproveRequest) {
-  const res = await fetch(`http://localhost:${port}/admin/accept-hours`, {
-    method: 'POST',
+  const res = await fetch(`http://localhost:${port}/admin/approve-hours`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${await getAuthToken()}`,

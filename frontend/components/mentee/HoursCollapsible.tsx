@@ -1,5 +1,5 @@
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import { hoursImage, hoursInfo, hoursStatus } from '../../types/hours';
+import { hoursAdminActions, hoursImage, hoursInfo, hoursStatus } from '../../types/hours';
 import { HoursTable } from './HoursTable';
 import { useEffect, useState } from 'react';
 import { ExpandMoreOutlined } from '@mui/icons-material';
@@ -8,14 +8,14 @@ export const HoursCollapsible = ({
   title,
   hours,
   statuses,
-  actions = false,
+  actions,
   defaultExpanded,
   onImage,
 }: {
   title: string;
   hours: hoursInfo[];
   statuses: hoursStatus[];
-  actions?: boolean;
+  actions?: hoursAdminActions;
   defaultExpanded: boolean;
   onImage: (image: hoursImage) => void;
 }) => {
