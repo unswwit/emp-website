@@ -49,7 +49,7 @@ export const HoursTable = ({ hours }: { hours: hoursInfo[] }) => {
   return (
     <div>
       <TableContainer component={Paper}>
-        <Table stickyHeader>
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell width={50}>Timestamp</TableCell>
@@ -62,7 +62,7 @@ export const HoursTable = ({ hours }: { hours: hoursInfo[] }) => {
           <TableBody>
             {visibleRows?.map((h, k) => {
               return (
-                <TableRow key={k}>
+                <TableRow key={k} hover>
                   <TableCell>{h.timestamp}</TableCell>
                   <TableCell>{h.num_hours}</TableCell>
                   <TableCell>{h.description}</TableCell>
