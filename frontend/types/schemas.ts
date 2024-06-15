@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const addHoursSchema = z.object({
   hours: z
     .number()
-    .min(0, { message: 'Hours must be more than 0' })
+    .gt(0, { message: 'Hours must be more than 0' })
     .lte(100, { message: 'Hours must be less than 100' })
     .multipleOf(0.01, { message: 'Hours must only contain 2 decimal places' }),
   description: z
