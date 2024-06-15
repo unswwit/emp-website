@@ -1,12 +1,13 @@
 import { NextRouter } from 'next/router';
-import { storeAuthToken } from './session';
+import { getAuthToken, storeAuthToken } from './session';
+import { Dispatch, FormEvent } from 'react';
 
 const port = process.env.port || 4000;
 
 export async function doRegister(
-  event: React.FormEvent<HTMLFormElement>,
+  event: FormEvent<HTMLFormElement>,
   router: NextRouter,
-  setError: React.Dispatch<React.SetStateAction<string | null>>
+  setError: Dispatch<React.SetStateAction<string | null>>
 ) {
   event.preventDefault();
   const e = event.currentTarget;
@@ -29,9 +30,9 @@ export async function doRegister(
 }
 
 export async function doLogin(
-  event: React.FormEvent<HTMLFormElement>,
+  event: FormEvent<HTMLFormElement>,
   router: NextRouter,
-  setError: React.Dispatch<React.SetStateAction<string | null>>
+  setError: Dispatch<React.SetStateAction<string | null>>
 ) {
   event.preventDefault();
   const e = event.currentTarget;
@@ -53,5 +54,24 @@ export async function doLogin(
     else if (data.role === 'admin') router.push('/admin/home');
   } else {
     setError(data.message);
+  }
+}
+
+export async function getUserProfile() {
+  const res = await fetch(`http://localhost:${port}/user/profile`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${await getAuthToken()}`,
+    },
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    return data;
+  } else {
+    console.error(data.message);
+    throw new Error(data.message);
   }
 }
