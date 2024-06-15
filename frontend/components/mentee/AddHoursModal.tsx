@@ -28,7 +28,7 @@ export const AddHoursModal = ({
 
   const initForm = () => {
     form.setValues({
-      hours: '',
+      hours: undefined,
       description: '',
     });
 
@@ -37,7 +37,7 @@ export const AddHoursModal = ({
 
   useEffect(() => {
     initForm();
-  }, []);
+  }, [isOpen]);
 
   return (
     <Modal
