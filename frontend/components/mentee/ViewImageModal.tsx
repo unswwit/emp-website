@@ -45,7 +45,11 @@ export const ViewImageModal = ({
               sx={{ height: '90%', width: '100%', display: 'flex', justifyContent: 'center' }}
               onClick={onClose}
             >
-              <img src={image.imageSrc} alt={image.imageAlt} style={{ height: '100%' }} />
+              <img
+                src={image.imageSrc}
+                alt={image.imageAlt}
+                style={{ height: '100%', maxWidth: '100%' }}
+              />
             </UnstyledButton>
             <Button variant="outlined" sx={{ height: '10%' }} onClick={onClose}>
               Close
