@@ -39,6 +39,22 @@ export const AddHoursModal = ({
     initForm();
   }, [isOpen]);
 
+  function getCurrentDateTime() {
+    const now = new Date();
+    const date = now.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+    const time = now.toLocaleTimeString('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    });
+    return `${date} ${time}`;
+  }
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -81,12 +97,12 @@ export const AddHoursModal = ({
               e.preventDefault();
               if (form.validate().hasErrors) return;
 
-              const currentDate = new Date().toLocaleDateString();
+              const currentDateTime = getCurrentDateTime();
 
               onAdd({
                 numHours: form.values?.hours,
                 description: form.values?.description,
-                timestamp: currentDate,
+                timestamp: currentDateTime,
                 imageUrl: '',
               });
             }}

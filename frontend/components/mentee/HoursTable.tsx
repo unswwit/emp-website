@@ -50,7 +50,7 @@ export const HoursTable = ({
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - hours?.length) : 0;
 
   const visibleRows = useMemo(
-    () => hours?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    () => hours?.slice().reverse().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [page, rowsPerPage]
   );
 
@@ -60,10 +60,10 @@ export const HoursTable = ({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell width={50}>Timestamp</TableCell>
-              <TableCell width={150}>Hours</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell align={actions ? 'left' : 'right'}>Status</TableCell>
+              <TableCell width={165}><b>Timestamp</b></TableCell>
+              <TableCell width={100}><b>Hours</b></TableCell>
+              <TableCell><b>Description</b></TableCell>
+              <TableCell align={actions ? 'left' : 'right'}><b>Status</b></TableCell>
               {actions && <TableCell align="right">Actions</TableCell>}
             </TableRow>
           </TableHead>
