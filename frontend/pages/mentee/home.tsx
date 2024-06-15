@@ -44,7 +44,6 @@ export default function MenteeHome() {
   const handleRefresh = () => {
     setLoading(true);
     getMenteeHours().then((res: hoursInfo[]) => {
-      console.log(res);
       setHoursList(res);
       setTimeout(() => setLoading(false), 250);
     });

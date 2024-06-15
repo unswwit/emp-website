@@ -97,9 +97,7 @@ export const AddHoursModal = ({
                 label="Hours"
                 variant="outlined"
                 type="number"
-                inputProps={{
-                  step: '0.01',
-                }}
+                inputProps={{ step: '0.01' }}
                 required
                 autoFocus
                 onChange={(e) => form?.setFieldValue('hours', +e.target.value)}
