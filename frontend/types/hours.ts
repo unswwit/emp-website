@@ -7,6 +7,13 @@ export interface hoursInfo {
   status: hoursStatus;
 }
 
+export interface hoursRequest {
+  numHours: number;
+  description: string;
+  timestamp: string;
+  imageUrl: string;
+}
+
 export enum hoursStatus {
   PENDING = 'pending',
   APPROVED = 'approved',

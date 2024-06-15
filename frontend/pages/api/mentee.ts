@@ -1,3 +1,4 @@
+import { hoursRequest } from '../../types/hours';
 import { getAuthToken } from './session';
 
 const port = process.env.port || 4000;
@@ -15,6 +16,25 @@ export async function getMenteeHours() {
 
   if (res.ok) {
     return data;
+  } else {
+    console.log(data.message);
+  }
+}
+
+export async function sendMenteeHours(req: hoursRequest) {
+  const res = await fetch(`http://localhost:${port}/mentee/request-hours`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${await getAuthToken()}`,
+    },
+    body: JSON.stringify(req),
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    console.log(data.message);
   } else {
     console.log(data.message);
   }

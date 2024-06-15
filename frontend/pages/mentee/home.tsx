@@ -159,30 +159,37 @@ const AddHoursModal = ({
           <Typography sx={{ mb: 2, mt: 1 }}>
             e.g., 45 minutes is 0.75, 30 minutes is 0.5, 15 minutes is 0.25.
           </Typography>
-          <Stack sx={{ mb: 2 }} spacing={1}>
-            <TextField
-              id="hours-input"
-              label="Hours"
-              variant="outlined"
-              required
-            />
-            <TextField
-              id="description-input"
-              label="Description"
-              variant="outlined"
-              rows={2}
-              multiline
-              required
-            />
-          </Stack>
-          <Stack direction="row" justifyContent="end" spacing={2}>
-            <Button variant="outlined" onClick={onClose}>
-              Cancel
-            </Button>
-            <Button variant="contained" onClick={onAdd}>
-              Send Request
-            </Button>
-          </Stack>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              onAdd();
+            }}
+          >
+            <Stack sx={{ mb: 2 }} spacing={1}>
+              <TextField
+                id="hours-input"
+                label="Hours"
+                variant="outlined"
+                required
+              />
+              <TextField
+                id="description-input"
+                label="Description"
+                variant="outlined"
+                rows={2}
+                multiline
+                required
+              />
+            </Stack>
+            <Stack direction="row" justifyContent="end" spacing={2}>
+              <Button variant="outlined" onClick={onClose}>
+                Cancel
+              </Button>
+              <Button variant="contained" type="submit">
+                Send Request
+              </Button>
+            </Stack>
+          </form>
         </Box>
       </Fade>
     </Modal>
