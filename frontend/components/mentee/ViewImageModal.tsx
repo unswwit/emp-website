@@ -41,14 +41,14 @@ export const ViewImageModal = ({
           }}
         >
           <Stack spacing={2} sx={{ height: '100%', justifyContent: 'space-between' }}>
-            <UnstyledButton sx={{ height: '100%', width: '100%' }} onClick={onClose}>
+            <UnstyledButton sx={{ height: '90%', width: '100%' }} onClick={onClose}>
               <img
                 src={image.imageSrc}
                 alt={image.imageAlt}
                 style={{ height: '100%', width: '100%' }}
               />
             </UnstyledButton>
-            <Button variant="outlined" size="large" onClick={onClose}>
+            <Button variant="outlined" sx={{ height: '10%' }} onClick={onClose}>
               Close
             </Button>
           </Stack>
