@@ -49,8 +49,8 @@ export async function doLogin(
 
   if (res.ok) {
     storeAuthToken(data.token);
-    // if (data.role === 'mentee') router.push('/mentee/home');
-    // else if (data.role === 'admin') router.push('/admin/home');
+    if (data.role === 'mentee') router.push('/mentee/home');
+    else if (data.role === 'admin') router.push('/admin/home');
   } else {
     setError(data.message);
   }

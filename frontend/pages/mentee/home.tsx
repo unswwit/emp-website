@@ -37,25 +37,11 @@ import {
 } from '@mui/icons-material';
 import { hoursInfo, hoursStatus, hoursType } from '../../types/hours';
 import { userRoles } from '../../types/user';
+import { getMenteeHours } from '../api/mentee';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-const HoursTable = ({
-  hours,
-  type,
-}: {
-  hours: hoursInfo[];
-  type: hoursType;
-}) => {
-  const [filteredHours, setFilteredHours] = useState([] as hoursInfo[]);
-
-  useEffect(() => {
-    if (type === hoursType.LOGGED)
-      setFilteredHours(hours?.filter((h) => h.status === hoursStatus.APPROVED));
-    else if (type === hoursType.REQUESTED)
-      setFilteredHours(hours?.filter((h) => h.status !== hoursStatus.APPROVED));
-  }, []);
-
+const HoursTable = ({ hours }: { hours: hoursInfo[] }) => {
   return (
     <TableContainer component={Paper}>
       <Table stickyHeader>
@@ -69,7 +55,7 @@ const HoursTable = ({
         </TableHead>
 
         <TableBody>
-          {filteredHours?.map((h, k) => {
+          {hours?.map((h, k) => {
             return (
               <TableRow key={k}>
                 <TableCell>{h.timestamp}</TableCell>
@@ -100,6 +86,15 @@ const HoursCollapsible = ({
   type: hoursType;
   defaultExpanded: boolean;
 }) => {
+  const [filteredHours, setFilteredHours] = useState([] as hoursInfo[]);
+
+  useEffect(() => {
+    if (type === hoursType.LOGGED)
+      setFilteredHours(hours?.filter((h) => h.status === hoursStatus.APPROVED));
+    else if (type === hoursType.REQUESTED)
+      setFilteredHours(hours?.filter((h) => h.status !== hoursStatus.APPROVED));
+  }, []);
+
   return (
     <div>
       <Accordion defaultExpanded={defaultExpanded}>
@@ -107,8 +102,8 @@ const HoursCollapsible = ({
           <h3>{type === hoursType.LOGGED ? 'Logged Hours' : 'Requested'}</h3>
         </AccordionSummary>
         <AccordionDetails>
-          {hours.length > 0 ? (
-            <HoursTable hours={hours} type={type} />
+          {filteredHours.length > 0 ? (
+            <HoursTable hours={filteredHours} />
           ) : (
             'Nothing to see here.'
           )}
@@ -194,37 +189,6 @@ const AddHoursModal = ({
   );
 };
 
-// TODO: to be updated with actual data
-const hoursInitList = [
-  {
-    id: '1',
-    zid: 'z1231234',
-    timestamp: '01/01/2024',
-    num_hours: 10,
-    description: '',
-    status: hoursStatus.PENDING,
-    image_url: '',
-  },
-  {
-    id: '2',
-    zid: 'z1231234',
-    timestamp: '02/01/2024',
-    num_hours: 20,
-    description: '',
-    status: hoursStatus.APPROVED,
-    image_url: '',
-  },
-  {
-    id: '3',
-    zid: 'z1231234',
-    timestamp: '03/01/2024',
-    num_hours: 30,
-    description: '',
-    status: hoursStatus.REJECTED,
-    image_url: '',
-  },
-] as hoursInfo[];
-
 const mapStatusColor = (status: hoursStatus) => {
   switch (status) {
     case hoursStatus.APPROVED:
@@ -242,8 +206,7 @@ export default function MenteeHome() {
   const router = useRouter();
 
   const [isLoading, setLoading] = React.useState(true);
-  // const [hoursList, setHoursList] = useState({} as hoursInfo[]);
-  const [hoursList, setHoursList] = useState(hoursInitList);
+  const [hoursList, setHoursList] = useState({} as hoursInfo[]);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [isAddNotifyOpen, setAddNotifyOpen] = useState(false);
 
@@ -261,13 +224,20 @@ export default function MenteeHome() {
 
   const handleRefresh = () => {
     setLoading(true);
-    setTimeout(() => setLoading(false), 1000);
+    setTimeout(() => {
+      getMenteeHours().then((res: hoursInfo[]) => {
+        setHoursList(res);
+        setLoading(false);
+      });
+    }, 250);
   };
 
   useEffect(() => {
     setLoading(true);
     checkAuth(router, userRoles.MENTEE);
-    // getMenteeInfo();
+    getMenteeHours().then((res: hoursInfo[]) => {
+      setHoursList(res);
+    });
     setTimeout(() => setLoading(false), 1000);
   }, []);
 

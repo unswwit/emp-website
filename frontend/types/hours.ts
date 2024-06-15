@@ -1,11 +1,10 @@
 export interface hoursInfo {
   id: string;
-  zid: string;
-  timestamp: string;
   num_hours: number;
   description: string;
-  status: hoursStatus;
+  timestamp: string;
   image_url: string;
+  status: hoursStatus;
 }
 
 export enum hoursStatus {
