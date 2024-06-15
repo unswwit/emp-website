@@ -1,3 +1,5 @@
+// Authentication API endpoints
+
 require("dotenv").config();
 const db = require('./db');
 const { Roles } = require('../enums.js');
@@ -18,10 +20,11 @@ const registerUser = async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const defaultRole = Roles.ADMIN;
+  const defaultRole = Roles.MENTEE;
   const currentYear = new Date().getFullYear();
   const mentor = null;
   const params = [email, zid, firstName, lastName, hashedPassword, defaultRole, currentYear, mentor]
+  const q = "INSERT INTO users (zid, firstname, lastname, email, password, role, year, mentor) VALUES ($2, $3, $4, $1, $5, $6, $7, $8)";
   db.query(q, params, (err, results) => {
     if (err) {
       console.error(err.stack);

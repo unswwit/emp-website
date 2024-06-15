@@ -3,6 +3,7 @@ const cors = require("cors");
 const auth = require("./database/auth");
 const mentee = require("./database/mentee");
 const admin = require("./database/admin");
+const user = require("./database/user");
 
 const app = express();
 const port = process.env.port || 4000;
@@ -14,6 +15,7 @@ app.use(cors());
 // -------- User --------//
 app.post("/user/register", auth.registerUser);
 app.post("/user/login", auth.loginUser);
+app.get("/user/profile", user.userInfo);
 
 // -------- Mentee --------//
 app.post("/mentee/request-hours", mentee.requestHours);

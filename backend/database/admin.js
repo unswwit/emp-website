@@ -1,3 +1,5 @@
+// Admin API endpoints
+
 require("dotenv").config();
 const jwt = require('jsonwebtoken');
 
