@@ -34,11 +34,7 @@ export const HoursCollapsible = ({
           <h3>{`${title} ${isEmpty ? '' : `(${filteredHours.length})`}`}</h3>
         </AccordionSummary>
         <AccordionDetails>
-          {!isEmpty ? (
-            <HoursTable hours={filteredHours} actions={actions} />
-          ) : (
-            'Nothing to see here.'
-          )}
+          {!isEmpty ? <HoursTable hours={filteredHours} actions={actions} /> : 'Nothing to see here.'}
         </AccordionDetails>
       </Accordion>
     </div>

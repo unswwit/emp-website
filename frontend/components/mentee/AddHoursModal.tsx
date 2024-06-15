@@ -2,16 +2,7 @@ import { useForm, zodResolver } from '@mantine/form';
 import { hoursRequest } from '../../types/hours';
 import { addHoursSchema } from '../../types/schemas';
 import { useEffect } from 'react';
-import {
-  Backdrop,
-  Box,
-  Button,
-  Fade,
-  Modal,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Backdrop, Box, Button, Fade, Modal, Stack, TextField, Typography } from '@mui/material';
 
 export const AddHoursModal = ({
   isOpen,
@@ -44,7 +35,7 @@ export const AddHoursModal = ({
     const date = now.toLocaleDateString('en-GB', {
       day: '2-digit',
       month: '2-digit',
-      year: 'numeric'
+      year: 'numeric',
     });
     const time = now.toLocaleTimeString('en-GB', {
       hour: '2-digit',
@@ -86,9 +77,7 @@ export const AddHoursModal = ({
           <Typography variant="h6" component="h2">
             Add Hours Request
           </Typography>
-          <Typography sx={{ mt: 2 }}>
-            Please convert your minutes to hours.
-          </Typography>
+          <Typography sx={{ mt: 2 }}>Please convert your minutes to hours.</Typography>
           <Typography sx={{ mb: 2, mt: 1 }}>
             e.g., 45 minutes is 0.75, 30 minutes is 0.5, 15 minutes is 0.25.
           </Typography>
@@ -128,9 +117,7 @@ export const AddHoursModal = ({
                 rows={2}
                 multiline
                 required
-                onChange={(e) =>
-                  form?.setFieldValue('description', e.target.value)
-                }
+                onChange={(e) => form?.setFieldValue('description', e.target.value)}
                 onBlur={() => form.validateField('description')}
                 error={form.errors?.description ? true : false}
                 helperText={form.errors?.description}

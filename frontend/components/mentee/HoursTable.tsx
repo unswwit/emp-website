@@ -27,13 +27,7 @@ const mapStatusColor = (status: hoursStatus) => {
   }
 };
 
-export const HoursTable = ({
-  hours,
-  actions,
-}: {
-  hours: hoursInfo[];
-  actions: boolean;
-}) => {
+export const HoursTable = ({ hours, actions }: { hours: hoursInfo[]; actions: boolean }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -46,12 +40,15 @@ export const HoursTable = ({
     setPage(0);
   };
 
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - hours?.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - hours?.length) : 0;
 
   const visibleRows = useMemo(
-    () => hours?.slice().reverse().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [page, rowsPerPage]
+    () =>
+      hours
+        ?.slice()
+        .reverse()
+        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [hours, page, rowsPerPage]
   );
 
   return (
@@ -60,10 +57,18 @@ export const HoursTable = ({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell width={165}><b>Timestamp</b></TableCell>
-              <TableCell width={100}><b>Hours</b></TableCell>
-              <TableCell><b>Description</b></TableCell>
-              <TableCell align={actions ? 'left' : 'right'}><b>Status</b></TableCell>
+              <TableCell width={165}>
+                <b>Timestamp</b>
+              </TableCell>
+              <TableCell width={100}>
+                <b>Hours</b>
+              </TableCell>
+              <TableCell>
+                <b>Description</b>
+              </TableCell>
+              <TableCell align={actions ? 'left' : 'right'}>
+                <b>Status</b>
+              </TableCell>
               {actions && <TableCell align="right">Actions</TableCell>}
             </TableRow>
           </TableHead>
@@ -76,11 +81,7 @@ export const HoursTable = ({
                   <TableCell>{h.num_hours}</TableCell>
                   <TableCell>{h.description}</TableCell>
                   <TableCell align={actions ? 'left' : 'right'}>
-                    <Chip
-                      sx={{ textTransform: 'uppercase' }}
-                      label={h.status}
-                      color={mapStatusColor(h.status)}
-                    />
+                    <Chip sx={{ textTransform: 'uppercase' }} label={h.status} color={mapStatusColor(h.status)} />
                   </TableCell>
                   {actions && (
                     <TableCell align="right">
