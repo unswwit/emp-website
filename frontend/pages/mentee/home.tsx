@@ -4,7 +4,6 @@ import { AddCircleRounded, RefreshOutlined } from '@mui/icons-material';
 import { Button, Divider, Snackbar, Stack } from '@mui/material';
 import styles from '../../styles/User.module.css';
 
-import Navbar from '../../components/NavBar';
 import MainContent from '../../components/MainContent';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import { useRouter } from 'next/router';
@@ -14,6 +13,7 @@ import { userRoles } from '../../types/user';
 import { getMenteeHours, sendMenteeHours } from '../api/mentee';
 import { HoursCollapsible } from '../../components/mentee/HoursCollapsible';
 import { AddHoursModal } from '../../components/mentee/AddHoursModal';
+import MenteeNavbar from '../../components/MenteeNavbar';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -61,7 +61,7 @@ export default function MenteeHome() {
     <div className={styles.userHome}>
       <main className={montserrat.className}>
         <LoadingOverlay isLoading={isLoading} />
-        <Navbar />
+        <MenteeNavbar />
         <MainContent>
           <div className={styles.section}>
             <h1>Hi Name 👋!</h1>

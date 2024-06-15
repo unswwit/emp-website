@@ -1,10 +1,14 @@
-import { setCookie, getCookie } from 'cookies-next';
+import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 
-export async function storeAuthToken(authToken: string) {
+export function storeAuthToken(authToken: string) {
   setCookie('authToken', authToken);
 }
 
-export async function getAuthToken() {
+export function getAuthToken() {
   const authToken = getCookie('authToken');
   return authToken;
+}
+
+export function deleteAuthToken() {
+  deleteCookie('authToken');
 }

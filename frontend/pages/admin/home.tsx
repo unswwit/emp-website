@@ -10,7 +10,6 @@ import { checkAuth } from '../../utils/auth';
 import LoadingOverlay from '../../components/LoadingOverlay';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
-// const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
 
 export default function AdminHome() {
   const router = useRouter();
