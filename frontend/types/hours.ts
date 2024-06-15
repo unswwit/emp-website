@@ -14,13 +14,14 @@ export interface hoursRequest {
   imageUrl: string;
 }
 
+export interface hoursApproveRequest {
+  menteeId: string;
+  hourId: string;
+  status: string;
+}
+
 export enum hoursStatus {
   PENDING = 'pending',
   APPROVED = 'approved',
   REJECTED = 'rejected',
-}
-
-export enum hoursType {
-  LOGGED = 'logged',
-  REQUESTED = 'requested',
 }

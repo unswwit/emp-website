@@ -1,4 +1,6 @@
 import {
+  Button,
+  ButtonGroup,
   Chip,
   Paper,
   Table,
@@ -25,7 +27,13 @@ const mapStatusColor = (status: hoursStatus) => {
   }
 };
 
-export const HoursTable = ({ hours }: { hours: hoursInfo[] }) => {
+export const HoursTable = ({
+  hours,
+  actions,
+}: {
+  hours: hoursInfo[];
+  actions: boolean;
+}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -53,9 +61,10 @@ export const HoursTable = ({ hours }: { hours: hoursInfo[] }) => {
           <TableHead>
             <TableRow>
               <TableCell width={50}>Timestamp</TableCell>
-              <TableCell width={200}>Hours</TableCell>
+              <TableCell width={150}>Hours</TableCell>
               <TableCell>Description</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell align={actions ? 'left' : 'right'}>Status</TableCell>
+              {actions && <TableCell align="right">Actions</TableCell>}
             </TableRow>
           </TableHead>
 
@@ -66,13 +75,25 @@ export const HoursTable = ({ hours }: { hours: hoursInfo[] }) => {
                   <TableCell>{h.timestamp}</TableCell>
                   <TableCell>{h.num_hours}</TableCell>
                   <TableCell>{h.description}</TableCell>
-                  <TableCell>
+                  <TableCell align={actions ? 'left' : 'right'}>
                     <Chip
                       sx={{ textTransform: 'uppercase' }}
                       label={h.status}
                       color={mapStatusColor(h.status)}
                     />
                   </TableCell>
+                  {actions && (
+                    <TableCell align="right">
+                      <ButtonGroup>
+                        <Button variant="contained" color="success">
+                          Approve
+                        </Button>
+                        <Button variant="outlined" color="error">
+                          Reject
+                        </Button>
+                      </ButtonGroup>
+                    </TableCell>
+                  )}
                 </TableRow>
               );
             })}

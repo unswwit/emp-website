@@ -1,16 +1,20 @@
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import { hoursInfo, hoursStatus, hoursType } from '../../types/hours';
+import { hoursInfo, hoursStatus } from '../../types/hours';
 import { HoursTable } from './HoursTable';
 import { useEffect, useState } from 'react';
 import { ExpandMoreOutlined } from '@mui/icons-material';
 
 export const HoursCollapsible = ({
+  title,
   hours,
-  type,
+  statuses,
+  actions = false,
   defaultExpanded,
 }: {
+  title: string;
   hours: hoursInfo[];
-  type: hoursType;
+  statuses: hoursStatus[];
+  actions?: boolean;
   defaultExpanded: boolean;
 }) => {
   const [filteredHours, setFilteredHours] = useState([] as hoursInfo[]);
@@ -19,14 +23,7 @@ export const HoursCollapsible = ({
 
   useEffect(() => {
     if (hours?.length > 0) {
-      if (type === hoursType.LOGGED)
-        setFilteredHours(
-          hours?.filter((h) => h.status === hoursStatus.APPROVED)
-        );
-      else if (type === hoursType.REQUESTED)
-        setFilteredHours(
-          hours?.filter((h) => h.status !== hoursStatus.APPROVED)
-        );
+      setFilteredHours(hours?.filter((h) => statuses.includes(h.status)));
     }
   }, [hours]);
 
@@ -34,14 +31,11 @@ export const HoursCollapsible = ({
     <div>
       <Accordion defaultExpanded={defaultExpanded}>
         <AccordionSummary expandIcon={<ExpandMoreOutlined />}>
-          <h3>
-            {type === hoursType.LOGGED ? 'Logged Hours' : 'Requested'}{' '}
-            {!isEmpty && `(${filteredHours.length})`}
-          </h3>
+          <h3>{`${title} ${isEmpty ? '' : `(${filteredHours.length})`}`}</h3>
         </AccordionSummary>
         <AccordionDetails>
           {!isEmpty ? (
-            <HoursTable hours={filteredHours} />
+            <HoursTable hours={filteredHours} actions={actions} />
           ) : (
             'Nothing to see here.'
           )}

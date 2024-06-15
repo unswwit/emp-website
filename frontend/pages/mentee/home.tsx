@@ -8,7 +8,7 @@ import MainContent from '../../components/MainContent';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import { useRouter } from 'next/router';
 import { checkAuth } from '../../utils/auth';
-import { hoursInfo, hoursRequest, hoursType } from '../../types/hours';
+import { hoursInfo, hoursRequest, hoursStatus } from '../../types/hours';
 import { userRoles } from '../../types/user';
 import { getMenteeHours, sendMenteeHours } from '../api/mentee';
 import { HoursCollapsible } from '../../components/mentee/HoursCollapsible';
@@ -90,13 +90,15 @@ export default function MenteeHome() {
 
             <Stack spacing={2}>
               <HoursCollapsible
+                title="Logged Hours"
                 hours={hoursList}
-                type={hoursType.LOGGED}
+                statuses={[hoursStatus.APPROVED]}
                 defaultExpanded={true}
               />
               <HoursCollapsible
+                title="Requested"
                 hours={hoursList}
-                type={hoursType.REQUESTED}
+                statuses={[hoursStatus.PENDING, hoursStatus.REJECTED]}
                 defaultExpanded={false}
               />
             </Stack>
