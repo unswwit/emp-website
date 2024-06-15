@@ -54,7 +54,6 @@ export default function MenteeHome() {
     checkAuth(router, userRoles.MENTEE);
     getMenteeHours().then((res: hoursInfo[]) => {
       setHoursList(res);
-      setLoading(false);
       setTimeout(() => setLoading(false), 1000);
     });
   }, []);
