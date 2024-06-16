@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Montserrat } from 'next/font/google';
 // import { signIn } from 'next-auth/react';
 import styles from '../../styles/User.module.css';
-import { doLogin, getUserInfo } from '../api/user';
+import { doLogin } from '../api/user';
 import { useRouter } from 'next/router';
-import { checkAuth } from '../../utils/auth';
-import { userRoles } from '../../types/user';
+import { checkValidUser } from '../../utils/auth';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
@@ -15,9 +14,7 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    getUserInfo()
-      .then((res) => checkAuth(router, res.role as userRoles))
-      .catch(() => checkAuth(router));
+    checkValidUser(router, true);
   }, []);
 
   return (

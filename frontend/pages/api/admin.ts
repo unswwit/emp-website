@@ -8,7 +8,7 @@ export async function getAllMenteeHours() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${await getAuthToken()}`,
+      Authorization: `Bearer ${getAuthToken()}`,
     },
   });
 
@@ -18,7 +18,6 @@ export async function getAllMenteeHours() {
     return data;
   } else {
     console.error(data.message);
-    throw new Error(data.message);
   }
 }
 
@@ -27,7 +26,7 @@ export async function approveMenteeHours(req: hoursApproveRequest) {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${await getAuthToken()}`,
+      Authorization: `Bearer ${getAuthToken()}`,
     },
     body: JSON.stringify(req),
   });

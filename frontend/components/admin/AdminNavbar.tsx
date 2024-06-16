@@ -1,19 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import {
-  createStyles,
-  Group,
-  Burger,
-  Drawer,
-  ScrollArea,
-  Divider,
-  rem,
-} from '@mantine/core';
+import { createStyles, Group, Burger, Drawer, ScrollArea, Divider, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import styles from '../../styles/Home.module.css';
 import { deleteAuthToken } from '../../pages/api/session';
-import { checkAuth } from '../../utils/auth';
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -36,10 +27,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     ...theme.fn.hover({
-      backgroundColor:
-        theme.colorScheme === 'dark'
-          ? theme.colors.dark[6]
-          : theme.colors.gray[0],
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
     }),
   },
 
@@ -59,14 +47,13 @@ const useStyles = createStyles((theme) => ({
 
 const AdminNavbar = () => {
   const { classes, theme } = useStyles();
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
-    useDisclosure(false);
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
 
   const router = useRouter();
 
   const handleLogout = () => {
     deleteAuthToken();
-    checkAuth(router);
+    router.push('/');
   };
 
   return (
@@ -99,10 +86,7 @@ const AdminNavbar = () => {
         </Group>
       </div>
 
-      <button
-        className={`${styles.logoutButton} ${classes.hiddenMobile}`}
-        onClick={handleLogout}
-      >
+      <button className={`${styles.logoutButton} ${classes.hiddenMobile}`} onClick={handleLogout}>
         Logout
       </button>
 
@@ -117,19 +101,13 @@ const AdminNavbar = () => {
         zIndex={1000000}
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
-          <Divider
-            my="sm"
-            color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
-          />
+          <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
           <div className="column">
             <a href="/admin/home" className={classes.link}>
               Dashboard
             </a>
           </div>
-          <Divider
-            my="sm"
-            color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
-          />
+          <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
 
           <Group position="center" grow pb="xl" px="md">
             <button className={styles.logoutButton} onClick={handleLogout}>

@@ -8,7 +8,7 @@ export async function getMenteeHours() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${await getAuthToken()}`,
+      Authorization: `Bearer ${getAuthToken()}`,
     },
   });
 
@@ -27,7 +27,7 @@ export async function sendMenteeHours(req: hoursRequest) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${await getAuthToken()}`,
+      Authorization: `Bearer ${getAuthToken()}`,
     },
     body: JSON.stringify(req),
   });

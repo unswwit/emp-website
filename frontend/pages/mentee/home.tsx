@@ -7,15 +7,16 @@ import styles from '../../styles/User.module.css';
 import MainContent from '../../components/MainContent';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import { useRouter } from 'next/router';
-import { checkAuth } from '../../utils/auth';
 import { hoursImage, hoursInfo, hoursRequest, hoursStatus } from '../../types/hours';
-import { userRoles, userProfile } from '../../types/user';
+import { userProfile } from '../../types/user';
 import { getMenteeHours, sendMenteeHours } from '../api/mentee';
-import { getUserInfo } from '../api/user';
+
 import { HoursCollapsible } from '../../components/mentee/HoursCollapsible';
 import { AddHoursModal } from '../../components/mentee/AddHoursModal';
 import MenteeNavbar from '../../components/mentee/MenteeNavbar';
 import { ViewImageModal } from '../../components/mentee/ViewImageModal';
+import { checkValidUser } from '../../utils/auth';
+import { getUserProfile } from '../api/user';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -23,6 +24,7 @@ export default function MenteeHome() {
   const router = useRouter();
 
   const [isLoading, setLoading] = useState(true);
+  const [isValidUser, setValidUser] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [isAddNotifyOpen, setAddNotifyOpen] = useState(false);
   const [isImageModalOpen, setImageModalOpen] = useState(false);
@@ -61,86 +63,100 @@ export default function MenteeHome() {
     });
   };
 
-  useEffect(() => {
-    setLoading(true);
-    Promise.all([getUserInfo(), getMenteeHours()])
+  const initHome = async () => {
+    const validUser = await checkValidUser(router, true);
+
+    if (!validUser) return;
+    setValidUser(true);
+
+    Promise.all([getUserProfile(), getMenteeHours()])
       .then(([userRes, hoursRes]) => {
         setUserInfo(userRes);
         setHoursList(hoursRes);
       })
-      .catch(() => checkAuth(router, userRoles.MENTEE))
       .finally(() => setTimeout(() => setLoading(false), 1000));
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    initHome();
   }, []);
 
   return (
     <div className={styles.userHome}>
       <main className={montserrat.className}>
-        <LoadingOverlay isLoading={isLoading} />
-        <MenteeNavbar />
-        <MainContent>
-          <div className={styles.section}>
-            <h1>Hi {userInfo['firstname'] ?? 'there'} 👋!</h1>
-            <Stack
-              direction="row"
-              divider={<Divider orientation="vertical" flexItem />}
-              spacing={1}
-              marginY={2}
-            >
-              <Button
-                variant="contained"
-                startIcon={<AddCircleRounded />}
-                onClick={handleAddModalOpen}
-              >
-                Add
-              </Button>
-              <Button
-                variant="outlined"
-                startIcon={<RefreshOutlined />}
-                onClick={handleRefresh}
-                disabled={isLoading}
-              >
-                Refresh
-              </Button>
-            </Stack>
+        <LoadingOverlay isLoading={isLoading} isRedirecting={!isValidUser} />
+        {!isValidUser ? (
+          <></>
+        ) : (
+          <>
+            <MenteeNavbar />
+            <MainContent>
+              <div className={styles.section}>
+                <h1>Hi {userInfo['firstname'] ?? 'there'} 👋!</h1>
+                <Stack
+                  direction="row"
+                  divider={<Divider orientation="vertical" flexItem />}
+                  spacing={1}
+                  marginY={2}
+                >
+                  <Button
+                    variant="contained"
+                    startIcon={<AddCircleRounded />}
+                    onClick={handleAddModalOpen}
+                  >
+                    Add
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    startIcon={<RefreshOutlined />}
+                    onClick={handleRefresh}
+                    disabled={isLoading}
+                  >
+                    Refresh
+                  </Button>
+                </Stack>
 
-            <Stack spacing={2}>
-              <HoursCollapsible
-                title="Logged Hours"
-                hours={hoursList}
-                statuses={[hoursStatus.APPROVED]}
-                defaultExpanded={true}
-                onImage={handleImageModalOpen}
-              />
-              <HoursCollapsible
-                title="Requested"
-                hours={hoursList}
-                statuses={[hoursStatus.PENDING, hoursStatus.REJECTED]}
-                defaultExpanded={false}
-                onImage={handleImageModalOpen}
-              />
-            </Stack>
-          </div>
-        </MainContent>
+                <Stack spacing={2}>
+                  <HoursCollapsible
+                    title="Logged Hours"
+                    hours={hoursList}
+                    statuses={[hoursStatus.APPROVED]}
+                    defaultExpanded={true}
+                    onImage={handleImageModalOpen}
+                  />
+                  <HoursCollapsible
+                    title="Requested"
+                    hours={hoursList}
+                    statuses={[hoursStatus.PENDING, hoursStatus.REJECTED]}
+                    defaultExpanded={false}
+                    onImage={handleImageModalOpen}
+                  />
+                </Stack>
+              </div>
+            </MainContent>
 
-        {/* Modals */}
-        <AddHoursModal
-          isOpen={isAddModalOpen}
-          onAdd={handleAddRequest}
-          onClose={handleAddModalClose}
-        />
-        <ViewImageModal
-          isOpen={isImageModalOpen}
-          onClose={handleImageModalClose}
-          image={selectedImage}
-        />
+            {/* Modals */}
+            <AddHoursModal
+              isOpen={isAddModalOpen}
+              onAdd={handleAddRequest}
+              onClose={handleAddModalClose}
+            />
+            <ViewImageModal
+              isOpen={isImageModalOpen}
+              onClose={handleImageModalClose}
+              image={selectedImage}
+            />
 
-        {/* Toasts */}
-        <Snackbar
-          open={isAddNotifyOpen}
-          autoHideDuration={1500}
-          onClose={handleAddNotifyClose}
-          message={toastMessage}
-        />
+            {/* Toasts */}
+            <Snackbar
+              open={isAddNotifyOpen}
+              autoHideDuration={1500}
+              onClose={handleAddNotifyClose}
+              message={toastMessage}
+            />
+          </>
+        )}
       </main>
     </div>
   );

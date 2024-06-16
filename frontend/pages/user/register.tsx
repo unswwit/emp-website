@@ -21,9 +21,7 @@ export default function Register() {
 
   return (
     <div className={styles.user}>
-      <Script
-        src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`}
-      />
+      <Script src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`} />
       <main className={montserrat.className}>
         <div className={styles.panel}>
           <div className={styles.left}>
@@ -152,16 +150,8 @@ export default function Register() {
         </div>
       </main>
       <div className={styles.bg}>
-        <img
-          className={styles.decor1}
-          src="/login/bottom-left.svg"
-          alt="bottom left vector"
-        />
-        <img
-          className={styles.decor2}
-          src="/login/top-right.svg"
-          alt="top right vector"
-        />
+        <img className={styles.decor1} src="/login/bottom-left.svg" alt="bottom left vector" />
+        <img className={styles.decor2} src="/login/top-right.svg" alt="top right vector" />
       </div>
     </div>
   );
