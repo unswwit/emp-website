@@ -1,10 +1,9 @@
+import { apiUrl } from '../../data/constants';
 import { hoursApproveRequest } from '../../types/hours';
 import { getAuthToken } from './session';
 
-const port = process.env.port || 4000;
-
 export async function getAllMenteeHours() {
-  const res = await fetch(`http://localhost:${port}/admin/view-hours`, {
+  const res = await fetch(`${apiUrl}/admin/view-hours`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +21,7 @@ export async function getAllMenteeHours() {
 }
 
 export async function approveMenteeHours(req: hoursApproveRequest) {
-  const res = await fetch(`http://localhost:${port}/admin/approve-hours`, {
+  const res = await fetch(`${apiUrl}/admin/approve-hours`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -54,7 +53,7 @@ export const handleInviteSubmit = async (
   formData.append('file', file);
 
   try {
-    const response = await fetch(`http://localhost:${port}/admin/invite`, {
+    const response = await fetch(`${apiUrl}/admin/invite`, {
       method: 'POST',
       body: formData,
     });

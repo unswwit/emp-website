@@ -2,8 +2,7 @@ import { NextRouter } from 'next/router';
 import { getAuthToken, storeAuthToken } from './session';
 import { Dispatch } from 'react';
 import { userLoginRequest, userRegisterRequest } from '../../types/user';
-
-const port = process.env.port || 4000;
+import { apiUrl } from '../../data/constants';
 
 export async function doRegister(
   req: userRegisterRequest,
@@ -11,7 +10,7 @@ export async function doRegister(
   setError: Dispatch<React.SetStateAction<string | null>>,
   token: string
 ) {
-  const res = await fetch(`http://localhost:${port}/user/register?token=${token}`, {
+  const res = await fetch(`${apiUrl}/user/register?token=${token}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(req),
@@ -27,7 +26,7 @@ export async function doLogin(
   router: NextRouter,
   setError: Dispatch<React.SetStateAction<string | null>>
 ) {
-  const res = await fetch(`http://localhost:${port}/user/login`, {
+  const res = await fetch(`${apiUrl}/user/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(req),
@@ -44,7 +43,7 @@ export async function doLogin(
 }
 
 export async function getUserProfile() {
-  const res = await fetch(`http://localhost:${port}/user/profile`, {
+  const res = await fetch(`${apiUrl}/user/profile`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
