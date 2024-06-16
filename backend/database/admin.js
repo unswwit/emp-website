@@ -2,11 +2,11 @@
 
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const bodyParser = require('body-parser');
-const csv = require('csv-parser');
-const { v4: uuidv4 } = require('uuid');
-const nodemailer = require('nodemailer');
-const fs = require('fs');
+const bodyParser = require("body-parser");
+const csv = require("csv-parser");
+const { v4: uuidv4 } = require("uuid");
+const nodemailer = require("nodemailer");
+const fs = require("fs");
 
 const db = require("./db");
 const { verifyToken } = require("./auth");
@@ -15,8 +15,8 @@ const { checkUserExists } = require("./helper");
 // Admin approve hours
 const approveHours = async (req, res) => {
   const { hourId, status } = req.body;
-  const zid = verifyToken(req.headers['authorization'], res);
-  if (!zid) {
+  const zid = verifyToken(req.headers["authorization"], res);
+  if (zid instanceof Object) {
     return;
   }
 
@@ -55,8 +55,8 @@ const approveHours = async (req, res) => {
 
 // Admin view hours
 const adminViewHours = async (req, res) => {
-  const zid = verifyToken(req.headers['authorization'], res);
-  if (!zid) {
+  const zid = verifyToken(req.headers["authorization"], res);
+  if (zid instanceof Object) {
     return;
   }
 
@@ -87,10 +87,10 @@ const invite = async (req, res) => {
 
   fs.createReadStream(filePath)
     .pipe(csv())
-    .on('data', (row) => {
+    .on("data", (row) => {
       emails.push(row.email);
     })
-    .on('end', async () => {
+    .on("end", async () => {
       for (const email of emails) {
         const token = uuidv4();
         const date = new Date().toLocaleString();
@@ -105,13 +105,13 @@ const invite = async (req, res) => {
       }
       fs.unlinkSync(filePath);
     });
-  res.status(200).send('Invitations sent successfully');
-}
+  res.status(200).send("Invitations sent successfully");
+};
 
 // Function to send invitation email
 const sendInvitationEmail = (email, token) => {
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PASSWORD,
@@ -124,15 +124,15 @@ const sendInvitationEmail = (email, token) => {
   const mailOptions = {
     from: process.env.EMAIL,
     to: email,
-    subject: 'UNSW WIT Empowerment Program Invitation Link',
+    subject: "UNSW WIT Empowerment Program Invitation Link",
     text: `Hi there!, \n\nThis email is sent to you as a member of WIT Empowerment Program. Please click the following link to register to the Empower Program Website: \n${link}`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.error('Error sending email:', error);
+      console.error("Error sending email:", error);
     } else {
-      console.log('Email sent:', info.response);
+      console.log("Email sent:", info.response);
     }
   });
 };
@@ -150,5 +150,5 @@ const checkAdminPrivilege = async (zid, res) => {
 module.exports = {
   approveHours,
   adminViewHours,
-  invite
+  invite,
 };

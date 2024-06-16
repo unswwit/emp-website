@@ -1,19 +1,19 @@
 // Mentee API endpoints
 
 require("dotenv").config();
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 
-const db = require('./db');
-const { verifyToken } = require('./auth');
-const { checkUserExists } = require('./helper');
-const { Status } = require('../enums.js');
+const db = require("./db");
+const { verifyToken } = require("./auth");
+const { checkUserExists } = require("./helper");
+const { Status } = require("../enums.js");
 
 // Mentee requests hours
 const requestHours = async (req, res) => {
   const { numHours, description, timestamp, imageUrl } = req.body;
-  
-  const zid = verifyToken(req.headers['authorization'], res);
-  if (!zid) {
+
+  const zid = verifyToken(req.headers["authorization"], res);
+  if (zid instanceof Object) {
     return;
   }
 
@@ -38,12 +38,12 @@ const requestHours = async (req, res) => {
     console.error(error.stack);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
 // Mentee view hours
 const menteeViewHours = async (req, res) => {
-  const zid = verifyToken(req.headers['authorization'], res);
-  if (!zid) {
+  const zid = verifyToken(req.headers["authorization"], res);
+  if (zid instanceof Object) {
     return;
   }
 
@@ -63,14 +63,13 @@ const menteeViewHours = async (req, res) => {
     const params = [zid];
     const { rows } = await db.query(query, params);
     res.status(200).json(rows);
-
   } catch (error) {
-    console.error('Error retrieving hours:', error);
+    console.error("Error retrieving hours:", error);
     res.status(500).json({ message: "Failed to retrieve hours data" });
   }
-}
+};
 
 module.exports = {
   requestHours,
-  menteeViewHours
+  menteeViewHours,
 };
