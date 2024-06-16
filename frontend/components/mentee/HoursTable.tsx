@@ -66,13 +66,13 @@ export const HoursTable = ({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell width={165}>
+              <TableCell width={175}>
                 <b>Timestamp</b>
               </TableCell>
               <TableCell width={100}>
                 <b>Hours</b>
               </TableCell>
-              <TableCell>
+              <TableCell width={800}>
                 <b>Description</b>
               </TableCell>
               <TableCell>

@@ -75,3 +75,22 @@ export async function getUserProfile() {
     throw new Error(data.message);
   }
 }
+
+export async function getUserInfo() {
+  const res = await fetch(`http://localhost:${port}/user/profile`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${await getAuthToken()}`,
+    },
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    return data;
+  } else {
+    console.error(data.message);
+    throw new Error(data.message);
+  }
+}

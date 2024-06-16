@@ -6,6 +6,7 @@ const { Roles } = require('../enums.js');
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require('uuid');
 
 // User registration
 const registerUser = async (req, res) => {

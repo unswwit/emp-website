@@ -9,11 +9,12 @@ import LoadingOverlay from '../../components/LoadingOverlay';
 import { useRouter } from 'next/router';
 import { checkAuth } from '../../utils/auth';
 import { hoursImage, hoursInfo, hoursRequest, hoursStatus } from '../../types/hours';
-import { userRoles } from '../../types/user';
+import { userRoles, userProfile } from '../../types/user';
 import { getMenteeHours, sendMenteeHours } from '../api/mentee';
+import { getUserInfo } from '../api/user';
 import { HoursCollapsible } from '../../components/mentee/HoursCollapsible';
 import { AddHoursModal } from '../../components/mentee/AddHoursModal';
-import MenteeNavbar from '../../components/MenteeNavbar';
+import MenteeNavbar from '../../components/mentee/MenteeNavbar';
 import { ViewImageModal } from '../../components/mentee/ViewImageModal';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
@@ -29,6 +30,7 @@ export default function MenteeHome() {
   const [hoursList, setHoursList] = useState({} as hoursInfo[]);
   const [selectedImage, setSelectedImage] = useState({ imageSrc: '', imageAlt: '' } as hoursImage);
   const [toastMessage, setToastMessage] = useState('');
+  const [userInfo, setUserInfo] = useState({} as userProfile);
 
   const handleAddModalOpen = () => setAddModalOpen(true);
   const handleAddModalClose = () => setAddModalOpen(false);
@@ -61,9 +63,12 @@ export default function MenteeHome() {
 
   useEffect(() => {
     setLoading(true);
-    getMenteeHours()
+    Promise.all([getUserInfo(), getMenteeHours()])
+      .then(([userRes, hoursRes]) => {
+        setUserInfo(userRes);
+        setHoursList(hoursRes);
+      })
       .catch(() => checkAuth(router, userRoles.MENTEE))
-      .then((res: hoursInfo[]) => setHoursList(res))
       .finally(() => setTimeout(() => setLoading(false), 1000));
   }, []);
 
@@ -74,7 +79,7 @@ export default function MenteeHome() {
         <MenteeNavbar />
         <MainContent>
           <div className={styles.section}>
-            <h1>Hi Name 👋!</h1>
+            <h1>Hi {userInfo['firstname'] ?? 'there'} 👋!</h1>
             <Stack
               direction="row"
               divider={<Divider orientation="vertical" flexItem />}

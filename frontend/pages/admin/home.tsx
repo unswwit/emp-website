@@ -17,7 +17,7 @@ import {
 import { userRoles } from '../../types/user';
 import { approveMenteeHours, getAllMenteeHours } from '../api/admin';
 import { HoursCollapsible } from '../../components/mentee/HoursCollapsible';
-import MenteeNavbar from '../../components/MenteeNavbar';
+import AdminNavbar from '../../components/admin/AdminNavbar';
 import { RefreshOutlined } from '@mui/icons-material';
 import { ViewImageModal } from '../../components/mentee/ViewImageModal';
 
@@ -78,7 +78,7 @@ export default function AdminHome() {
     <div className={styles.userHome}>
       <main className={montserrat.className}>
         <LoadingOverlay isLoading={isLoading} />
-        <MenteeNavbar />
+        <AdminNavbar />
         <MainContent>
           <div className={styles.section}>
             <h1>Hi Admin 👋!</h1>

@@ -11,9 +11,9 @@ import {
   rem,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import styles from '../styles/Home.module.css';
-import { deleteAuthToken } from '../pages/api/session';
-import { checkAuth } from '../utils/auth';
+import styles from '../../styles/Home.module.css';
+import { deleteAuthToken } from '../../pages/api/session';
+import { checkAuth } from '../../utils/auth';
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -57,7 +57,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const MenteeNavbar = () => {
+const AdminNavbar = () => {
   const { classes, theme } = useStyles();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -94,9 +94,7 @@ const MenteeNavbar = () => {
         <strong className={classes.hiddenDesktop}>E M P</strong>
 
         <Group className={classes.hiddenMobile}>
-          <a href="/#About">About</a>
-          <a href="/#Timeline">Timeline</a>
-          <a href="/mentee/home">My Profile</a>
+          <a href="/admin/home">Dashboard</a>
         </Group>
       </div>
 
@@ -123,14 +121,8 @@ const MenteeNavbar = () => {
             color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
           />
           <div className="column">
-            <a href="/#About" className={classes.link}>
-              About
-            </a>
-            <a href="/#Timeline" className={classes.link}>
-              Timeline
-            </a>
             <a href="/mentee/home" className={classes.link}>
-              My Profile
+              Mentee Dashboard
             </a>
           </div>
           <Divider
@@ -149,4 +141,4 @@ const MenteeNavbar = () => {
   );
 };
 
-export default MenteeNavbar;
+export default AdminNavbar;
