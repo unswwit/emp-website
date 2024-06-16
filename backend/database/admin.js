@@ -119,13 +119,13 @@ const sendInvitationEmail = (email, token) => {
   });
 
   // TODO: Change link when deployed
-  const link = `http://localhost:3000/user/register?token=${token}`;
+  const link = `https://empowerment.unswwit.com/user/register?token=${token}`;
 
   const mailOptions = {
     from: process.env.EMAIL,
     to: email,
     subject: "UNSW WIT Empowerment Program Invitation Link",
-    text: `Hi there!, \n\nThis email is sent to you as a member of WIT Empowerment Program. Please click the following link to register to the Empower Program Website: \n${link}`,
+    text: `Hi there!,\n\nThis email is sent to you as a member of WIT Empowerment Program. Please click the following link to register to the Empower Program Website:\n${link}`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

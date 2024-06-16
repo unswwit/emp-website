@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Montserrat } from 'next/font/google';
-import { Button, Card, CardContent, Input, Stack, Typography } from '@mui/material';
+import { Card, CardContent, Input, Stack, Typography } from '@mui/material';
 import styles from '../../styles/User.module.css';
 
 import MainContent from '../../components/MainContent';
 import AdminNavbar from '../../components/admin/AdminNavbar';
 import { handleInviteSubmit } from '../api/admin';
+import { LoadingButton } from '@mui/lab';
+import LoadingOverlay from '../../components/LoadingOverlay';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function AdminHome() {
+  const [isLoading, setLoading] = useState(false);
+  const [isDisabled, setDisabled] = useState(false);
+
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState('');
 
@@ -20,14 +25,30 @@ export default function AdminHome() {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    setDisabled(true);
     e.preventDefault();
-    handleInviteSubmit(file, setMessage);
+
+    // Disable send button for 1.5 seconds after clicking
+    const disableDuration = 1500;
+    handleInviteSubmit(file, setMessage).finally(() =>
+      setTimeout(() => setDisabled(false), disableDuration)
+    );
   };
+
+  const initPage = async () => {
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    initPage();
+  }, []);
 
   return (
     <div className={styles.userHome}>
       <main className={montserrat.className}>
-        <AdminNavbar />
+        <LoadingOverlay isLoading={isLoading} />
+        <AdminNavbar onLogout={() => setLoading(true)} />
         <MainContent>
           <div className={styles.section}>
             <h1>Tools</h1>
@@ -44,9 +65,14 @@ export default function AdminHome() {
               <form onSubmit={handleSubmit}>
                 <Stack direction="row" spacing={2}>
                   <Input type="file" onChange={handleFileChange} />
-                  <Button type="submit" variant="contained" color="primary">
+                  <LoadingButton
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    loading={isDisabled}
+                  >
                     Send Invitations
-                  </Button>
+                  </LoadingButton>
                 </Stack>
                 <Typography color="secondary">{message}</Typography>
               </form>
