@@ -4,15 +4,12 @@ import { Button, Input } from '@mui/material';
 import styles from '../../styles/User.module.css';
 
 import MainContent from '../../components/MainContent';
-import { useRouter } from 'next/router';
 import AdminNavbar from '../../components/admin/AdminNavbar';
 import { handleInviteSubmit } from '../api/admin';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function AdminHome() {
-  const router = useRouter();
-
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState('');
 
