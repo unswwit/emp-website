@@ -29,7 +29,6 @@ const requestHours = async (req, res) => {
       VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
     const id = uuidv4();
-    console.log(numHours);
     const values = [id, zid, numHours, description, timestamp, imageUrl, Status.PENDING];
 
     await db.query(insertQuery, values);

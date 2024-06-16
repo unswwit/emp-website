@@ -74,10 +74,10 @@ const adminViewHours = async (req, res) => {
     `;
 
     const { rows } = await db.query(query, []);
-    res.status(200).json(rows);
+    return res.status(200).json(rows);
   } catch (error) {
     console.error("Error retrieving hours:", error);
-    res.status(500).json({ message: "Failed to retrieve hours data" });
+    return res.status(500).json({ message: "Failed to retrieve hours data" });
   }
 };
 
@@ -92,7 +92,6 @@ const invite = async (req, res) => {
     })
     .on('end', async () => {
       for (const email of emails) {
-        console.log("Email: " + email);
         const token = uuidv4();
         const date = new Date().toLocaleString();
         const query = `
@@ -126,7 +125,7 @@ const sendInvitationEmail = (email, token) => {
     from: process.env.EMAIL,
     to: email,
     subject: 'UNSW WIT Empowerment Program Invitation Link',
-    text: `Click the following link to register to the Empower Program Website: ${link}`,
+    text: `Hi there!, \n\nThis email is sent to you as a member of WIT Empowerment Program. Please click the following link to register to the Empower Program Website: \n${link}`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

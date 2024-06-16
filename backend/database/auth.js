@@ -13,11 +13,15 @@ const registerUser = async (req, res) => {
   const { email, zid, firstName, lastName, password } = req.body;
   const token = req.query.token;
 
+  if (token === 'undefined') {
+    return res.status(400).send({ message: 'You do not have permission to register. Please contact the WIT sponsorship team.' });
+  }
+
   // Check valid invitation token
   const tokenResult = await db.query(`SELECT * FROM invitation_tokens WHERE token = $1 AND used = $2`, [token, false]);
 
   if (tokenResult.length === 0) {
-    return res.status(400).send('Invalid or expired token');
+    return res.status(400).send({ message: 'Invalid/expired token' });
   }
 
   // Check if zid has already been registered
@@ -29,7 +33,7 @@ const registerUser = async (req, res) => {
 
   // Insert user into users table
   const hashedPassword = await bcrypt.hash(password, 10);
-  const defaultRole = Roles.ADMIN;
+  const defaultRole = Roles.MENTEE;
   const currentYear = new Date().getFullYear();
   const mentor = null;
   const params = [email, zid, firstName, lastName, hashedPassword, defaultRole, currentYear, mentor]
@@ -70,7 +74,6 @@ const loginUser = async (req, res) => {
     var token = jwt.sign({ userId: user.zid }, process.env.SECRET_KEY, {
       expiresIn: "1d"
     });
-    console.log(token);
 
     // console.log(`${userId} login success`); // FOR DEBUGGING
     return res.status(200).json({ message: "Login successful", token: token, role: user.role});
@@ -80,7 +83,7 @@ const loginUser = async (req, res) => {
 // Verify and decode token
 const verifyToken = (token_header, res) => {
   if (!token_header) {
-    res.status(403).json({ message: "No token provided" });
+    return res.status(403).json({ message: "No token provided" });
   }
 
   const token = token_header.split(' ')[1];
@@ -90,7 +93,7 @@ const verifyToken = (token_header, res) => {
     decoded = jwt.verify(token, process.env.SECRET_KEY);
     return decoded.userId;
   } catch (err) {
-    res.status(401).json({ message: "Failed to authenticate token" });
+    return res.status(401).json({ message: "Failed to authenticate token" });
   }
 }
   
