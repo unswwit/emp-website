@@ -92,7 +92,7 @@ export default function AdminHome() {
           <></>
         ) : (
           <>
-            <AdminNavbar />
+            <AdminNavbar onLogout={() => setLoading(true)} />
             <MainContent>
               <div className={styles.section}>
                 <h1>Hi Admin 👋!</h1>

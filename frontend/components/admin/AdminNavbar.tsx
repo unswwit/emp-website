@@ -45,13 +45,14 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const AdminNavbar = () => {
+const AdminNavbar = ({ onLogout }: { onLogout: () => void }) => {
   const { classes, theme } = useStyles();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
 
   const router = useRouter();
 
   const handleLogout = () => {
+    onLogout();
     deleteAuthToken();
     router.push('/');
   };

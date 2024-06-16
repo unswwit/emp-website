@@ -90,7 +90,7 @@ export default function MenteeHome() {
           <></>
         ) : (
           <>
-            <MenteeNavbar />
+            <MenteeNavbar onLogout={() => setLoading(true)} />
             <MainContent>
               <div className={styles.section}>
                 <h1>Hi {userInfo['firstname'] ?? 'there'} 👋!</h1>
