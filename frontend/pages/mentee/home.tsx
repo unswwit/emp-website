@@ -59,7 +59,7 @@ export default function MenteeHome() {
     setLoading(true);
     getMenteeHours().then((res: hoursInfo[]) => {
       setHoursList(res);
-      setTimeout(() => setLoading(false), 250);
+      setLoading(false);
     });
   };
 
@@ -74,7 +74,7 @@ export default function MenteeHome() {
         setUserInfo(userRes);
         setHoursList(hoursRes);
       })
-      .finally(() => setTimeout(() => setLoading(false), 1000));
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {

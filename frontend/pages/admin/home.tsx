@@ -49,15 +49,15 @@ export default function AdminHome() {
     approveMenteeHours(menteeHours).then((message: string) => {
       setToastMessage(message);
       handleAddNotifyOpen();
-      handleRefresh(false);
+      handleRefresh();
     });
   };
 
-  const handleRefresh = (delay = true) => {
+  const handleRefresh = () => {
     setLoading(true);
     getAllMenteeHours().then((res: hoursInfo[]) => {
       setHoursList(res);
-      setTimeout(() => setLoading(false), delay ? 250 : 0);
+      setLoading(false);
     });
   };
 
@@ -69,7 +69,7 @@ export default function AdminHome() {
 
     getAllMenteeHours()
       .then((res: hoursInfo[]) => setHoursList(res))
-      .finally(() => setTimeout(() => setLoading(false), 1000));
+      .finally(() => setLoading(false));
   };
 
   const adminActions = {
