@@ -22,6 +22,10 @@ const userInfo = async (req, res) => {
     const result = await db.query(query, values);
 
     const user = result.rows[0];
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    return res.status(500).json({ message: "Failed to fetch user profile" });
+  } finally {
     return res.status(200).json({
       email: user.email,
       zid: user.zid,
@@ -31,9 +35,6 @@ const userInfo = async (req, res) => {
       year: user.year,
       mentor: user.mentor
     });
-  } catch (error) {
-    console.error('Error fetching user profile:', error);
-    return res.status(500).json({ message: "Failed to fetch user profile" });
   }
 }
 

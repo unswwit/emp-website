@@ -35,6 +35,9 @@ export default function AdminHome() {
           <div className={styles.section}>
             <h1>Generate Invitation Links</h1>
           </div>
+          <div className={styles.form}>
+            Please upload a CSV file. Make sure the first row of csv is labeled "email" and subsequent rows are emails you want to send registration links to.
+          </div>
           <form className={styles.form} onSubmit={handleSubmit}>
             <Input type="file" onChange={handleFileChange} />
             <Button type="submit" variant="contained" color="primary">
