@@ -20,7 +20,7 @@ const registerUser = async (req, res) => {
   // Check valid invitation token
   const tokenResult = await db.query(`SELECT * FROM invitation_tokens WHERE token = $1 AND used = $2`, [token, false]);
 
-  console.log(tokenResult);
+  // console.log(tokenResult);
   if (tokenResult.rows.length === 0) {
     return res.status(400).send({ message: "Invalid/expired token" });
   }

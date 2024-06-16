@@ -1,28 +1,20 @@
 import { NextRouter } from 'next/router';
 import { getAuthToken, storeAuthToken } from './session';
-import { Dispatch, FormEvent } from 'react';
+import { Dispatch } from 'react';
+import { userLoginRequest, userRegisterRequest } from '../../types/user';
 
 const port = process.env.port || 4000;
 
 export async function doRegister(
-  event: FormEvent<HTMLFormElement>,
+  req: userRegisterRequest,
   router: NextRouter,
   setError: Dispatch<React.SetStateAction<string | null>>,
   token: string
 ) {
-  event.preventDefault();
-  const e = event.currentTarget;
-
   const res = await fetch(`http://localhost:${port}/user/register?token=${token}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email: e.email.value,
-      zid: e.zid.value,
-      firstName: e.fname.value,
-      lastName: e.lname.value,
-      password: e.password.value,
-    }),
+    body: JSON.stringify(req),
   });
   const data = await res.json();
 
@@ -31,21 +23,14 @@ export async function doRegister(
 }
 
 export async function doLogin(
-  event: FormEvent<HTMLFormElement>,
+  req: userLoginRequest,
   router: NextRouter,
   setError: Dispatch<React.SetStateAction<string | null>>
 ) {
-  event.preventDefault();
-  const e = event.currentTarget;
-  const userId = e.userId.value;
-
   const res = await fetch(`http://localhost:${port}/user/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      userId,
-      password: e.password.value,
-    }),
+    body: JSON.stringify(req),
   });
   const data = await res.json();
 

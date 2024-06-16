@@ -1,25 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Montserrat } from 'next/font/google';
 
 import styles from '../../styles/User.module.css';
 import { doLogin } from '../api/user';
 import { useRouter } from 'next/router';
 import { checkValidUser } from '../../utils/auth';
+import LoadingOverlay from '../../components/LoadingOverlay';
+import { userLoginRequest } from '../../types/user';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function Login() {
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    e.preventDefault();
+
+    const reqData = {
+      userId: e.currentTarget.userId.value,
+      password: e.currentTarget.password.value,
+    } as userLoginRequest;
+
+    doLogin(reqData, router, setError).finally(() => setLoading(false));
+  };
+
+  const initLogin = async () => {
+    const validUser = await checkValidUser(router, true);
+    if (validUser) return;
+    setLoading(false);
+  };
+
   useEffect(() => {
-    checkValidUser(router, true);
+    setLoading(true);
+    initLogin();
   }, []);
 
   return (
     <div className={styles.user}>
       <main className={montserrat.className}>
         <div className={styles.panel}>
+          <LoadingOverlay isLoading={isLoading} />
           <div className={styles.left}>
             <div className={styles.content}>
               <h1>Sign in</h1>
@@ -38,13 +62,7 @@ export default function Login() {
                 OR
                 <hr />
               </div> */}
-              <form
-                method="POST"
-                action="/user/login"
-                onSubmit={(e) => {
-                  doLogin(e, router, setError);
-                }}
-              >
+              <form method="POST" action="/user/login" onSubmit={handleLogin}>
                 <div>
                   <label>Email or zID</label>
                   <input
