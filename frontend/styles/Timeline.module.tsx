@@ -102,38 +102,38 @@ export const StyledTabs = mui_styled(Tabs)({
   },
 });
 
-export const StyledTab = mui_styled((props: StyledTabProps) => (
-  <Tab disableRipple {...props} />
-))(({ theme }) => ({
-  zIndex: '1',
-  fontFamily: 'Montserrat, sans-serif',
-  fontSize: '15px',
-  fontWeight: theme.typography.fontWeightMedium,
-  color: 'var(--dark)',
-  borderRadius: tabBorderRadius,
+export const StyledTab = mui_styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
+  ({ theme }) => ({
+    zIndex: '1',
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: '15px',
+    fontWeight: theme.typography.fontWeightMedium,
+    color: 'var(--dark)',
+    borderRadius: tabBorderRadius,
 
-  marginRight: theme.spacing(1),
-  paddingRight: 10,
-  paddingLeft: 10,
+    marginRight: theme.spacing(1),
+    paddingRight: 10,
+    paddingLeft: 10,
 
-  minWidth: 0,
-  minHeight: tabHeight,
-  height: tabHeight,
-  transition: '200ms',
+    minWidth: 0,
+    minHeight: tabHeight,
+    height: tabHeight,
+    transition: '200ms',
 
-  '&:hover': {
-    color: 'var(--yellow)',
-  },
-
-  '&.Mui-selected': {
-    color: 'var(--yellow)',
-    backgroundColor: 'transparent',
-  },
-
-  '&& > svg': {
-    marginRight: 3,
-    [theme.breakpoints.down('xs')]: {
-      marginRight: 1,
+    '&:hover': {
+      color: 'var(--yellow)',
     },
-  },
-}));
+
+    '&.Mui-selected': {
+      color: 'var(--yellow)',
+      backgroundColor: 'transparent',
+    },
+
+    '&& > svg': {
+      marginRight: 3,
+      [theme.breakpoints.down('xs')]: {
+        marginRight: 1,
+      },
+    },
+  })
+);

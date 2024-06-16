@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Montserrat } from 'next/font/google';
-// import { signIn } from 'next-auth/react';
+
 import styles from '../../styles/User.module.css';
 import { doLogin } from '../api/user';
 import { useRouter } from 'next/router';
 import { checkValidUser } from '../../utils/auth';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
-const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
 
 export default function Login() {
   const [error, setError] = useState<string | null>(null);
@@ -76,12 +75,13 @@ export default function Login() {
                   Log in
                 </button>
               </form>
-              <p>
+              <p>Reach out to our Sponsorship team to get unique registration link.</p>
+              {/* <p>
                 Haven't registered yet?{' '}
                 <a href="/user/register" className={monsterratBold.className}>
                   Sign up
                 </a>
-              </p>
+              </p> */}
             </div>
           </div>
           <div className={styles.right}>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Montserrat } from '@next/font/google';
-// import { signIn } from 'next-auth/react';
 import Script from 'next/script';
 import { doRegister } from '../api/user';
 import { useRouter } from 'next/router';

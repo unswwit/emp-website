@@ -1,14 +1,7 @@
 // Imports
 import * as React from 'react';
 import { Container, Box, SwipeableDrawer, Pagination } from '@mui/material';
-import {
-  TextalignJustifycenter,
-  Grid2,
-  Link2,
-  Calendar,
-  Clock,
-  Global,
-} from 'iconsax-react';
+import { TextalignJustifycenter, Grid2, Link2, Calendar, Clock, Global } from 'iconsax-react';
 import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 import { differenceInDays } from 'date-fns';
 
@@ -19,11 +12,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 // Custom imports
 import { timeline } from '../data/timeline';
 import styles from '../styles/Timeline.module.css';
-import {
-  StyledCalendar,
-  StyledTabs,
-  StyledTab,
-} from '../styles/Timeline.module';
+import { StyledCalendar, StyledTabs, StyledTab } from '../styles/Timeline.module';
 
 type TabPanelProps = {
   children?: React.ReactNode;
@@ -56,28 +45,12 @@ function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <StyledTabs
-        value={value}
-        onChange={handleChange}
-        aria-label="timeline tabs"
-      >
-        <StyledTab
-          label="List"
-          icon={<TextalignJustifycenter size="13" />}
-          iconPosition="start"
-        />
-        <StyledTab
-          label="Calendar"
-          icon={<Grid2 size="13" />}
-          iconPosition="start"
-        />
+      <StyledTabs value={value} onChange={handleChange} aria-label="timeline tabs">
+        <StyledTab label="List" icon={<TextalignJustifycenter size="13" />} iconPosition="start" />
+        <StyledTab label="Calendar" icon={<Grid2 size="13" />} iconPosition="start" />
       </StyledTabs>
       <TabPanel value={value} index={0}>
-        <TimelineList
-          events={events}
-          handleDrawer={handleDrawer}
-          handleEventNo={handleEventNo}
-        />
+        <TimelineList events={events} handleDrawer={handleDrawer} handleEventNo={handleEventNo} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <TimelineCalendarFC
@@ -94,9 +67,7 @@ function TimelineList({ events, handleDrawer, handleEventNo }: any) {
   const itemsPerPage = 5;
   const pages = Math.ceil(events.length / itemsPerPage);
 
-  const [someEvents, setSomeEvents] = React.useState(
-    events.slice(0, itemsPerPage)
-  );
+  const [someEvents, setSomeEvents] = React.useState(events.slice(0, itemsPerPage));
 
   const handlePage = (currentPage: any) => {
     setSomeEvents(
@@ -278,11 +249,7 @@ function InfoPanel({ event, drawer, handleDrawer }: any) {
             {/* Link */}
             <div>
               <Link2 style={{ rotate: '135deg' }} />
-              {event.data.link ? (
-                <a href={event.data.link}>{event.data.link}</a>
-              ) : (
-                '-'
-              )}
+              {event.data.link ? <a href={event.data.link}>{event.data.link}</a> : '-'}
             </div>
             {/* Start date */}
             <div>
@@ -297,12 +264,12 @@ function InfoPanel({ event, drawer, handleDrawer }: any) {
                 {daysLeftUntilEventStarts > 0
                   ? 'Starting in ' + daysLeftUntilEventStarts + ' days'
                   : daysLeftUntilEventEnds > 0
-                  ? 'Ending in ' + daysLeftUntilEventEnds + ' days'
-                  : daysLeftUntilEventStarts == 0
-                  ? 'Today'
-                  : daysLeftUntilEventEnds == 0
-                  ? 'Last day'
-                  : 'Ended'}
+                    ? 'Ending in ' + daysLeftUntilEventEnds + ' days'
+                    : daysLeftUntilEventStarts == 0
+                      ? 'Today'
+                      : daysLeftUntilEventEnds == 0
+                        ? 'Last day'
+                        : 'Ended'}
               </span>
             </div>
             {/* Location */}
@@ -357,11 +324,7 @@ export default function Timeline() {
 
   return (
     <div className={styles.wrapper}>
-      <TimelineTabs
-        events={events}
-        handleDrawer={handleDrawer}
-        handleEventNo={handleEventNo}
-      />
+      <TimelineTabs events={events} handleDrawer={handleDrawer} handleEventNo={handleEventNo} />
       <InfoPanel
         drawer={drawer}
         handleDrawer={handleDrawer}

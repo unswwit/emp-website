@@ -46,11 +46,7 @@ export default function Footer() {
           <Tooltip title="Discord" arrow>
             <IconButton>
               <div>
-                <SocialIcon
-                  url="https://discord.gg/XDr9qmtQ"
-                  network="discord"
-                  bgColor="#F48B01"
-                />
+                <SocialIcon url="https://discord.gg/XDr9qmtQ" network="discord" bgColor="#F48B01" />
               </div>
             </IconButton>
           </Tooltip>
