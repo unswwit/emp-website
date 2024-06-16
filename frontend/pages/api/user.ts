@@ -7,12 +7,13 @@ const port = process.env.port || 4000;
 export async function doRegister(
   event: FormEvent<HTMLFormElement>,
   router: NextRouter,
-  setError: Dispatch<React.SetStateAction<string | null>>
+  setError: Dispatch<React.SetStateAction<string | null>>,
+  token: string
 ) {
   event.preventDefault();
   const e = event.currentTarget;
 
-  const res = await fetch(`http://localhost:${port}/user/register`, {
+  const res = await fetch(`http://localhost:${port}/user/register?token=${token}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

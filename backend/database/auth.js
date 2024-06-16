@@ -11,28 +11,35 @@ const { v4: uuidv4 } = require('uuid');
 // User registration
 const registerUser = async (req, res) => {
   const { email, zid, firstName, lastName, password } = req.body;
+  const token = req.query.token;
+
+  // Check valid invitation token
+  const tokenResult = await db.query(`SELECT * FROM invitation_tokens WHERE token = $1 AND used = $2`, [token, false]);
+
+  if (tokenResult.length === 0) {
+    return res.status(400).send('Invalid or expired token');
+  }
 
   // Check if zid has already been registered
-  const data = await db.query(`SELECT * FROM users WHERE email= $1;`, [email]);
+  const data = await db.query(`SELECT * FROM users WHERE zid= $1;`, [zid]);
   const arr = data.rows;
   if (arr.length != 0) {
     return res.status(400).json({ message: `Account already registered with zid ${zid}` });
   }
 
+  // Insert user into users table
   const hashedPassword = await bcrypt.hash(password, 10);
-
   const defaultRole = Roles.MENTEE;
   const currentYear = new Date().getFullYear();
   const mentor = null;
   const params = [email, zid, firstName, lastName, hashedPassword, defaultRole, currentYear, mentor]
   const q = "INSERT INTO users (zid, firstname, lastname, email, password, role, year, mentor) VALUES ($2, $3, $4, $1, $5, $6, $7, $8)";
-  db.query(q, params, (err, results) => {
-    if (err) {
-      console.error(err.stack);
-    }
+  await db.query(q, params);
 
-    return res.status(200).json({ message: "Register successful" });
-  });
+  // Mark the token as used
+  await db.query('UPDATE invitation_tokens SET used = $1 WHERE token = $2', [true, token]);
+
+  return res.status(200).json({ message: "Register successful" });
 };
   
 // User login

@@ -41,3 +41,33 @@ export async function approveMenteeHours(req: hoursApproveRequest) {
     throw new Error(data.message);
   }
 }
+
+export const handleInviteSubmit = async (
+  file: File | null,
+  setMessage: (message: string) => void
+) => {
+  if (!file) {
+    setMessage('Please upload a CSV file');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const response = await fetch(`http://localhost:${port}/admin/invite`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to send invitations');
+    }
+
+    const data = await response.text();
+    setMessage(data);
+  } catch (error) {
+    setMessage('An error occurred');
+    console.error(error);
+  }
+};

@@ -95,6 +95,7 @@ const AdminNavbar = () => {
 
         <Group className={classes.hiddenMobile}>
           <a href="/admin/home">Dashboard</a>
+          <a href="/admin/tools">Tools</a>
         </Group>
       </div>
 
@@ -121,8 +122,8 @@ const AdminNavbar = () => {
             color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
           />
           <div className="column">
-            <a href="/mentee/home" className={classes.link}>
-              Mentee Dashboard
+            <a href="/admin/home" className={classes.link}>
+              Dashboard
             </a>
           </div>
           <Divider

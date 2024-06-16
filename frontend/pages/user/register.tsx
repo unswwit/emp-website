@@ -16,6 +16,9 @@ export default function Register() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+  // Extract token from query params
+  const token = router.query.token as string;
+
   return (
     <div className={styles.user}>
       <Script
@@ -45,7 +48,7 @@ export default function Register() {
                 method="POST"
                 action="/user/register"
                 onSubmit={(e) => {
-                  doRegister(e, router, setError);
+                  doRegister(e, router, setError, token);
                 }}
               >
                 <div>
