@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Montserrat } from 'next/font/google';
-import { Button, Input } from '@mui/material';
+import { Button, Card, CardContent, Input, Stack, Typography } from '@mui/material';
 import styles from '../../styles/User.module.css';
 
 import MainContent from '../../components/MainContent';
@@ -30,19 +30,28 @@ export default function AdminHome() {
         <AdminNavbar />
         <MainContent>
           <div className={styles.section}>
-            <h1>Generate Invitation Links</h1>
+            <h1>Tools</h1>
           </div>
-          <div className={styles.form}>
-            Please upload a CSV file. Make sure the first row of csv is labeled "email" and
-            subsequent rows are emails you want to send registration links to.
-          </div>
-          <form className={styles.form} onSubmit={handleSubmit}>
-            <Input type="file" onChange={handleFileChange} />
-            <Button type="submit" variant="contained" color="primary">
-              Send Invitations
-            </Button>
-          </form>
-          {message && <p>{message}</p>}
+          <Card sx={{ marginTop: 2 }}>
+            <CardContent>
+              <Stack spacing={3} marginBottom={2}>
+                <h2>Generate Invitation Links</h2>
+                <p>
+                  Please upload a CSV file. Make sure the first row of csv is labeled "email" and
+                  subsequent rows are emails you want to send registration links to.
+                </p>
+              </Stack>
+              <form onSubmit={handleSubmit}>
+                <Stack direction="row" spacing={2}>
+                  <Input type="file" onChange={handleFileChange} />
+                  <Button type="submit" variant="contained" color="primary">
+                    Send Invitations
+                  </Button>
+                </Stack>
+                <Typography color="secondary">{message}</Typography>
+              </form>
+            </CardContent>
+          </Card>
         </MainContent>
       </main>
     </div>

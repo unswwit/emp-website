@@ -37,7 +37,7 @@ export async function approveMenteeHours(req: hoursApproveRequest) {
     return data.message;
   } else {
     console.error(data.message);
-    throw new Error(data.message);
+    return data.message;
   }
 }
 

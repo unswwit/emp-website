@@ -42,7 +42,7 @@ const approveHours = async (req, res) => {
 
     const result = await db.query(query, values);
 
-    if (result.rows.length === 1) {
+    if (result.rowCount === 1) {
       return res.status(200).json({ message: "Hour request updated successfully" });
     } else {
       return res.status(404).json({ message: "Hour request not found or unauthorized" });
