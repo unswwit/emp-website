@@ -15,8 +15,15 @@ const { checkUserExists } = require("./helper");
 // Admin approve hours
 const approveHours = async (req, res) => {
   const { hourId, status } = req.body;
-  const zid = verifyToken(req.headers["authorization"], res);
-  checkUserExists(zid, res);
+  const zid = verifyToken(req.headers['authorization'], res);
+  if (!zid) {
+    return;
+  }
+
+  const userExists = checkUserExists(zid, res);
+  if (!userExists) {
+    return;
+  }
 
   // Validate inputs
   if (!hourId || !status) {
@@ -48,8 +55,15 @@ const approveHours = async (req, res) => {
 
 // Admin view hours
 const adminViewHours = async (req, res) => {
-  const zid = verifyToken(req.headers["authorization"], res);
-  checkUserExists(zid, res);
+  const zid = verifyToken(req.headers['authorization'], res);
+  if (!zid) {
+    return;
+  }
+
+  const userExists = checkUserExists(zid, res);
+  if (!userExists) {
+    return;
+  }
 
   try {
     checkAdminPrivilege(zid, res);

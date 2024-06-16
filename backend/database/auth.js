@@ -29,7 +29,7 @@ const registerUser = async (req, res) => {
 
   // Insert user into users table
   const hashedPassword = await bcrypt.hash(password, 10);
-  const defaultRole = Roles.MENTEE;
+  const defaultRole = Roles.ADMIN;
   const currentYear = new Date().getFullYear();
   const mentor = null;
   const params = [email, zid, firstName, lastName, hashedPassword, defaultRole, currentYear, mentor]
@@ -78,10 +78,9 @@ const loginUser = async (req, res) => {
 };
 
 // Verify and decode token
-const 
-verifyToken = (token_header, res) => {
+const verifyToken = (token_header, res) => {
   if (!token_header) {
-    return res.status(403).json({ message: "No token provided" });
+    res.status(403).json({ message: "No token provided" });
   }
 
   const token = token_header.split(' ')[1];
@@ -89,10 +88,10 @@ verifyToken = (token_header, res) => {
   let decoded;
   try {
     decoded = jwt.verify(token, process.env.SECRET_KEY);
+    return decoded.userId;
   } catch (err) {
-    return res.status(401).json({ message: "Failed to authenticate token" });
+    res.status(401).json({ message: "Failed to authenticate token" });
   }
-  return decoded.userId;
 }
   
 module.exports = {

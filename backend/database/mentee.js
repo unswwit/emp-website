@@ -11,9 +11,17 @@ const { Status } = require('../enums.js');
 // Mentee requests hours
 const requestHours = async (req, res) => {
   const { numHours, description, timestamp, imageUrl } = req.body;
+  
   const zid = verifyToken(req.headers['authorization'], res);
+  if (!zid) {
+    return;
+  }
 
-  checkUserExists(zid, res);
+  const userExists = checkUserExists(zid, res);
+  if (!userExists) {
+    return;
+  }
+
   try {
     // Insert hours request into the database
     const insertQuery = `
@@ -36,7 +44,14 @@ const requestHours = async (req, res) => {
 // Mentee view hours
 const menteeViewHours = async (req, res) => {
   const zid = verifyToken(req.headers['authorization'], res);
-  checkUserExists(zid, res);
+  if (!zid) {
+    return;
+  }
+
+  const userExists = checkUserExists(zid, res);
+  if (!userExists) {
+    return;
+  }
 
   try {
     // Fetch hours data for a specific zid

@@ -9,7 +9,14 @@ const { checkUserExists } = require('./helper');
 // Get user info
 const userInfo = async (req, res) => {
   const zid = verifyToken(req.headers['authorization'], res);
-  checkUserExists(zid, res);
+  if (!zid) {
+    return;
+  }
+
+  const userExists = checkUserExists(zid, res);
+  if (!userExists) {
+    return;
+  }
 
   try {
     const query = `
@@ -20,13 +27,9 @@ const userInfo = async (req, res) => {
     const values = [zid];
 
     const result = await db.query(query, values);
-
     const user = result.rows[0];
-  } catch (error) {
-    console.error('Error fetching user profile:', error);
-    return res.status(500).json({ message: "Failed to fetch user profile" });
-  } finally {
-    return res.status(200).json({
+
+    res.status(200).json({
       email: user.email,
       zid: user.zid,
       firstname: user.firstname,
@@ -35,6 +38,10 @@ const userInfo = async (req, res) => {
       year: user.year,
       mentor: user.mentor
     });
+
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    res.status(500).json({ message: "Failed to fetch user profile" });
   }
 }
 
