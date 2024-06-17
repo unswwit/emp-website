@@ -69,9 +69,11 @@ const adminViewHours = async (req, res) => {
     checkAdminPrivilege(zid, res);
     // Fetch hours data for all zids
     const query = `
-      SELECT id, zid, num_hours, description, timestamp, image_url, status
-      FROM hours
-    `;
+    SELECT hours.id, hours.zid, hours.num_hours, hours.description, hours.timestamp, hours.image_url, hours.status,
+           users.zid, users.firstname, users.lastname, users.email
+    FROM hours
+    LEFT JOIN users ON hours.zid = users.zid
+  `;
 
     const { rows } = await db.query(query, []);
     return res.status(200).json(rows);
