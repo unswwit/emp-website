@@ -6,11 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint '**/*.{ts,tsx}'",
-    "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
-    "prettier": "prettier '**/*.{ts,tsx}' --write"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier . --write"
   },
   "dependencies": {
+    "@babel/eslint-parser": "^7.24.7",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fullcalendar/core": "^6.1.5",
