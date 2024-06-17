@@ -9,14 +9,20 @@ export const HoursCollapsible = ({
   hours,
   statuses,
   actions,
-  defaultExpanded,
+  defaultExpanded = false,
+  viewZid = false,
+  viewFname = false,
+  viewLname = false,
   onImage,
 }: {
   title: string;
   hours: hoursInfo[];
   statuses: hoursStatus[];
   actions?: hoursAdminActions;
-  defaultExpanded: boolean;
+  defaultExpanded?: boolean;
+  viewZid?: boolean;
+  viewFname?: boolean;
+  viewLname?: boolean;
   onImage: (image: hoursImage) => void;
 }) => {
   const [filteredHours, setFilteredHours] = useState([] as hoursInfo[]);
@@ -37,7 +43,14 @@ export const HoursCollapsible = ({
         </AccordionSummary>
         <AccordionDetails>
           {!isEmpty ? (
-            <HoursTable hours={filteredHours} actions={actions} onImage={onImage} />
+            <HoursTable
+              hours={filteredHours}
+              actions={actions}
+              onImage={onImage}
+              viewZid={viewZid}
+              viewFname={viewFname}
+              viewLname={viewLname}
+            />
           ) : (
             'Nothing to see here.'
           )}

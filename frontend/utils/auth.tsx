@@ -7,7 +7,8 @@ export const checkValidUser = async (router?: NextRouter, promptLogin = false) =
   const userInfo = await getUserProfile();
 
   if (userInfo == undefined) {
-    router && setTimeout(() => rerouteUser(router, promptLogin), 750);
+    // router && setTimeout(() => rerouteUser(router, promptLogin), 750);
+    router && rerouteUser(router, promptLogin);
     return false;
   }
 

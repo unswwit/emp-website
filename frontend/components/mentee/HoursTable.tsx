@@ -32,10 +32,16 @@ export const HoursTable = ({
   hours,
   actions,
   onImage,
+  viewZid = false,
+  viewFname = false,
+  viewLname = false,
 }: {
   hours: hoursInfo[];
   actions?: hoursAdminActions;
   onImage: (image: hoursImage) => void;
+  viewZid?: boolean;
+  viewFname?: boolean;
+  viewLname?: boolean;
 }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -69,6 +75,21 @@ export const HoursTable = ({
               <TableCell width={175}>
                 <b>Timestamp</b>
               </TableCell>
+              {viewZid && (
+                <TableCell>
+                  <b>zID</b>
+                </TableCell>
+              )}
+              {viewFname && (
+                <TableCell>
+                  <b>First Name</b>
+                </TableCell>
+              )}
+              {viewLname && (
+                <TableCell>
+                  <b>Last Name</b>
+                </TableCell>
+              )}
               <TableCell width={100}>
                 <b>Hours</b>
               </TableCell>
@@ -81,7 +102,11 @@ export const HoursTable = ({
               <TableCell align={actions ? 'left' : 'right'}>
                 <b>Status</b>
               </TableCell>
-              {actions && <TableCell align="right">Actions</TableCell>}
+              {actions && (
+                <TableCell align="right">
+                  <b>Actions</b>
+                </TableCell>
+              )}
             </TableRow>
           </TableHead>
 
@@ -90,6 +115,9 @@ export const HoursTable = ({
               return (
                 <TableRow key={k} hover>
                   <TableCell>{h.timestamp}</TableCell>
+                  {viewZid && <TableCell>{h.zid}</TableCell>}
+                  {viewFname && <TableCell>{h.firstname}</TableCell>}
+                  {viewLname && <TableCell>{h.lastname}</TableCell>}
                   <TableCell>{h.num_hours}</TableCell>
                   <TableCell>{h.description}</TableCell>
                   <TableCell>
