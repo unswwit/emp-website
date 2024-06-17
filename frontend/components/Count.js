@@ -3,9 +3,7 @@ import styles from '../styles/Home.module.css';
 
 const CountDown = ({ targetDate }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [timeRemaining, setTimeRemaining] = useState(
-    Math.floor((targetDate - currentDate) / 1000)
-  );
+  const [timeRemaining, setTimeRemaining] = useState(Math.floor((targetDate - currentDate) / 1000));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -68,7 +66,6 @@ const CountDown = ({ targetDate }) => {
         {minutes <= 60 && minutes !== 0 && <span> {minutes} minutes</span>}
         {seconds >= 60 && <span> {seconds} seconds</span>}
       </h1>
-
     </div>
   );
 };
