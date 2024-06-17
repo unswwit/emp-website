@@ -57,17 +57,17 @@ const CountDown = ({ targetDate }) => {
 
   return (
     <>
-    <div className="countdown">
-      <h1>Registration opens in </h1>
-      <h1 className={styles.countdownValues}>
-        {months !== 0 && <span> {months} months </span>}
-        {weeks < 4 && weeks !== 0 && <span> {weeks} weeks </span>}
-        {days <= 31 && days !== 0 && <span> {days} days </span>}
-        {hours <= 24 && hours !== 0 && <span> {hours} hours</span>}
-        {minutes <= 60 && minutes !== 0 && <span> {minutes} minutes</span>}
-        {seconds >= 60 && <span> {seconds} seconds</span>}
-      </h1>
-    </div>
+      <div className="countdown">
+        <h1>Registration opens in </h1>
+        <h1 className={styles.countdownValues}>
+          {months !== 0 && <span> {months} months </span>}
+          {weeks < 4 && weeks !== 0 && <span> {weeks} weeks </span>}
+          {days <= 31 && days !== 0 && <span> {days} days </span>}
+          {hours <= 24 && hours !== 0 && <span> {hours} hours</span>}
+          {minutes <= 60 && minutes !== 0 && <span> {minutes} minutes</span>}
+          {seconds >= 60 && <span> {seconds} seconds</span>}
+        </h1>
+      </div>
     </>
   );
 };
