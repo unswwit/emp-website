@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const multer = require('multer');
+const multer = require("multer");
 
 const auth = require("./database/auth");
 const mentee = require("./database/mentee");
@@ -8,9 +8,9 @@ const admin = require("./database/admin");
 const user = require("./database/user");
 
 const app = express();
-const port = process.env.port || 4000;
-const url = `http://localhost:${port}`
-const upload = multer({ dest: 'invitation_files/' });
+const port = process.env.PORT || 4000;
+const url = `http://localhost:${port}`;
+const upload = multer({ dest: "invitation_files/" });
 
 app.use(express.json());
 app.use(cors());
@@ -28,8 +28,8 @@ app.get("/mentee/view-hours", mentee.menteeViewHours);
 // -------- Admin --------//
 app.patch("/admin/approve-hours", admin.approveHours);
 app.get("/admin/view-hours", admin.adminViewHours);
-app.post('/admin/invite', upload.single('file'), admin.invite);
+app.post("/admin/invite", upload.single("file"), admin.invite);
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`The server is running at ${url}`);
 });
