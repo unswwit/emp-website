@@ -79,7 +79,7 @@ export const AddHoursModal = ({
             Add Hours Request
           </Typography>
           <Typography sx={{ mt: 2 }}>Please convert your minutes to hours.</Typography>
-          <Typography sx={{ mb: 2, mt: 1 }}>
+          <Typography sx={{ mb: 1, mt: 1 }}>
             e.g., 45 minutes is 0.75, 30 minutes is 0.5, 15 minutes is 0.25.
           </Typography>
           <form
@@ -123,16 +123,28 @@ export const AddHoursModal = ({
                 error={form.errors?.description ? true : false}
                 helperText={form.errors?.description}
               />
-              <TextField
-                id="image-url-input"
-                label="Image URL (for proof)"
-                variant="outlined"
-                required
-                onChange={(e) => form?.setFieldValue('imageUrl', e.target.value)}
-                onBlur={() => form.validateField('imageUrl')}
-                error={form.errors?.imageUrl ? true : false}
-                helperText={form.errors?.imageUrl}
-              />
+              <Stack>
+                <Typography sx={{ mb: 1, mt: 2 }}>
+                  Set your image in Google Drive to be viewable by anyone with the link.
+                </Typography>
+                <TextField
+                  id="image-url-input"
+                  label="Google Drive Image Link (for proof)"
+                  variant="outlined"
+                  required
+                  onChange={(e) => {
+                    const imageId = e.target.value.match(/file\/d\/(.*)\//g);
+                    const newImageUrl = imageId
+                      ? `https://drive.google.com/thumbnail?id=${imageId[0].split('/')[2]}&sz=w1000`
+                      : e.target.value;
+
+                    form?.setFieldValue('imageUrl', newImageUrl);
+                  }}
+                  onBlur={() => form.validateField('imageUrl')}
+                  error={form.errors?.imageUrl ? true : false}
+                  helperText={form.errors?.imageUrl}
+                />
+              </Stack>
               <img
                 src={
                   form.values?.imageUrl
