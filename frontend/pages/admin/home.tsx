@@ -118,16 +118,21 @@ export default function AdminHome() {
                   title="Open Requests"
                   hours={hoursList}
                   statuses={[hoursStatus.PENDING]}
-                  defaultExpanded={true}
                   actions={adminActions}
                   onImage={handleImageModalOpen}
+                  defaultExpanded
+                  viewZid
+                  viewFname
+                  viewLname
                 />
                 <HoursCollapsible
                   title="Closed Requests"
                   hours={hoursList}
                   statuses={[hoursStatus.APPROVED, hoursStatus.REJECTED]}
-                  defaultExpanded={false}
                   onImage={handleImageModalOpen}
+                  viewZid
+                  viewFname
+                  viewLname
                 />
               </Stack>
             </MainContent>

@@ -1,6 +1,9 @@
 // API response interfaces
 export interface hoursInfo {
   id: string;
+  zid: string;
+  firstname: string;
+  lastname: string;
   num_hours: number;
   description: string;
   timestamp: string;

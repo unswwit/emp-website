@@ -122,14 +122,13 @@ export default function MenteeHome() {
                     title="Logged Hours"
                     hours={hoursList}
                     statuses={[hoursStatus.APPROVED]}
-                    defaultExpanded={true}
                     onImage={handleImageModalOpen}
+                    defaultExpanded
                   />
                   <HoursCollapsible
                     title="Requested"
                     hours={hoursList}
                     statuses={[hoursStatus.PENDING, hoursStatus.REJECTED]}
-                    defaultExpanded={false}
                     onImage={handleImageModalOpen}
                   />
                 </Stack>
