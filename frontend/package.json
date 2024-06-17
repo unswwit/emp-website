@@ -11,6 +11,7 @@
     "prettier": "prettier '**/*.{ts,tsx}' --write"
   },
   "dependencies": {
+    "@babel/eslint-parser": "^7.24.7",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fullcalendar/core": "^6.1.5",

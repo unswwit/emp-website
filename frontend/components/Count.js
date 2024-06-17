@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 
 const CountDown = ({ targetDate }) => {
@@ -56,6 +56,7 @@ const CountDown = ({ targetDate }) => {
   const seconds = calculateSeconds();
 
   return (
+    <>
     <div className="countdown">
       <h1>Registration opens in </h1>
       <h1 className={styles.countdownValues}>
@@ -67,6 +68,7 @@ const CountDown = ({ targetDate }) => {
         {seconds >= 60 && <span> {seconds} seconds</span>}
       </h1>
     </div>
+    </>
   );
 };
 
