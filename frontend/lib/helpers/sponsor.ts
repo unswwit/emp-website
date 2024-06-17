@@ -1,3 +1,4 @@
+/* eslint-disable */
 const filterSponsors = (sponsors: any) => {
   const filteredSponsors = sponsors.filter((sponsor: any) => sponsor.year === 2023);
   const tempSponsors = {

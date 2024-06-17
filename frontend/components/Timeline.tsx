@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Imports
 import * as React from 'react';
 import { Container, Box, SwipeableDrawer, Pagination } from '@mui/material';

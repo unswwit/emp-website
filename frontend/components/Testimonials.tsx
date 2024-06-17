@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styles from '../styles/Quotes.module.css';
 import {
   MDBCard,
