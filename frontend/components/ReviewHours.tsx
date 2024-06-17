@@ -1,14 +1,10 @@
-import styles from '../styles/LogHours.module.css';
+import styles from '../styles/ReviewHours.module.css';
 import Button from '@mui/material/Button';
 
 export default function Hours() {
     return (
         <div className={styles.page}>
-            {/* <div className={styles.heroText}> */}
-            <h1>
-                Approve/Reject Hours
-            </h1>
-            {/* </div> */}
+            <h1>Review Hours</h1>
             <div className={styles.sectionTable}>
                 <table>
                     <colgroup>
@@ -41,7 +37,7 @@ export default function Hours() {
                         </tr>
                         <tr>
                             <td>02-16 21:38:40</td>
-                            <td><a href="#">FirstName1 MiddleName1 LastName1</a></td>
+                            <td><a href="#">FirstName1 LastName1</a></td>
                             <td>AAAAA</td>
                             <td><a href="#">view.pdf</a></td>
                             <td>24</td>

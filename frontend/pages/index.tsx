@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css';
 import React from 'react';
 import Navbar from '../components/NavBar';
 import Footer from '../components/Footer';
-import LogHours from '../components/LogHours';
+import ReviewHours from '../components/ReviewHours';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -23,7 +23,7 @@ export default function Home() {
       <main className={montserrat.className}>
         <Navbar />
         <div id="About" className={styles.section}>
-          <LogHours />
+          <ReviewHours />
         </div>
         <Footer />
       </main>
