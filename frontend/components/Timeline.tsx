@@ -17,6 +17,7 @@ import {
   TabPanelProps,
   EventInput,
   EventsInput,
+  InfoPanelInput,
 } from '../types/timeline';
 
 // FullCalendar
@@ -216,7 +217,7 @@ function TimelineCalendarFC({
   );
 }
 
-function InfoPanel({ event, drawer, handleDrawer }: any) {
+function InfoPanel({ event, drawer, handleDrawer }: InfoPanelInput) {
   const daysLeftUntilEventStarts = differenceInDays(event.start, new Date());
   const daysLeftUntilEventEnds = differenceInDays(event.end, new Date());
 
@@ -341,7 +342,7 @@ export default function Timeline() {
     timeline
       .map((e: TimelineEvent, id: number) => {
         return {
-          id: id,
+          id: id.toString(),
           title: e.title,
           start: new Date(e.start),
           end: new Date(e.end),
@@ -361,7 +362,6 @@ export default function Timeline() {
   };
 
   const handleEventNo = (n: number) => setEventNo(n);
-
   return (
     <div className={styles.wrapper}>
       <TimelineTabs
@@ -372,7 +372,7 @@ export default function Timeline() {
       <InfoPanel
         drawer={drawer}
         handleDrawer={handleDrawer}
-        event={events.find((e) => e.id == eventNo)}
+        event={events[events.findIndex((e) => parseInt(e.id) == eventNo)]}
       />
     </div>
   );

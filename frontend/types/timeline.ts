@@ -15,7 +15,7 @@ export type TimelineEvent = {
 };
 
 export type TimelineInfo = {
-  id: number;
+  id: string;
   title: string;
   start: Date;
   end: Date;
@@ -49,6 +49,12 @@ export type EventInput = {
   handleEventNo: handleEventNoFunction;
 };
 
-type handleDrawerFunction = (input: void) => void;
+export type InfoPanelInput = {
+  event: TimelineInfo;
+  drawer: boolean;
+  handleDrawer: handleDrawerFunction;
+};
+
+type handleDrawerFunction = () => void;
 
 type handleEventNoFunction = (input: number) => void;
