@@ -258,3 +258,9 @@
 .error {
   color: red;
 }
+
+/* -- Admin Tools --- */
+/* Form Style */
+.form {
+  padding: 20px;
+}

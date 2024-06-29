@@ -9,10 +9,7 @@ type Data = {
   password: string;
 };
 
-export default async function register(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+export default async function register(req: NextApiRequest, res: NextApiResponse<Data>) {
   const SECRET_KEY = process.env.RECAPTCHA_SECRETKEY;
   const { recaptchaResponse } = req.body;
   const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${SECRET_KEY}&response=${recaptchaResponse}`;

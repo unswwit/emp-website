@@ -3,7 +3,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { createStyles, Group, Burger, Drawer, ScrollArea, Divider, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import styles from '../styles/Home.module.css';
+import styles from '../../styles/Home.module.css';
+import { deleteAuthToken } from '../../pages/api/session';
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -44,14 +45,16 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const Navbar = () => {
+const MenteeNavbar = ({ onLogout }: { onLogout: () => void }) => {
   const { classes, theme } = useStyles();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
 
   const router = useRouter();
 
-  const handleLogin = () => {
-    router.push('/user/login');
+  const handleLogout = () => {
+    onLogout();
+    deleteAuthToken();
+    router.push('/');
   };
 
   return (
@@ -79,14 +82,12 @@ const Navbar = () => {
         <strong className={classes.hiddenDesktop}>E M P</strong>
 
         <Group className={classes.hiddenMobile}>
-          <a href="#About">About</a>
-          {/* <a href="#Testimonials">Testimonials</a> */}
-          <a href="#Timeline">Timeline</a>
+          <a href="/mentee/home">Dashboard</a>
         </Group>
       </div>
 
-      <button className={`${styles.logoutButton} ${classes.hiddenMobile}`} onClick={handleLogin}>
-        Login
+      <button className={`${styles.logoutButton} ${classes.hiddenMobile}`} onClick={handleLogout}>
+        Logout
       </button>
 
       <Drawer
@@ -102,21 +103,15 @@ const Navbar = () => {
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
           <div className="column">
-            <a href="#About" className={classes.link}>
-              About
-            </a>
-            {/* <a href="#Testimonials" className={classes.link}>
-              Testimonials
-            </a> */}
-            <a href="#Timeline" className={classes.link}>
-              Timeline
+            <a href="/mentee/home" className={classes.link}>
+              Mentee Dashboard
             </a>
           </div>
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
 
           <Group position="center" grow pb="xl" px="md">
-            <button className={styles.logoutButton} onClick={handleLogin}>
-              Login
+            <button className={styles.logoutButton} onClick={handleLogout}>
+              Logout
             </button>
           </Group>
         </ScrollArea>
@@ -125,4 +120,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default MenteeNavbar;
