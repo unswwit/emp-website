@@ -18,7 +18,7 @@ export default function Footer() {
             height={50}
             priority
           />
-          <p>© UNSW Women in Technology 2023</p>
+          <p>© UNSW Women in Technology 2024</p>
         </div>
         <div className={styles.footerIcons}>
           <Tooltip title="Instagram" arrow>
@@ -46,11 +46,7 @@ export default function Footer() {
           <Tooltip title="Discord" arrow>
             <IconButton>
               <div>
-                <SocialIcon
-                  url="https://discord.gg/XDr9qmtQ"
-                  network="discord"
-                  bgColor="#F48B01"
-                />
+                <SocialIcon url="https://discord.gg/XDr9qmtQ" network="discord" bgColor="#F48B01" />
               </div>
             </IconButton>
           </Tooltip>

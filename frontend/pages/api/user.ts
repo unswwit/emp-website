@@ -1,36 +1,61 @@
-const port = process.env.port || 4000;
+import { NextRouter } from 'next/router';
+import { getAuthToken, storeAuthToken } from './session';
+import { Dispatch } from 'react';
+import { userLoginRequest, userRegisterRequest } from '../../types/user';
+import { apiUrl } from '../../data/constants';
 
-export async function doRegister(event: React.FormEvent<HTMLFormElement>) {
-  // event.preventDefault(); // FOR DEBUGGING
-  const e = event.currentTarget;
-
-  await fetch(`http://localhost:${port}/user/register`, {
+export async function doRegister(
+  req: userRegisterRequest,
+  router: NextRouter,
+  setError: Dispatch<React.SetStateAction<string | null>>,
+  token: string
+) {
+  const res = await fetch(`${apiUrl}/user/register?token=${token}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email: e.email.value,
-      zid: e.zid.value,
-      firstName: e.fname.value,
-      lastName: e.lname.value,
-      password: e.password.value,
-    }),
-  }).then((res) => res.json());
+    body: JSON.stringify(req),
+  });
+  const data = await res.json();
+
+  if (res.ok) router.push('/user/login');
+  else setError(data.message);
 }
 
-export async function doLogin(event: React.FormEvent<HTMLFormElement>) {
-  // event.preventDefault(); // FOR DEBUGGING
-  const e = event.currentTarget;
-  const userId = e.userId.value;
-
-  await fetch(`http://localhost:${port}/user/login`, {
+export async function doLogin(
+  req: userLoginRequest,
+  router: NextRouter,
+  setError: Dispatch<React.SetStateAction<string | null>>
+) {
+  const res = await fetch(`${apiUrl}/user/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      userId,
-      password: e.password.value,
-    }),
-  }).then((res) => {
-    res.json();
-    // console.log(res.status); // FOR DEBUGGING
+    body: JSON.stringify(req),
   });
+  const data = await res.json();
+
+  if (res.ok) {
+    storeAuthToken(data.token);
+    if (data.role === 'mentee') router.push('/mentee/home');
+    else if (data.role === 'admin') router.push('/admin/home');
+  } else {
+    setError(data.message);
+  }
+}
+
+export async function getUserProfile() {
+  const res = await fetch(`${apiUrl}/user/profile`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getAuthToken()}`,
+    },
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    return data;
+  } else {
+    console.error(data.message);
+  }
 }

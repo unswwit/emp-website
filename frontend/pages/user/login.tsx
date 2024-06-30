@@ -1,42 +1,68 @@
-import React from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Montserrat } from 'next/font/google';
-import { signIn } from 'next-auth/react';
+
 import styles from '../../styles/User.module.css';
 import { doLogin } from '../api/user';
+import { useRouter } from 'next/router';
+import { checkValidUser } from '../../utils/auth';
+import LoadingOverlay from '../../components/LoadingOverlay';
+import { userLoginRequest } from '../../types/user';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
-const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
 
-export default function login() {
+export default function Login() {
+  const router = useRouter();
+
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    e.preventDefault();
+
+    const reqData = {
+      userId: e.currentTarget.userId.value,
+      password: e.currentTarget.password.value,
+    } as userLoginRequest;
+
+    doLogin(reqData, router, setError).finally(() => setLoading(false));
+  };
+
+  const initLogin = async () => {
+    const validUser = await checkValidUser(router, true);
+    if (validUser) return;
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    initLogin();
+  }, []);
+
   return (
     <div className={styles.user}>
       <main className={montserrat.className}>
         <div className={styles.panel}>
+          <LoadingOverlay isLoading={isLoading} />
           <div className={styles.left}>
             <div className={styles.content}>
               <h1>Sign in</h1>
               <div className={styles.auth}>
                 {/* guide: https://mattermost.com/blog/add-google-and-github-login-to-next-js-app-with-nextauth/ */}
-                <button
+                {/* <button
                   className={montserrat.className}
                   onClick={() => signIn('google')}
                 >
                   <img src="/google.svg" alt="google logo" />
                   Sign in with Google
-                </button>
+                </button> */}
               </div>
-              <div className={styles.dividerLabel}>
+              {/* <div className={styles.dividerLabel}>
                 <hr />
                 OR
                 <hr />
-              </div>
-              <form
-                method="POST"
-                action="/user/login"
-                onSubmit={(e) => {
-                  doLogin(e);
-                }}
-              >
+              </div> */}
+              <form method="POST" action="/user/login" onSubmit={handleLogin}>
                 <div>
                   <label>Email or zID</label>
                   <input
@@ -62,16 +88,18 @@ export default function login() {
                   />
                 </div>
                 <hr />
+                {error && <p className={styles.error}>{error}</p>}
                 <button className={montserrat.className} type="submit">
                   Log in
                 </button>
               </form>
-              <p>
+              <p>Reach out to our Sponsorship team to get unique registration link.</p>
+              {/* <p>
                 Haven't registered yet?{' '}
                 <a href="/user/register" className={monsterratBold.className}>
                   Sign up
                 </a>
-              </p>
+              </p> */}
             </div>
           </div>
           <div className={styles.right}>

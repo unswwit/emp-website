@@ -28,7 +28,4 @@ export type TypeSponsorsFields = {
   year: EntryFieldTypes.Integer;
 };
 
-export type TypeSponsorsSkeleton = EntrySkeletonType<
-  TypeSponsorsFields,
-  'sponsors'
->;
+export type TypeSponsorsSkeleton = EntrySkeletonType<TypeSponsorsFields, 'sponsors'>;
