@@ -35,7 +35,7 @@
     "countdown": "^2.6.0",
     "date-fns": "^2.29.3",
     "eslint": "8.57.0",
-    "eslint-config-next": "13.4.19",
+    "eslint-config-next": "13.5.6",
     "iconsax-react": "^0.0.8",
     "mdb-react-ui-kit": "^8.0.0",
     "next": "^13.4.4",
