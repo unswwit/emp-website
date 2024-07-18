@@ -6,7 +6,7 @@ export const timeline = [
     data: {
       link: 'TBA',
       location: 'TBA',
-      labels: ['compulsory'],
+      labels: ['2023', 'compulsory'],
       description: 'TBA',
       photo: {
         src: './placeholder-event.jpg',
@@ -21,7 +21,7 @@ export const timeline = [
     data: {
       link: 'TBA',
       location: 'TBA',
-      labels: ['compulsory'],
+      labels: ['2023', 'compulsory'],
       description: 'TBA',
       photo: {
         src: './placeholder-event.jpg',
