@@ -1,9 +1,5 @@
 /* eslint-disable */
-
-interface Sponsor {
-  year: number;
-  type: 'affiliations' | 'bronze' | 'diamond' | 'gold' | 'partnerships' | 'silver';
-}
+import { Sponsor } from '../../types/Sponsor';
 
 const filterSponsors = (sponsors: Sponsor[]): { [key: string]: Sponsor[] } => {
   const filteredSponsors = sponsors.filter((sponsor) => sponsor.year === 2023);
