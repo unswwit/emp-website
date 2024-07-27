@@ -3,13 +3,11 @@ import { Montserrat } from 'next/font/google';
 
 import styles from '../../styles/User.module.css';
 import { doForgotPassword } from '../api/user';
-// import { useRouter } from 'next/router';
 import LoadingOverlay from '../../components/LoadingOverlay';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function Forgot_password() {
-  // const router = useRouter();
 
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +40,7 @@ export default function Forgot_password() {
           <LoadingOverlay isLoading={isLoading} />
           <div className={styles.left}>
             <div className={styles.content}>
-              <h1>Reset your password</h1>
+              <h1>Forgot password</h1>
               <div className={styles.auth}>
                 {/* guide: https://mattermost.com/blog/add-google-and-github-login-to-next-js-app-with-nextauth/ */}
               </div>
