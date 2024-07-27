@@ -35,11 +35,11 @@ export default function Login() {
   };
 
   const handleResetPassword = () => {
-    router.push('/user/reset-password');
+    router.push('/user/forgot-password');
   };
 
   useEffect(() => {
-    setLoading(false);
+    setLoading(true);
     initLogin();
   }, []);
 
