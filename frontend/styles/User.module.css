@@ -259,6 +259,15 @@
   color: red;
 }
 
+/* --- forgot password style --- */
+.forgot_password_container {
+  text-align: right;
+}
+.forgot_password_container p{
+  cursor: pointer;
+  font-size: small;
+}
+
 /* -- Admin Tools --- */
 /* Form Style */
 .form {

@@ -34,8 +34,12 @@ export default function Login() {
     setLoading(false);
   };
 
+  const handleResetPassword = () => {
+    router.push('/user/reset-password');
+  };
+
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
     initLogin();
   }, []);
 
@@ -89,6 +93,7 @@ export default function Login() {
                 </div>
                 <hr />
                 {error && <p className={styles.error}>{error}</p>}
+                <div className={styles.forgot_password_container}><p onClick={handleResetPassword}><u>Forgot your password?</u></p></div>
                 <button className={montserrat.className} type="submit">
                   Log in
                 </button>
