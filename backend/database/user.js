@@ -45,6 +45,60 @@ const userInfo = async (req, res) => {
   }
 };
 
+const forgotPassword = async (req, res) => {
+  const email = req.email;
+
+  // Check if email is valid
+  const data = await db.query(`SELECT * FROM users WHERE email = $1;`, [email]);
+  const arr = data.rows;
+  if (arr.length === 0) {
+    return res.status(400).json({ message: `Email doesn't exist. Please register first.` });
+  }
+
+  // NOTE: re-using database because of tight deadlines
+  const token = base64.encode(uuidv4() + email);
+  const date = new Date().toLocaleString();
+  const query = `
+    INSERT INTO invitation_tokens (token, used, created_at)
+    VALUES ($1, $2, $3)
+  `;
+
+  const params = [token, false, date];
+  await db.query(query, params);
+  sendForgotPasswordEmail(email, token);
+  res.status(200).send("Reset password email sent successfully");
+};
+
+// Function to send forgot password email
+const sendForgotPasswordEmail = (email, token) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  // TODO: Change link when deployed
+  const link = `https://empowerment.unswwit.com/user/reset-password?token=${token}`;
+
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: "UNSW WIT Empowerment Program Reset Password",
+    text: `Hi there!,\n\nWe received a request to reset the password for ${email}.\n\nClick this link to enter a new password: ${link}.\n\nIf you did NOT expect to receive this message, please notify the admins immediately!.`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending email:", error);
+    } else {
+      console.log("Email sent:", info.response);
+    }
+  });
+};
+
 module.exports = {
   userInfo,
+  forgotPassword,
 };

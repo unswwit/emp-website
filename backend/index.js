@@ -20,6 +20,7 @@ app.use(cors());
 app.post("/user/register", auth.registerUser);
 app.post("/user/login", auth.loginUser);
 app.get("/user/profile", user.userInfo);
+app.post("/user/forgot-password", user.forgotPassword);
 
 // -------- Mentee --------//
 app.post("/mentee/request-hours", mentee.requestHours);
