@@ -39,7 +39,7 @@ export default function Login() {
   };
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
     initLogin();
   }, []);
 

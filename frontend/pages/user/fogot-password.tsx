@@ -51,7 +51,7 @@ export default function Forgot_password() {
                 OR
                 <hr />
               </div> */}
-              <form method="POST" action="/user/login" onSubmit={handleForgotPassword}>
+              <form method="POST" action="/user/forgot-password" onSubmit={handleForgotPassword}>
                 <div>
                   <label>Email</label>
                   <input
