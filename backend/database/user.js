@@ -1,10 +1,12 @@
 // User (both Mentee and Admin) API Endpoints
 
 require("dotenv").config();
+const nodemailer = require("nodemailer");
 
 const db = require("./db");
 const { verifyToken } = require("./auth");
 const { checkUserExists } = require("./helper");
+const bcrypt = require("bcrypt");
 
 // Get user info
 const userInfo = async (req, res) => {
@@ -47,7 +49,7 @@ const userInfo = async (req, res) => {
 
 // NOTE: re-using admin's /invite implementation and database
 const forgotPassword = async (req, res) => {
-  const email = req.email;
+  const email = req.body.email;
 
   // Check if email is valid
   const data = await db.query(`SELECT * FROM users WHERE email = $1;`, [email]);
@@ -56,8 +58,12 @@ const forgotPassword = async (req, res) => {
     return res.status(400).json({ message: `Email doesn't exist. Please register first.` });
   }
 
+  const zid = await db.query(`SELECT zid FROM users WHERE email = $1;`, [email]);
+
   // NOTE: re-using database because of tight deadlines
-  const token = base64.encode(uuidv4() + email);
+  // token stores max size 32. Chose to use zid over email to fit length.
+  const token = btoa(Math.floor(Math.random() * 99999999999999 + 1) + zid.rows[0].zid);
+
   const date = new Date().toLocaleString();
   const query = `
     INSERT INTO invitation_tokens (token, used, created_at)
@@ -109,15 +115,17 @@ const resetPassword = async (req, res) => {
 
   // Check valid reset token (using invitation_tokens database)
   const tokenResult = await db.query(`SELECT * FROM invitation_tokens WHERE token = $1 AND used = $2`, [token, false]);
+  const check = await db.query(`SELECT * FROM invitation_tokens`);
 
-  // console.log(tokenResult);
   if (tokenResult.rows.length === 0) {
     return res.status(400).send({ message: "Invalid/expired token" });
   }
 
-  const decoded = base64.decode(token);
+  const decoded = atob(token);
 
-  if (!decoded.endsWith(email)) {
+  const zid = await db.query(`SELECT zid FROM users WHERE email = $1;`, [email]);
+
+  if (!decoded.endsWith(zid.rows[0].zid)) {
     return res.status(400).send({ message: "Invalid token/email" });
   }
 
