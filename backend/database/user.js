@@ -1,10 +1,12 @@
 // User (both Mentee and Admin) API Endpoints
 
 require("dotenv").config();
+const nodemailer = require("nodemailer");
 
 const db = require("./db");
 const { verifyToken } = require("./auth");
 const { checkUserExists } = require("./helper");
+const bcrypt = require("bcrypt");
 
 // Get user info
 const userInfo = async (req, res) => {
@@ -21,8 +23,8 @@ const userInfo = async (req, res) => {
 
   try {
     const query = `
-      SELECT email, zid, firstname, lastname, role, year, mentor 
-      FROM users 
+      SELECT email, zid, firstname, lastname, role, year, mentor
+      FROM users
       WHERE zid = $1
     `;
     const values = [zid];
@@ -45,8 +47,9 @@ const userInfo = async (req, res) => {
   }
 };
 
+// NOTE: re-using admin's /invite implementation and database
 const forgotPassword = async (req, res) => {
-  const email = req.email;
+  const email = req.body.email;
 
   // Check if email is valid
   const data = await db.query(`SELECT * FROM users WHERE email = $1;`, [email]);
@@ -55,8 +58,12 @@ const forgotPassword = async (req, res) => {
     return res.status(400).json({ message: `Email doesn't exist. Please register first.` });
   }
 
+  const zid = await db.query(`SELECT zid FROM users WHERE email = $1;`, [email]);
+
   // NOTE: re-using database because of tight deadlines
-  const token = base64.encode(uuidv4() + email);
+  // token stores max size 32. Chose to use zid over email to fit length.
+  const token = btoa(Math.floor(Math.random() * 99999999999999 + 1) + zid.rows[0].zid);
+
   const date = new Date().toLocaleString();
   const query = `
     INSERT INTO invitation_tokens (token, used, created_at)
@@ -98,7 +105,45 @@ const sendForgotPasswordEmail = (email, token) => {
   });
 };
 
+const resetPassword = async (req, res) => {
+  const { email, password } = req.body;
+  const token = req.query.token;
+
+  if (token === "undefined") {
+    return res.status(400).send({ message: "Invalid/expired token" });
+  }
+
+  // Check valid reset token (using invitation_tokens database)
+  const tokenResult = await db.query(`SELECT * FROM invitation_tokens WHERE token = $1 AND used = $2`, [token, false]);
+  const check = await db.query(`SELECT * FROM invitation_tokens`);
+
+  if (tokenResult.rows.length === 0) {
+    return res.status(400).send({ message: "Invalid/expired token" });
+  }
+
+  const decoded = atob(token);
+
+  const zid = await db.query(`SELECT zid FROM users WHERE email = $1;`, [email]);
+
+  if (!decoded.endsWith(zid.rows[0].zid)) {
+    return res.status(400).send({ message: "Invalid token/email" });
+  }
+
+  // Update password
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const params = [email, hashedPassword];
+  const q = "UPDATE users SET password = $2 WHERE email = $1";
+  await db.query(q, params);
+
+  // Mark the token as used
+  await db.query("UPDATE invitation_tokens SET used = $1 WHERE token = $2", [true, token]);
+
+  return res.status(200).json({ message: "Password reset successfully! Please proceed to login." });
+};
+
+
 module.exports = {
   userInfo,
   forgotPassword,
+  resetPassword,
 };
