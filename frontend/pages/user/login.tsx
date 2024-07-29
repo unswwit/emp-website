@@ -87,9 +87,6 @@ export default function Login() {
                     placeholder="Enter your password"
                   />
                 </div>
-                <div>
-                  <a href="/user/forgot-password">Forgot your password?</a>
-                </div>
                 <hr />
                 {error && <p className={styles.error}>{error}</p>}
                 <button className={montserrat.className} type="submit">
