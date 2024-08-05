@@ -89,7 +89,6 @@ const Navbar = () => {
       </div>
 
       <button className={styles.logoutButton}>Logout</button>
-
       <Drawer
         opened={drawerOpened}
         onClose={closeDrawer}
