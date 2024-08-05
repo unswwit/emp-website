@@ -21,6 +21,7 @@
 # misc
 .DS_Store
 *.pem
+/invitation_files
 
 # debug
 npm-debug.log*

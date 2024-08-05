@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable */
+import { useState, useEffect } from 'react';
+import styles from '../styles/Home.module.css';
 
 const CountDown = ({ targetDate }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [timeRemaining, setTimeRemaining] = useState(
-    Math.floor((targetDate - currentDate) / 1000)
-  );
+  const [timeRemaining, setTimeRemaining] = useState(Math.floor((targetDate - currentDate) / 1000));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -57,17 +57,19 @@ const CountDown = ({ targetDate }) => {
   const seconds = calculateSeconds();
 
   return (
-    <div className="countdown">
-      <h1>Countdown to {targetDate.toLocaleDateString()}</h1>
-      <ul className="countdown-values">
-        {months !== 0 && <span> {months} months </span>} &nbsp;{' '}
-        {weeks < 4 && weeks !== 0 && <span> {weeks} weeks </span>} &nbsp;{' '}
-        {days <= 31 && days !== 0 && <span> {days} days </span>} &nbsp;
-        {hours <= 24 && hours !== 0 && <span> {hours} hours</span>} &nbsp;
-        {minutes <= 60 && minutes !== 0 && <span> {minutes} minutes</span>}{' '}
-        &nbsp;{seconds >= 60 && <span> {seconds} seconds</span>}
-      </ul>
-    </div>
+    <>
+      <div className="countdown">
+        <h1>Registration opens in </h1>
+        <h1 className={styles.countdownValues}>
+          {months !== 0 && <span> {months} months </span>}
+          {weeks < 4 && weeks !== 0 && <span> {weeks} weeks </span>}
+          {days <= 31 && days !== 0 && <span> {days} days </span>}
+          {hours <= 24 && hours !== 0 && <span> {hours} hours</span>}
+          {minutes <= 60 && minutes !== 0 && <span> {minutes} minutes</span>}
+          {seconds >= 60 && <span> {seconds} seconds</span>}
+        </h1>
+      </div>
+    </>
   );
 };
 

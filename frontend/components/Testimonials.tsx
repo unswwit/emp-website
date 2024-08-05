@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styles from '../styles/Quotes.module.css';
 import {
   MDBCard,
@@ -26,8 +27,7 @@ function QuoteCard({ data }: any) {
                 <div>
                   <img
                     src={
-                      data.photo.src ||
-                      'https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp'
+                      data.photo.src || 'https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp'
                     }
                     alt={data.photo.alt || 'Example Avatar'}
                   />

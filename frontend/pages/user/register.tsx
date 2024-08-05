@@ -1,50 +1,75 @@
-import React from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Montserrat } from '@next/font/google';
-import { signIn } from 'next-auth/react';
 import Script from 'next/script';
 import { doRegister } from '../api/user';
+import { useRouter } from 'next/router';
 
 import styles from '../../styles/User.module.css';
+import LoadingOverlay from '../../components/LoadingOverlay';
 
 const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY;
 const montserrat = Montserrat({ subsets: ['latin'] });
 const monsterratBold = Montserrat({ weight: '700', subsets: ['latin'] });
 
-export default function register() {
+export default function Register() {
+  const router = useRouter();
+
+  const [isLoading, setLoading] = useState(true);
   const [password, setPassword] = React.useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  // Extract token from query params
+  const token = router.query.token as string;
+
+  const handleRegister = (e: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    e.preventDefault();
+
+    const reqData = {
+      email: e.currentTarget.email.value,
+      zid: e.currentTarget.zid.value,
+      firstName: e.currentTarget.fname.value,
+      lastName: e.currentTarget.lname.value,
+      password: e.currentTarget.password.value,
+    };
+
+    doRegister(reqData, router, setError, token).finally(() => setLoading(false));
+  };
+
+  const initRegister = async () => {
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    initRegister();
+  }, []);
 
   return (
     <div className={styles.user}>
-      <Script
-        src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`}
-      />
+      <Script src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`} />
       <main className={montserrat.className}>
         <div className={styles.panel}>
+          <LoadingOverlay isLoading={isLoading} />
           <div className={styles.left}>
             <div className={styles.content}>
               <h1>Create an account</h1>
               <div className={styles.auth}>
                 {/* guide: https://mattermost.com/blog/add-google-and-github-login-to-next-js-app-with-nextauth/ */}
-                <button
+                {/* <button
                   className={montserrat.className}
                   onClick={() => signIn('google')}
                 >
                   <img src="/google.svg" alt="google logo" />
                   Sign up with Google
-                </button>
+                </button> */}
               </div>
-              <div className={styles.dividerLabel}>
+              {/* <div className={styles.dividerLabel}>
                 <hr />
                 OR
                 <hr />
-              </div>
-              <form
-                method="POST"
-                action="/user/register"
-                onSubmit={(e) => {
-                  doRegister(e);
-                }}
-              >
+              </div> */}
+              <form method="POST" action="/user/register" onSubmit={handleRegister}>
                 <div>
                   <label>Email</label>
                   <input
@@ -127,6 +152,7 @@ export default function register() {
                   />
                 </div>
                 <hr />
+                {error && <p className={styles.error}>{error}</p>}
                 <button className={montserrat.className} type="submit">
                   Continue
                 </button>
@@ -145,16 +171,8 @@ export default function register() {
         </div>
       </main>
       <div className={styles.bg}>
-        <img
-          className={styles.decor1}
-          src="/login/bottom-left.svg"
-          alt="bottom left vector"
-        />
-        <img
-          className={styles.decor2}
-          src="/login/top-right.svg"
-          alt="top right vector"
-        />
+        <img className={styles.decor1} src="/login/bottom-left.svg" alt="bottom left vector" />
+        <img className={styles.decor2} src="/login/top-right.svg" alt="top right vector" />
       </div>
     </div>
   );

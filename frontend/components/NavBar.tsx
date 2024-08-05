@@ -1,14 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import {
-  createStyles,
-  Group,
-  Burger,
-  Drawer,
-  ScrollArea,
-  Divider,
-  rem,
-} from '@mantine/core';
+import { useRouter } from 'next/router';
+import { createStyles, Group, Burger, Drawer, ScrollArea, Divider, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import styles from '../styles/Home.module.css';
 
@@ -33,10 +26,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     ...theme.fn.hover({
-      backgroundColor:
-        theme.colorScheme === 'dark'
-          ? theme.colors.dark[6]
-          : theme.colors.gray[0],
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
     }),
   },
 
@@ -56,28 +46,17 @@ const useStyles = createStyles((theme) => ({
 
 const Navbar = () => {
   const { classes, theme } = useStyles();
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
-    useDisclosure(false);
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push('/user/login');
+  };
 
   return (
     <nav className={styles.navbar}>
       <div className={styles.navLeft}>
-        <Image
-          src="/WIT-logo-white.png"
-          alt="UNSWWIT Logo"
-          className={styles.logo}
-          width={50}
-          height={50}
-          priority
-        />
-        <strong>E M P O W E R M E N T</strong>
-
-        <Group className={classes.hiddenMobile}>
-          <a href="#About">About</a>
-          {/* <a href="#Testimonials">Testimonials</a> */}
-          <a href="#Timeline">Timeline</a>
-        </Group>
-
         <div className={styles.burgerWrapper}>
           <Burger
             opened={drawerOpened}
@@ -86,9 +65,30 @@ const Navbar = () => {
             color="white"
           />
         </div>
+
+        <Image
+          src="/WIT-logo-white.png"
+          alt="UNSWWIT Logo"
+          className={styles.logo}
+          width={50}
+          height={50}
+          priority
+        />
+
+        <strong className={classes.hiddenMobile}>E M P O W E R M E N T</strong>
+        <strong className={classes.hiddenDesktop}>E M P</strong>
+
+        <Group className={classes.hiddenMobile}>
+          <a href="#About">About</a>
+          {/* <a href="#Testimonials">Testimonials</a> */}
+          <a href="#Timeline">Timeline</a>
+        </Group>
       </div>
 
-      <button className={styles.logoutButton}>Logout</button>
+      <button className={`${styles.logoutButton} ${classes.hiddenMobile}`} onClick={handleLogin}>
+        Login
+      </button>
+
       <Drawer
         opened={drawerOpened}
         onClose={closeDrawer}
@@ -100,10 +100,7 @@ const Navbar = () => {
         zIndex={1000000}
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
-          <Divider
-            my="sm"
-            color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
-          />
+          <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
           <div className="column">
             <a href="#About" className={classes.link}>
               About
@@ -115,13 +112,12 @@ const Navbar = () => {
               Timeline
             </a>
           </div>
-          <Divider
-            my="sm"
-            color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
-          />
+          <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
 
           <Group position="center" grow pb="xl" px="md">
-            {<button className={styles.logoutButton}>Logout</button>}
+            <button className={styles.logoutButton} onClick={handleLogin}>
+              Login
+            </button>
           </Group>
         </ScrollArea>
       </Drawer>
