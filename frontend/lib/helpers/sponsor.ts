@@ -1,4 +1,4 @@
-/* eslint-disable */
+
 import { Sponsor } from '../../types/Sponsor';
 
 const filterSponsors = (sponsors: Sponsor[]): { [key: string]: Sponsor[] } => {
