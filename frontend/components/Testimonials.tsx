@@ -33,6 +33,9 @@ function QuoteCard({ data }: any) {
                   />
                 </div>
                 <div>
+                  <figcaption>{data.name || 'Example Name'}</figcaption>
+                  <p>{data.mentorship || 'Example Mentor Role'}</p>
+                  <br />
                   <MDBTypography blockquote>
                     <span className="font-italic">
                       {data.description ||
@@ -42,8 +45,6 @@ function QuoteCard({ data }: any) {
                       inventore.'}
                     </span>
                   </MDBTypography>
-                  <br />
-                  <figcaption>{data.name || 'Example Name'}</figcaption>
                 </div>
               </div>
             </MDBCol>
