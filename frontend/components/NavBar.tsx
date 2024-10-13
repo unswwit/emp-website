@@ -61,13 +61,13 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['About', 'Timeline'];
-      let currentSection = '';
+      let currentSection = 'About';
 
       sections.forEach((section) => {
         const element = document.getElementById(section);
         if (element) {
           const { top, height } = element.getBoundingClientRect();
-          if (top <= 100 && top + height > 100) {
+          if (top <= 50 && top + height > 50) {
             currentSection = section;
           }
         }
