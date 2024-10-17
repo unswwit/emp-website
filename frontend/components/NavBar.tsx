@@ -30,8 +30,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     ...theme.fn.hover({
-      backgroundColor: 'transparent',
-      color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
     }),
   },
 
