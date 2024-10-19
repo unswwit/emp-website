@@ -1,5 +1,5 @@
 .container {
-  max-width: 800px;
+  max-width: 400px;
   margin: 0 auto;
   border-radius: 1px;
 }
@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .quoteCard img {
@@ -42,9 +43,17 @@
 }
 
 .quoteCard figcaption {
-  font-size: 1rem;
-  color: #999;
+  font-size: 1.5rem;
+  color: #000000;
   margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+.quoteCard p {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #eb6867;
 }
 
 .quoteCard figcaption cite {
@@ -55,11 +64,15 @@
 
 .flexBox {
   display: flex;
+  flex-direction: column;
   gap: 20px;
+  align-items: center;
 }
 
 .box {
   background-color: white;
   padding: 50px 50px 20px 50px;
   border-radius: 30px;
+  border-style: solid;
+  border-color: #d3d1d181;
 }
