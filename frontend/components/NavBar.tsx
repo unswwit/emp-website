@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { createStyles, Group, Burger, Drawer, ScrollArea, Divider, rem } from '@mantine/core';
@@ -25,8 +25,13 @@ const useStyles = createStyles((theme) => ({
       width: '100%',
     },
 
+    '&.active': {
+      color: 'orange',
+    },
+
     ...theme.fn.hover({
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+      backgroundColor: 'transparent',
+      color: theme.colorScheme === 'dark' ? theme.white : theme.black,
     }),
   },
 
@@ -47,12 +52,34 @@ const useStyles = createStyles((theme) => ({
 const Navbar = () => {
   const { classes, theme } = useStyles();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
-
   const router = useRouter();
+  const [activeSection, setActiveSection] = useState<string>('About');
 
   const handleLogin = () => {
     router.push('/user/login');
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['About', 'Timeline'];
+      let currentSection = 'About';
+
+      sections.forEach((section) => {
+        const element = document.getElementById(section);
+        if (element) {
+          const { top, height } = element.getBoundingClientRect();
+          if (top <= 50 && top + height > 50) {
+            currentSection = section;
+          }
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <nav className={styles.navbar}>
@@ -79,9 +106,18 @@ const Navbar = () => {
         <strong className={classes.hiddenDesktop}>E M P</strong>
 
         <Group className={classes.hiddenMobile}>
-          <a href="#About">About</a>
-          {/* <a href="#Testimonials">Testimonials</a> */}
-          <a href="#Timeline">Timeline</a>
+          <a
+            href="#About"
+            className={`${classes.link} ${activeSection === 'About' ? 'active' : ''}`}
+          >
+            About
+          </a>
+          <a
+            href="#Timeline"
+            className={`${classes.link} ${activeSection === 'Timeline' ? 'active' : ''}`}
+          >
+            Timeline
+          </a>
         </Group>
       </div>
 
@@ -102,13 +138,16 @@ const Navbar = () => {
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
           <div className="column">
-            <a href="#About" className={classes.link}>
+            <a
+              href="#About"
+              className={`${classes.link} ${activeSection === 'About' ? 'active' : ''}`}
+            >
               About
             </a>
-            {/* <a href="#Testimonials" className={classes.link}>
-              Testimonials
-            </a> */}
-            <a href="#Timeline" className={classes.link}>
+            <a
+              href="#Timeline"
+              className={`${classes.link} ${activeSection === 'Timeline' ? 'active' : ''}`}
+            >
               Timeline
             </a>
           </div>
