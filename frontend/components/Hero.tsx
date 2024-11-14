@@ -9,7 +9,7 @@ export default function Hero() {
           UNSW <br></br> Women in Technology
         </h1>
         <h3>
-          2024 Empowerment<br></br> Mentoring
+          {new Date().getFullYear()} Empowerment<br></br> Mentoring
         </h3>
       </div>
       <Image

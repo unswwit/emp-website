@@ -18,7 +18,7 @@ export default function Footer() {
             height={50}
             priority
           />
-          <p>© UNSW Women in Technology 2024</p>
+          <p>© UNSW Women in Technology {new Date().getFullYear()}</p>
         </div>
         <div className={styles.footerIcons}>
           <Tooltip title="Instagram" arrow>

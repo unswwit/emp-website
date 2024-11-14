@@ -90,7 +90,7 @@ export default function AdminHome() {
 
     const doc = new jsPDF({ orientation: 'landscape' });
     doc.setFontSize(18);
-    doc.text('Women in Technology Empowerment Mentoring 2024 Hours Summary Information', 14, 15);
+    doc.text(`Women in Technology Empowerment Mentoring ${new Date().getFullYear()} Hours Summary Information`, 14, 15);
 
     Object.keys(groupedHours).forEach((zid, index) => {
       if (index > 0) {
@@ -130,7 +130,7 @@ export default function AdminHome() {
       });
     });
 
-    doc.save('WIT 2024 Hours Summary Information.pdf');
+    doc.save(`WIT ${new Date().getFullYear()} Hours Summary Information.pdf`);
   };
 
   const handleDownload = () => {
@@ -139,7 +139,7 @@ export default function AdminHome() {
 
     const doc = new jsPDF({ orientation: 'landscape' });
     doc.setFontSize(18);
-    doc.text('Women in Technology Empowerment Mentoring 2024 All Hours Information', 14, 15);
+    doc.text(`Women in Technology Empowerment Mentoring ${new Date().getFullYear()} All Hours Information`, 14, 15);
 
     const tableData = downloadedHours.map((info) => [
       info.zid,
@@ -183,7 +183,7 @@ export default function AdminHome() {
       },
     });
 
-    doc.save('WIT 2024 All Hours Information.pdf');
+    doc.save(`WIT ${new Date().getFullYear()} All Hours Information.pdf`);
   };
 
   const initHome = async () => {
