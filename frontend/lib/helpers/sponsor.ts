@@ -1,7 +1,7 @@
 import { Sponsor } from '../../types/Sponsor';
 
 const filterSponsors = (sponsors: Sponsor[]): { [key: string]: Sponsor[] } => {
-  const filteredSponsors = sponsors.filter((sponsor) => sponsor.year === 2023);
+  const filteredSponsors = sponsors.filter((sponsor) => sponsor.year === 2024);
   const tempSponsors = {
     'Diamond Sponsors': filteredSponsors.filter((sponsor) => sponsor.type === 'diamond'),
     'Gold Sponsors': filteredSponsors.filter((sponsor) => sponsor.type === 'gold'),
