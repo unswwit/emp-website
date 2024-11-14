@@ -17,6 +17,9 @@ jobs:
       - name: Lint files
         working-directory: ./frontend
         run: npm run lint
+      - name: Run prettier lint
+        working-directory: ./frontend
+        run: npm run prettier --write .
   Build:
     runs-on: ubuntu-latest
     steps:
