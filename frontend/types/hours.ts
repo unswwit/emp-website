@@ -40,3 +40,23 @@ export interface hoursAdminActions {
   approveAction: (hourId: string) => void;
   rejectAction: (hourId: string) => void;
 }
+
+export interface groupedHoursEntry {
+  firstname: string;
+  lastname: string;
+  totalHours: number;
+  entries: {
+    timestamp: string;
+    description: string;
+    image_url: string;
+  }[];
+}
+
+export interface cellHookData {
+  column: { index: number };
+  cell: {
+    x: number;
+    y: number;
+    raw: any;
+  };
+}

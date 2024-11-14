@@ -15,6 +15,8 @@ import {
   hoursImage,
   hoursInfo,
   hoursStatus,
+  groupedHoursEntry,
+  cellHookData,
 } from '../../types/hours';
 
 import { approveMenteeHours, getAllMenteeHours } from '../api/admin';
@@ -67,7 +69,7 @@ export default function AdminHome() {
     handleRefresh();
     const downloadedHours = hoursList.filter((hour) => hour.status === hoursStatus.APPROVED);
 
-    const groupedHours = downloadedHours.reduce((acc, info) => {
+    const groupedHours = downloadedHours.reduce((acc: Record<string, groupedHoursEntry>, info) => {
       if (!acc[info.zid]) {
         acc[info.zid] = {
           firstname: info.firstname,
@@ -118,7 +120,7 @@ export default function AdminHome() {
           1: { cellWidth: 100 },
           2: { cellWidth: 30 },
         },
-        didDrawCell: (data) => {
+        didDrawCell: (data: cellHookData) => {
           if (data.column.index === 2 && typeof data.cell.raw === 'object') {
             doc.textWithLink('View Image', data.cell.x + 2, data.cell.y + 5, {
               url: data.cell.raw.link,
@@ -172,7 +174,7 @@ export default function AdminHome() {
         5: { cellWidth: 40 },
         6: { cellWidth: 50 },
       },
-      didDrawCell: (data) => {
+      didDrawCell: (data: cellHookData) => {
         if (data.column.index === 6 && typeof data.cell.raw === 'object') {
           doc.textWithLink('Click to view', data.cell.x + 2, data.cell.y + 5, {
             url: data.cell.raw.link,
