@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Montserrat } from 'next/font/google';
 import { Button, Divider, Snackbar, Stack } from '@mui/material';
 import styles from '../../styles/User.module.css';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 import MainContent from '../../components/MainContent';
 import LoadingOverlay from '../../components/LoadingOverlay';
@@ -18,7 +20,7 @@ import {
 import { approveMenteeHours, getAllMenteeHours } from '../api/admin';
 import { HoursCollapsible } from '../../components/mentee/HoursCollapsible';
 import AdminNavbar from '../../components/admin/AdminNavbar';
-import { RefreshOutlined } from '@mui/icons-material';
+import { DownloadOutlined, RefreshOutlined, TimerOutlined } from '@mui/icons-material';
 import { ViewImageModal } from '../../components/mentee/ViewImageModal';
 import { checkValidUser } from '../../utils/auth';
 
@@ -61,6 +63,123 @@ export default function AdminHome() {
     });
   };
 
+  const handleDownloadSummary = () => {
+    handleRefresh();
+    const downloadedHours = hoursList.filter(hour => hour.status === hoursStatus.APPROVED);
+  
+    const groupedHours = downloadedHours.reduce((acc, info) => {
+      if (!acc[info.zid]) {
+        acc[info.zid] = {
+          firstname: info.firstname,
+          lastname: info.lastname,
+          totalHours: 0,
+          entries: [],
+        };
+      }
+
+      acc[info.zid].totalHours += info.num_hours;
+      acc[info.zid].entries.push({
+        timestamp: info.timestamp,
+        description: info.description,
+        image_url: info.image_url,
+      });
+      return acc;
+    }, {});
+  
+    const doc = new jsPDF({ orientation: 'landscape' });
+    doc.setFontSize(18);
+    doc.text("Women in Technology Empowerment Mentoring 2024 Hours Summary Information", 14, 15);
+  
+    Object.keys(groupedHours).forEach((zid, index) => {
+      if (index > 0) {
+        doc.addPage();
+      }
+  
+      const user = groupedHours[zid];
+      
+      doc.setFontSize(14);
+      doc.text(`ZID: ${zid} - ${user.firstname} ${user.lastname}`, 14, 25);
+      doc.setFontSize(12);
+      doc.text(`Total Hours: ${user.totalHours}`, 14, 35);
+  
+      const tableHeaders = ["Timestamp", "Description", "Image"];
+      const tableData = user.entries.map(entry => [
+        entry.timestamp,
+        entry.description,
+        { content: "", link: entry.image_url },
+      ]);
+  
+      doc.autoTable({
+        head: [tableHeaders],
+        body: tableData,
+        startY: 45, 
+        columnStyles: {
+          0: { cellWidth: 50 }, 
+          1: { cellWidth: 100 },
+          2: { cellWidth: 30 }, 
+        },
+        didDrawCell: data => {
+          if (data.column.index === 2 && typeof data.cell.raw === 'object') {
+            doc.textWithLink("View Image", data.cell.x + 2, data.cell.y + 5, { url: data.cell.raw.link });
+          }
+        },
+      });
+    });
+  
+    doc.save("WIT 2024 Hours Summary Information.pdf");
+  };
+
+  const handleDownload = () => {
+    handleRefresh();
+    const downloadedHours = hoursList.filter(hour => hour.status === hoursStatus.APPROVED);
+  
+    const doc = new jsPDF({ orientation: 'landscape' });
+    doc.setFontSize(18);
+    doc.text("Women in Technology Empowerment Mentoring 2024 All Hours Information", 14, 15);
+  
+    const tableData = downloadedHours.map(info => [
+      info.zid,
+      info.firstname,
+      info.lastname,
+      info.num_hours,
+      info.description,
+      info.timestamp,
+      { content: "", link: info.image_url },
+    ]);
+  
+    const tableHeaders = [
+      "ZID",
+      "First Name",
+      "Last Name",
+      "Hours",
+      "Description",
+      "Timestamp",
+      "Image URL",
+    ];
+  
+    doc.autoTable({
+      head: [tableHeaders],
+      body: tableData,
+      startY: 25,
+      columnStyles: {
+        0: { cellWidth: 20 },
+        1: { cellWidth: 30 },
+        2: { cellWidth: 30 },
+        3: { cellWidth: 15 },
+        4: { cellWidth: 60 },
+        5: { cellWidth: 40 },
+        6: { cellWidth: 50 },
+      },
+      didDrawCell: data => {
+        if (data.column.index === 6 && typeof data.cell.raw === 'object') {
+          doc.textWithLink("Click to view", data.cell.x + 2, data.cell.y + 5, { url: data.cell.raw.link });
+        }
+      },
+    });
+  
+    doc.save("WIT 2024 All Hours Information.pdf");
+  };
+
   const initHome = async () => {
     const validUser = await checkValidUser(router, true);
 
@@ -98,21 +217,57 @@ export default function AdminHome() {
                 <h1>Hi Admin 👋!</h1>
               </div>
               <Stack
-                direction="row"
-                divider={<Divider orientation="vertical" flexItem />}
-                spacing={1}
-                marginY={2}
-              >
-                <Button
-                  variant="outlined"
-                  startIcon={<RefreshOutlined />}
-                  onClick={() => handleRefresh()}
-                  disabled={isLoading}
+                  direction="row"
+                  divider={<Divider orientation="vertical" flexItem />}
+                  spacing={1}
+                  marginY={2}
                 >
-                  Refresh
-                </Button>
+                <Stack
+                  direction="row"
+                  divider={<Divider orientation="vertical" flexItem />}
+                  spacing={1}
+                  marginY={2}
+                >
+                  <Button
+                    variant="outlined"
+                    startIcon={<RefreshOutlined />}
+                    onClick={() => handleRefresh()}
+                    disabled={isLoading}
+                  >
+                    Refresh
+                  </Button>
+                </Stack>
+                <Stack
+                  direction="row"
+                  divider={<Divider orientation="vertical" flexItem />}
+                  spacing={1}
+                  marginY={2}
+                >
+                  <Button
+                    variant="outlined"
+                    startIcon={<TimerOutlined />}
+                    onClick={() => handleDownload()}
+                    disabled={isLoading}
+                  >
+                    Download All Hours
+                  </Button>
+                </Stack>
+                <Stack
+                  direction="row"
+                  divider={<Divider orientation="vertical" flexItem />}
+                  spacing={1}
+                  marginY={2}
+                >
+                  <Button
+                    variant="outlined"
+                    startIcon={<DownloadOutlined />}
+                    onClick={() => handleDownloadSummary()}
+                    disabled={isLoading}
+                  >
+                    Download Hours Summary
+                  </Button>
+                </Stack>
               </Stack>
-
               <Stack spacing={2}>
                 <HoursCollapsible
                   title="Open Requests"
