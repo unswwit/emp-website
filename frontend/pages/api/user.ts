@@ -42,6 +42,25 @@ export async function doLogin(
   }
 }
 
+export async function doForgotPassword(
+  req: any,
+  setMessage: Dispatch<React.SetStateAction<string | null>>,
+  setError: Dispatch<React.SetStateAction<string | null>>
+) {
+  const res = await fetch(`${apiUrl}/user/forgot-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(req),
+  });
+  const data = await res.json();
+
+  if (res.ok) {
+    setMessage(data.message);
+  } else {
+    setError(data.message);
+  }
+}
+
 export async function getUserProfile() {
   const res = await fetch(`${apiUrl}/user/profile`, {
     method: 'GET',
