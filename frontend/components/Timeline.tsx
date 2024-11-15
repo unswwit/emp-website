@@ -5,6 +5,14 @@ import { Container, Box, SwipeableDrawer, Pagination } from '@mui/material';
 import { TextalignJustifycenter, Grid2, Link2, Calendar, Clock, Global } from 'iconsax-react';
 import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 import { differenceInDays } from 'date-fns';
+import {
+  TimelineEvent,
+  TimelineInfo,
+  TabPanelProps,
+  EventInput,
+  EventsInput,
+  InfoPanelInput,
+} from '../types/timeline';
 
 // FullCalendar
 import FullCalendar from '@fullcalendar/react'; // must go before plugins
@@ -15,15 +23,8 @@ import { timeline } from '../data/timeline';
 import styles from '../styles/Timeline.module.css';
 import { StyledCalendar, StyledTabs, StyledTab } from '../styles/Timeline.module';
 
-type TabPanelProps = {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-};
-
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -37,7 +38,7 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
+function TimelineTabs({ events, handleDrawer, handleEventNo }: EventsInput) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -64,13 +65,13 @@ function TimelineTabs({ events, handleDrawer, handleEventNo }: any) {
   );
 }
 
-function TimelineList({ events, handleDrawer, handleEventNo }: any) {
+function TimelineList({ events, handleDrawer, handleEventNo }: EventsInput) {
   const itemsPerPage = 5;
   const pages = Math.ceil(events.length / itemsPerPage);
 
   const [someEvents, setSomeEvents] = React.useState(events.slice(0, itemsPerPage));
 
-  const handlePage = (currentPage: any) => {
+  const handlePage = (currentPage: number) => {
     setSomeEvents(
       events.slice(
         itemsPerPage * (currentPage - 1),
@@ -82,7 +83,7 @@ function TimelineList({ events, handleDrawer, handleEventNo }: any) {
   return (
     <div>
       <div className={styles.container}>
-        {someEvents.map((e: any) => {
+        {someEvents.map((e: TimelineInfo) => {
           return (
             <TimelineCard
               key={e.id}
@@ -104,7 +105,7 @@ function TimelineList({ events, handleDrawer, handleEventNo }: any) {
   );
 }
 
-function TimelineCard({ event, handleDrawer, handleEventNo }: any) {
+function TimelineCard({ event, handleDrawer, handleEventNo }: EventInput) {
   const startDateDay = event.start.getDate().toLocaleString('en-US', {
     minimumIntegerDigits: 2,
   });
@@ -155,7 +156,7 @@ function TimelineCard({ event, handleDrawer, handleEventNo }: any) {
         </h3>
         {/* TAGS */}
         <p className={styles.labels}>
-          {event.data.labels.map((l: any, id: any) => (
+          {event.data.labels.map((l: string, id: number) => (
             <span key={id}>{l}</span>
           ))}
         </p>
@@ -164,7 +165,11 @@ function TimelineCard({ event, handleDrawer, handleEventNo }: any) {
   );
 }
 
-function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
+function TimelineCalendarFC({
+  events,
+  handleDrawer,
+  handleEventNo,
+}: EventsInput) {
   return (
     <StyledCalendar>
       <FullCalendar
@@ -184,7 +189,7 @@ function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: any) {
   );
 }
 
-function InfoPanel({ event, drawer, handleDrawer }: any) {
+function InfoPanel({ event, drawer, handleDrawer }: InfoPanelInput) {
   const daysLeftUntilEventStarts = differenceInDays(event.start, new Date());
   const daysLeftUntilEventEnds = differenceInDays(event.end, new Date());
 
@@ -280,7 +285,7 @@ function InfoPanel({ event, drawer, handleDrawer }: any) {
             </div>
             {/* Labels */}
             <p className={styles.labels}>
-              {event.data.labels.map((l: any, id: number) => (
+              {event.data.labels.map((l: string, id: number) => (
                 <span key={id}>{l}</span>
               ))}
             </p>
@@ -303,16 +308,19 @@ export default function Timeline() {
   const [drawer, setDrawer] = React.useState(false);
   const [events, setEvents] = React.useState(
     timeline
-      .map((e: any, id: number) => {
+      .map((e: TimelineEvent, id: number) => {
         return {
-          id: id,
+          id: id.toString(),
           title: e.title,
           start: new Date(e.start),
           end: new Date(e.end),
           data: e.data,
         };
       })
-      .sort((a: any, b: any) => b.start - a.start)
+      .sort(
+        (a: TimelineInfo, b: TimelineInfo) =>
+          b.start.valueOf() - a.start.valueOf()
+      )
   );
 
   const [eventNo, setEventNo] = React.useState(0);
@@ -322,14 +330,13 @@ export default function Timeline() {
   };
 
   const handleEventNo = (n: number) => setEventNo(n);
-
   return (
     <div className={styles.wrapper}>
       <TimelineTabs events={events} handleDrawer={handleDrawer} handleEventNo={handleEventNo} />
       <InfoPanel
         drawer={drawer}
         handleDrawer={handleDrawer}
-        event={events.find((e) => e.id == eventNo)}
+        event={events[events.findIndex((e) => parseInt(e.id) == eventNo)]}
       />
     </div>
   );
