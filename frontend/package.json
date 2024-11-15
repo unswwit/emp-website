@@ -34,7 +34,7 @@
     "cookies-next": "^4.2.1",
     "countdown": "^2.6.0",
     "date-fns": "^2.29.3",
-    "eslint": "8.57.0",
+    "eslint": "8.57.1",
     "eslint-config-next": "13.4.19",
     "iconsax-react": "^0.0.8",
     "jspdf": "^2.5.2",
