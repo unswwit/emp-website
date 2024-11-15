@@ -19,7 +19,7 @@ export default async function register(req: NextApiRequest, res: NextApiResponse
     const recaptchaJson = await recaptchaRes.json();
     res.status(200).json({ ...recaptchaJson });
     // res.status(200).json({ name, email, zid, password, ...recaptchaJson });
-  } catch (e) {
+  } catch (_e) {
     // res.status(400).json(e);
     res.status(400);
   }
