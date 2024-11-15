@@ -128,7 +128,8 @@ function TimelineCard({ event, handleDrawer, handleEventNo }: EventInput) {
     <div
       className={styles.timelineCard}
       onClick={() => {
-        handleEventNo(event.id);
+        const eventId = parseInt(event.id);
+        handleEventNo(eventId);
         handleDrawer();
       }}
     >
