@@ -27,7 +27,7 @@
     "@mui/material": "^5.13.5",
     "@next/font": "^13.4.4",
     "@tabler/icons-react": "^2.22.0",
-    "@types/node": "18.19.24",
+    "@types/node": "22.10.1",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "contentful": "^10.2.3",
