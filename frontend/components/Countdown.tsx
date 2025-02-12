@@ -18,7 +18,7 @@ export default function Countdown() {
     } else {
       return (
         <div className={styles.divider}>
-          <h2>Sign ups for {getWeekYear(currentDate)} coming soon.</h2>
+          <h2>Sign ups for {getWeekYear(currentDate)} are coming soon.</h2>
         </div>
       );
     }
