@@ -12,7 +12,7 @@ export default function Countdown() {
     if (getWeekYear(targetDate) === getWeekYear(currentDate)) {
       return (
         <div className={styles.divider}>
-          <h2>Sign ups for {getWeekYear(targetDate)} have closed.</h2>
+          <h2>Sign ups for {getWeekYear(currentDate)} have closed.</h2>
         </div>
       );
     } else {
