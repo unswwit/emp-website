@@ -43,6 +43,7 @@ export async function doLogin(
 }
 
 export async function getUserProfile() {
+
   const res = await fetch(`${apiUrl}/user/profile`, {
     method: 'GET',
     headers: {
@@ -57,5 +58,30 @@ export async function getUserProfile() {
     return data;
   } else {
     console.error(data.message);
+  }
+}
+
+export async function doForgotPassword(
+  email: string,
+  setError: Dispatch<React.SetStateAction<string | null>>,
+  setSuccess: Dispatch<React.SetStateAction<string | null>>
+) {
+  try {
+    const res = await fetch(`${apiUrl}/user/forgot-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.message || 'Something went wrong.');
+    } else {
+      setSuccess('Reset email sent! Check your inbox.');
+    }
+  } catch (err) {
+    console.error('Forgot password error:', err);
+    setError('Server error. Try again later.');
   }
 }
