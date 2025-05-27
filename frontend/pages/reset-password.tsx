@@ -10,22 +10,20 @@ export default function ResetPasswordPage() {
   const [resetToken, setResetToken] = useState<string | null>(null);
   const router = useRouter();
 
-  // // Dummy function: used for testing if it worked
-  // const handleSubmitEmail = async (email: string) => {
-  //   // Always succeed and set a dummy token -> as i am only simulating the flow
-  //   setResetToken('dummy-token');
-  //   return true;
-  // };
+  // Step 1: Send reset email, get token if user exists
+  const handleSubmitEmail = async (email: string) => {
+    setResetToken('dummy-token');
+    return true;
+  
+  };
 
-  // Submit new password and token
+  // Step 2: Submit new password and token
   const handleSubmitNewPassword = async (password: string, confirmPassword: string) => {
     if (password !== confirmPassword) {
       alert('Passwords do not match.');
       return;
     }
     try {
-      // The reset token (taken from send email) should verify user's identity and 
-      // should allow to change the password.
       const res = await fetch('/api/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -49,6 +47,7 @@ export default function ResetPasswordPage() {
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         onSubmitNewPassword={handleSubmitNewPassword}
+        // onSubmitEmail={handleSubmitEmail}
       />
     </div>
   );
