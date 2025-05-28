@@ -12,9 +12,7 @@ interface ResetPasswordModalProps {
 }
 
 // Password comments:
-// 1. Checking if it is atleast 8 characters long
-// 2. Check if passwords match 
-// 3. Check if it contains letters, numbers and special characters
+// 1. Check if passwords match (rest of them should be handled in backend)
 export default function ResetPasswordModal({
   open,
   onClose,
@@ -28,14 +26,6 @@ export default function ResetPasswordModal({
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPasswordError('');
-    if (!password || password.length < 8) {
-      setPasswordError('Password must be at least 8 characters.');
-      return;
-    }
-    if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).+$/.test(password)) {
-      setPasswordError('Password must contain letters, numbers, and special characters.');;
-      return;
-    }
     if (password !== confirm) {
       setPasswordError('Passwords do not match.');
       return;

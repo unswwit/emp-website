@@ -3,6 +3,7 @@ import { getAuthToken, storeAuthToken } from './session';
 import { Dispatch } from 'react';
 import { userLoginRequest, userRegisterRequest } from '../../types/user';
 import { apiUrl } from '../../data/constants';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export async function doRegister(
   req: userRegisterRequest,
@@ -58,4 +59,17 @@ export async function getUserProfile() {
   } else {
     console.error(data.message);
   }
+}
+
+export async function doResetPassword(password: string, token: string | null, router?: NextRouter) {
+  const res = await fetch(`${apiUrl}/user/reset-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password, token }),
+  });
+  // if password is reset and the router is given, go back to login
+  if (res.ok && router) {
+    router.push('/user/login');
+  }
+  return res;
 }
