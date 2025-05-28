@@ -59,7 +59,8 @@ const loginUser = async (req, res) => {
     }
 
     // if zid/email does not exist
-    if (results.rows.length === 0) {
+    // NOTE: added Aastha's fix for login issue (from discord (under #discussions channel))
+    if (!results || !results.rows || results.rows.length === 0) {
       // console.log(`${userId} login fail`); // FOR DEBUGGING
       return res.status(401).json({ message: `Email/zID is not registered.` });
     }
