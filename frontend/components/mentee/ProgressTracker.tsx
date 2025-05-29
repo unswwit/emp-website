@@ -6,14 +6,14 @@ import { hoursInfo, hoursStatus } from '../../types/hours';
 
 const StyledBox = styled(Paper)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
-
+  boxShadow: theme.shadows[1],
   marginBottom: theme.spacing(2),
   border: `1px solid ${theme.palette.divider}`,
 
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  padding: '30px 100px',
+  padding: '40px 100px',
 }));
 
 const ProgressBar = styled(LinearProgress)({
@@ -46,12 +46,12 @@ const ProgressTracker = ({ hours, statuses }: { hours: hoursInfo[]; statuses: ho
   }, [hours]);
 
   const totalHours = 20;
-  const hoursCompleted = 12;
+  const hoursCompleted = filteredHours.length;
   const hoursRemaining = totalHours - hoursCompleted;
 
   return (
     <StyledBox>
-      <ProgressBar variant="determinate" value={(hoursCompleted / totalHours) * 100} />
+      <ProgressBar variant="determinate" value={hoursCompleted} />
       <LabelContainer>
         <h4>Hours Completed: {hoursCompleted}</h4>
         <h4>Hours Remaining: {hoursRemaining}</h4>
