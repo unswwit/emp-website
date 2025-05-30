@@ -34,7 +34,7 @@
     "cookies-next": "^4.2.1",
     "countdown": "^2.6.0",
     "date-fns": "^2.29.3",
-    "eslint": "8.57.0",
+    "eslint": "9.28.0",
     "eslint-config-next": "13.4.19",
     "iconsax-react": "^0.0.8",
     "jspdf": "^2.5.2",
@@ -57,7 +57,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
-    "eslint": "^8.37.0",
+    "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "prettier": "^3.3.3"
