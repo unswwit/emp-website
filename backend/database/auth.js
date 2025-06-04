@@ -124,7 +124,6 @@ const forgotPassword = async (req, res) => {
       return res.status(404).json({ message: "No account found with that email." });
     }
 
-    // You can later add real email logic here.
     return res.status(200).json({ message: "Reset email sent!" });
   } catch (err) {
     console.error("Forgot password error:", err);
