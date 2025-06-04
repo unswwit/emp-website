@@ -81,6 +81,28 @@ const loginUser = async (req, res) => {
   });
 };
 
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required." });
+  }
+
+  try {
+    const result = await db.query("SELECT * FROM users WHERE email = $1", [email]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "No account found with that email." });
+    }
+
+    // You can later add real email logic here.
+    return res.status(200).json({ message: "Reset email sent!" });
+  } catch (err) {
+    console.error("Forgot password error:", err);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+};
+
 // Verify and decode token
 const verifyToken = (token_header, res) => {
   if (!token_header) {
@@ -102,4 +124,5 @@ module.exports = {
   registerUser,
   loginUser,
   verifyToken,
+  forgotPassword,
 };
