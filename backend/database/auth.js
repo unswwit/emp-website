@@ -201,6 +201,15 @@ const resetPassword = async (req, res) => {
       return res.status(400).send({ message: "Invalid token/email combination." });
     }
 
+    const user = userResult.rows[0];
+    const zid = user.zid;
+
+    // 3. Check if token ends with user's zid (same as how it was encoded)
+    const expectedTokenSuffix = zid;
+    if (!token.endsWith(expectedTokenSuffix)) {
+      return res.status(400).json({ message: "Token does not match user." });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await db.query("UPDATE users SET password = $2 WHERE email = $1", [email, hashedPassword]);
