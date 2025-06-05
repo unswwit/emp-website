@@ -177,8 +177,7 @@ const sendForgotPasswordEmail = (email, token) => {
 
 // RESET PASSWORD
 const resetPassword = async (req, res) => {
-  const { email, password } = req.body;
-  const token = req.query.token;
+  const { email, password, token } = req.body;
 
   if (!email || !password || !token || token === "undefined") {
     return res.status(400).send({ message: "Invalid request." });
