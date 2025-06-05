@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-import { Montserrat } from '@next/font/google';
+import { Montserrat } from "next/font/google";
 import Script from 'next/script';
 import { doRegister } from '../api/user';
 import { useRouter } from 'next/router';
