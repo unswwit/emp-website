@@ -120,9 +120,9 @@ const forgotPassword = async (req, res) => {
   }
 
   try {
-    const result = await db.query("SELECT zid FROM users WHERE email = $1", [email]);
+    const userResult = await db.query("SELECT zid FROM users WHERE email = $1", [email]);
 
-    if (result.rows.length === 0) {
+    if (userResult.rows.length === 0) {
       return res.status(404).json({ message: "No account found with that email." });
     }
 
