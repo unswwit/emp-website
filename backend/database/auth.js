@@ -157,7 +157,7 @@ const sendForgotPasswordEmail = (email, token) => {
     },
   });
 
-  const link = `https://empowerment.unswwit.com/user/reset-password?token=${token}`;
+  const link = `https://empowerment.unswwit.com/reset-password?token=${token}`;
 
   const mailOptions = {
     from: process.env.EMAIL,
