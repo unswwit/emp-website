@@ -31,21 +31,22 @@ export default function ResetPasswordPage() {
       return;
     }
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL
-
-    const res = await fetch('${API_URL}/api/reset-password', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password, token: resetToken }),
-    });
-    if (res.ok) {
-      alert('Password reset successful!');
-      setModalOpen(false);
-      router.push('/user/login');
-    } else {
-      const data = await res.json();
-      // alert('Password reset failed.');
-      alert(`Password reset failed: ${data.message || 'Unknown error'}`);
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL;
+      const res = await fetch('${API_URL}/api/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password, token: resetToken }),
+      });
+      if (res.ok) {
+        alert('Password reset successful!');
+        setModalOpen(false);
+        router.push('/user/login');
+      } else {
+        alert('Password reset failed.');
+      }
+    } catch (e) {
+      alert('Password reset failed.');
     }
   };
 
