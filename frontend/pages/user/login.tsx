@@ -50,7 +50,7 @@ export default function Login() {
     initLogin();
   }, []);
 
-  // commented out; was used for testing 
+  // // commented out; was used for testing 
   // const handleSubmitEmail = async (email: string) => {
   //   setResetToken('dummy-token');
   //   return true;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ResetPasswordModal from '../components/ResetPasswordModal';
 import { useRouter } from 'next/router';
+import { apiUrl } from '../data/constants';
 
 // Reset password page:
 // Ideally, takes in a password and confirm password field (modal) along with a submit button.
@@ -10,19 +11,19 @@ export default function ResetPasswordPage() {
   const [resetToken, setResetToken] = useState<string | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const { token } = router.query;
-    if (typeof token === 'string') {
-      setResetToken(token);
-    }
-  }, [router.query]);
+  // useEffect(() => {
+  //   const { token } = router.query;
+  //   if (typeof token === 'string') {
+  //     setResetToken(token);
+  //   }
+  // }, [router.query]);
 
-//   // Step 1: Send reset email, get token if user exists
-//   const handleSubmitEmail = async (email: string) => {
-//     setResetToken('dummy-token');
-//     return true;
+  // Step 1: Send reset email, get token if user exists
+  const handleSubmitEmail = async (email: string) => {
+    setResetToken('dummy-token');
+    return true;
 
-//   };
+  };
 
   // Step 2: Submit new password and token
   const handleSubmitNewPassword = async (password: string, confirmPassword: string) => {
@@ -32,8 +33,7 @@ export default function ResetPasswordPage() {
     }
 
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL;
-      const res = await fetch('${API_URL}/api/reset-password', {
+      const res = await fetch(`${apiUrl}/api/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password, token: resetToken }),
