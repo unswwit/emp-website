@@ -9,21 +9,25 @@ import { apiUrl } from '../data/constants';
 export default function ResetPasswordPage() {
   const [modalOpen, setModalOpen] = useState(true);
   const [resetToken, setResetToken] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   const { token } = router.query;
-  //   if (typeof token === 'string') {
-  //     setResetToken(token);
-  //   }
-  // }, [router.query]);
+  useEffect(() => {
+    const { token, email } = router.query;
+    if (typeof token === 'string') {
+      setResetToken(token);
+    }
+    if (typeof email === 'string') {
+      setEmail(email);
+    }
+  }, [router.query]);
 
-  // Step 1: Send reset email, get token if user exists
-  const handleSubmitEmail = async (email: string) => {
-    setResetToken('dummy-token');
-    return true;
+  // // Step 1: Send reset email, get token if user exists
+  // const handleSubmitEmail = async (email: string) => {
+  //   setResetToken('dummy-token');
+  //   return true;
 
-  };
+  // };
 
   // Step 2: Submit new password and token
   const handleSubmitNewPassword = async (password: string, confirmPassword: string) => {
@@ -33,10 +37,10 @@ export default function ResetPasswordPage() {
     }
 
     try {
-      const res = await fetch(`${apiUrl}/api/reset-password`, {
+      const res = await fetch(`${apiUrl}/api/user/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password, token: resetToken }),
+        body: JSON.stringify({ password, token: resetToken, email }),
       });
       if (res.ok) {
         alert('Password reset successful!');

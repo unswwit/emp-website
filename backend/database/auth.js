@@ -157,8 +157,9 @@ const sendForgotPasswordEmail = (email, token) => {
     },
   });
 
-  const link = `https://empowerment.unswwit.com/reset-password?token=${token}`;
-
+  // const link = `https://empowerment.unswwit.com/reset-password?token=${token}`;
+  const link = `https://empowerment.unswwit.com/reset-password?token=${token}&email=${encodeURIComponent(email)}`;
+  
   const mailOptions = {
     from: process.env.EMAIL,
     to: email,
@@ -180,6 +181,7 @@ const resetPassword = async (req, res) => {
   const { email, password, token } = req.body;
 
   if (!email || !password || !token || token === "undefined") {
+    console.log("RESET FAIL: Missing fields", { email, password, token });
     return res.status(400).send({ message: "Invalid request." });
   }
 
