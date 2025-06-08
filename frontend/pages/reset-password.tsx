@@ -13,14 +13,23 @@ export default function ResetPasswordPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const { token, email } = router.query;
-    if (typeof token === 'string') {
+  if (router.isReady) {
+    const token = router.query.token as string;
+    const email = router.query.email as string;
+
+    if (!token) {
+      alert("No reset token found in URL");
+    } else {
       setResetToken(token);
     }
-    if (typeof email === 'string') {
+
+    if (email) {
       setEmail(email);
+    } else {
+      alert("No email found in URL");
     }
-  }, [router.query]);
+  }
+}, [router.isReady, router.query]);
 
   // // Step 1: Send reset email, get token if user exists
   // const handleSubmitEmail = async (email: string) => {
@@ -37,7 +46,7 @@ export default function ResetPasswordPage() {
     }
 
     try {
-      const res = await fetch(`${apiUrl}/api/user/reset-password`, {
+      const res = await fetch(`${apiUrl}/user/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password, token: resetToken, email }),
