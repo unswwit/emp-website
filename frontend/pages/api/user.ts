@@ -3,6 +3,7 @@ import { getAuthToken, storeAuthToken } from './session';
 import { Dispatch } from 'react';
 import { userLoginRequest, userRegisterRequest } from '../../types/user';
 import { apiUrl } from '../../data/constants';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export async function doRegister(
   req: userRegisterRequest,
