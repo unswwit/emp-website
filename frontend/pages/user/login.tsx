@@ -99,7 +99,12 @@ export default function Login() {
                   <button
                     type="button"
                     onClick={() => setShowForgotModal(true)}
-                    style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'white',
+                      cursor: 'pointer',
+                    }}
                   >
                     Forgot password?
                   </button>
