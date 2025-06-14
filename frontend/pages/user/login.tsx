@@ -19,6 +19,7 @@ export default function Login() {
   // Reset password modal state
   const [resetModalOpen, setResetModalOpen] = useState(false);
   const [resetToken, setResetToken] = useState<string | null>(null);
+  const [resetEmail, setResetEmail] = useState<string | null>(null);
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -43,6 +44,12 @@ export default function Login() {
     initLogin();
   }, []);
 
+  useEffect(() => {
+    const { token, email } = router.query;
+    if (typeof token === 'string') setResetToken(token);
+    if (typeof email === 'string') setResetEmail(email);
+  }, [router.query]);
+
   // commented out; was used for testing 
   // const handleSubmitEmail = async (email: string) => {
   //   setResetToken('dummy-token');
@@ -56,7 +63,7 @@ export default function Login() {
       return;
     }
     try {
-      const res = await doResetPassword(password, resetToken, router);
+      const res = await doResetPassword(password, resetToken, resetEmail, router);
       if (res.ok) {
         alert('Password reset successful!');
         setResetModalOpen(false);
