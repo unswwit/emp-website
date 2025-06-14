@@ -18,7 +18,7 @@ export default function ResetPasswordPage() {
       const email = router.query.email as string;
 
       if (!token) {
-        alert("No reset token found in URL");
+        alert('No reset token found in URL');
       } else {
         setResetToken(token);
       }
@@ -26,7 +26,7 @@ export default function ResetPasswordPage() {
       if (email) {
         setEmail(email);
       } else {
-        alert("No email found in URL");
+        alert('No email found in URL');
       }
     }
   }, [router.isReady, router.query]);
@@ -35,7 +35,7 @@ export default function ResetPasswordPage() {
   // const handleSubmitEmail = async (email: string) => {
   //   setResetToken('dummy-token');
   //   return true;
-  
+
   // };
 
   // Step 2: Submit new password and token
@@ -58,6 +58,7 @@ export default function ResetPasswordPage() {
         alert('Password reset failed.');
       }
     } catch (e) {
+      console.error('Reset failed:', e);
       alert('Password reset failed.');
     }
   };

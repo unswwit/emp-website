@@ -54,7 +54,7 @@ export default function ResetPasswordModal({
                       name="new-password"
                       placeholder="Enter new password"
                       value={password}
-                      onChange={e => setPassword(e.target.value)}
+                      onChange={(e) => setPassword(e.target.value)}
                       disabled={loading}
                     />
                   </div>
@@ -68,17 +68,13 @@ export default function ResetPasswordModal({
                       name="confirm-password"
                       placeholder="Confirm new password"
                       value={confirm}
-                      onChange={e => setConfirm(e.target.value)}
+                      onChange={(e) => setConfirm(e.target.value)}
                       disabled={loading}
                     />
                   </div>
                   <hr />
                   {passwordError && <p className={styles.error}>{passwordError}</p>}
-                  <button
-                    className={montserrat.className}
-                    type="submit"
-                    disabled={loading}
-                  >
+                  <button className={montserrat.className} type="submit" disabled={loading}>
                     {loading ? 'Submitting...' : 'Submit'}
                   </button>
                 </form>

@@ -3,7 +3,6 @@ import { getAuthToken, storeAuthToken } from './session';
 import { Dispatch } from 'react';
 import { userLoginRequest, userRegisterRequest } from '../../types/user';
 import { apiUrl } from '../../data/constants';
-import type { NextApiRequest, NextApiResponse } from 'next';
 
 export async function doRegister(
   req: userRegisterRequest,
@@ -61,7 +60,12 @@ export async function getUserProfile() {
   }
 }
 
-export async function doResetPassword(password: string, token: string | null, email: string | null, router?: NextRouter) {
+export async function doResetPassword(
+  password: string,
+  token: string | null,
+  email: string | null,
+  router?: NextRouter
+) {
   const res = await fetch(`${apiUrl}/user/reset-password`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

@@ -50,13 +50,13 @@ export default function Login() {
     if (typeof email === 'string') setResetEmail(email);
   }, [router.query]);
 
-  // commented out; was used for testing 
+  // commented out; was used for testing
   // const handleSubmitEmail = async (email: string) => {
   //   setResetToken('dummy-token');
   //   return true;
   // };
 
-  // handles new password submission 
+  // handles new password submission
   const handleSubmitNewPassword = async (password: string, confirmPassword: string) => {
     if (password !== confirmPassword) {
       alert('Passwords do not match.');
@@ -71,6 +71,7 @@ export default function Login() {
         alert('Password reset failed.');
       }
     } catch (e) {
+      console.error('Reset failed:', e);
       alert('Password reset failed.');
     }
   };
