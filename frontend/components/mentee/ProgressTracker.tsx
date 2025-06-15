@@ -14,9 +14,12 @@ const StyledBox = styled(Paper)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   padding: '40px 100px',
+  [theme.breakpoints.down('sm')]: {
+    padding: '20px 10px',
+  },
 }));
 
-const ProgressBar = styled(LinearProgress)({
+const ProgressBar = styled(LinearProgress)(({ theme }) => ({
   width: '100%',
   height: 40,
   borderRadius: 20,
@@ -27,14 +30,22 @@ const ProgressBar = styled(LinearProgress)({
     borderRadius: 20,
     backgroundColor: '#FCB14C',
   },
-});
+  [theme.breakpoints.down('sm')]: {
+    height: 20,
+  },
+}));
 
-const LabelContainer = styled('div')({
+const LabelContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
   marginTop: '10px',
-});
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '8px',
+  },
+}));
 
 const ProgressTracker = ({ hours, statuses }: { hours: hoursInfo[]; statuses: hoursStatus[] }) => {
   const [filteredHours, setFilteredHours] = useState([] as hoursInfo[]);
