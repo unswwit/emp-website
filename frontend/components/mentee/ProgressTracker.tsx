@@ -43,15 +43,15 @@ const ProgressTracker = ({ hours, statuses }: { hours: hoursInfo[]; statuses: ho
     if (hours?.length > 0) {
       setFilteredHours(hours?.filter((h) => statuses.includes(h.status)));
     }
-  }, [hours]);
+  }, [hours, statuses]);
 
   const totalHours = 20;
-  const hoursCompleted = filteredHours.length;
+  const hoursCompleted = filteredHours.reduce((sum: number, h: hoursInfo) => sum + (typeof h.num_hours === 'number' ? h.num_hours : 0), 0);
   const hoursRemaining = totalHours - hoursCompleted;
 
   return (
     <StyledBox>
-      <ProgressBar variant="determinate" value={hoursCompleted} />
+      <ProgressBar variant="determinate" value={(hoursCompleted / totalHours) * 100} />
       <LabelContainer>
         <h4>Hours Completed: {hoursCompleted}</h4>
         <h4>Hours Remaining: {hoursRemaining}</h4>
