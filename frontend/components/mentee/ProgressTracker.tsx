@@ -49,10 +49,11 @@ const ProgressTracker = ({ hours, statuses }: { hours: hoursInfo[]; statuses: ho
   const hoursCompleted = filteredHours.reduce((sum: number, h: hoursInfo) => sum + (typeof h.num_hours === 'number' ? h.num_hours : 0), 0);
   const hoursRemainingRaw = totalHours - hoursCompleted;
   const hoursRemaining = hoursRemainingRaw > 0 ? hoursRemainingRaw : 0;
+  const progressValue = hoursCompleted >= totalHours ? 100 : (hoursCompleted / totalHours) * 100;
 
   return (
     <StyledBox>
-      <ProgressBar variant="determinate" value={(hoursCompleted / totalHours) * 100} />
+      <ProgressBar variant="determinate" value={progressValue} />
       <LabelContainer>
         <h4>Hours Completed: {hoursCompleted}</h4>
         <h4>Hours Remaining: {hoursRemaining}</h4>
