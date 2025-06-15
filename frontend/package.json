@@ -25,6 +25,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/lab": "^5.0.0-alpha.124",
     "@mui/material": "^5.13.5",
+    "@next/font": "^13.4.4",
     "@tabler/icons-react": "^2.22.0",
     "@types/node": "18.19.111",
     "@types/react": "18.2.21",
