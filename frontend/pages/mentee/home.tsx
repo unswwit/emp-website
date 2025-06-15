@@ -11,6 +11,7 @@ import { hoursImage, hoursInfo, hoursRequest, hoursStatus } from '../../types/ho
 import { userProfile } from '../../types/user';
 import { getMenteeHours, sendMenteeHours } from '../api/mentee';
 
+import ProgressTracker from '../../components/mentee/ProgressTracker';
 import { HoursCollapsible } from '../../components/mentee/HoursCollapsible';
 import { AddHoursModal } from '../../components/mentee/AddHoursModal';
 import MenteeNavbar from '../../components/mentee/MenteeNavbar';
@@ -118,6 +119,7 @@ export default function MenteeHome() {
                 </Stack>
 
                 <Stack spacing={2}>
+                  <ProgressTracker hours={hoursList} statuses={[hoursStatus.APPROVED]} />
                   <HoursCollapsible
                     title="Logged Hours"
                     hours={hoursList}

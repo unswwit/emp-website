@@ -166,11 +166,7 @@ function TimelineCard({ event, handleDrawer, handleEventNo }: EventInput) {
   );
 }
 
-function TimelineCalendarFC({
-  events,
-  handleDrawer,
-  handleEventNo,
-}: EventsInput) {
+function TimelineCalendarFC({ events, handleDrawer, handleEventNo }: EventsInput) {
   return (
     <StyledCalendar>
       <FullCalendar
@@ -318,10 +314,7 @@ export default function Timeline() {
           data: e.data,
         };
       })
-      .sort(
-        (a: TimelineInfo, b: TimelineInfo) =>
-          b.start.valueOf() - a.start.valueOf()
-      )
+      .sort((a: TimelineInfo, b: TimelineInfo) => b.start.valueOf() - a.start.valueOf())
   );
 
   const [eventNo, setEventNo] = React.useState(0);
