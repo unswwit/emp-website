@@ -2,6 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { Montserrat } from 'next/font/google';
 import styles from '../../styles/User.module.css';
 import { doLogin, doResetPassword } from '../api/user';
+import { doForgotPassword } from '../api/user';
 import { useRouter } from 'next/router';
 import { checkValidUser } from '../../utils/auth';
 import LoadingOverlay from '../../components/LoadingOverlay';
@@ -15,6 +16,11 @@ export default function Login() {
 
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [showForgotModal, setShowForgotModal] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotError, setForgotError] = useState<string | null>(null);
+  const [forgotSuccess, setForgotSuccess] = useState<string | null>(null);
 
   // Reset password modal state
   const [resetModalOpen, setResetModalOpen] = useState(false);
@@ -126,6 +132,20 @@ export default function Login() {
                 </div>
                 <hr />
                 {error && <p className={styles.error}>{error}</p>}
+                <p style={{ textAlign: 'right', marginTop: '5px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setShowForgotModal(true)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'white',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Forgot password?
+                  </button>
+                </p>
                 <button className={montserrat.className} type="submit">
                   Log in
                 </button>
@@ -160,6 +180,40 @@ export default function Login() {
             <img src="/login/image.png" alt="woman engineers" />
           </div>
         </div>
+        {showForgotModal && (
+          <div className={styles.modalOverlay}>
+            <div className={styles.modal}>
+              <h2 className={styles.modalTitle}>Forgot your password?</h2>
+              <p className={styles.modalSubtitle}>We'll help you to reset your password</p>
+              <input
+                className={styles.modalInput}
+                type="email"
+                value={forgotEmail}
+                onChange={(e) => setForgotEmail(e.target.value)}
+                placeholder="Email"
+              />
+              {forgotError && <p className={styles.error}>{forgotError}</p>}
+              {forgotSuccess && <p className={styles.success}>{forgotSuccess}</p>}
+              <div className={styles.modalButtons}>
+                <button
+                  className={styles.submitButton}
+                  onClick={async () => {
+                    setForgotError(null);
+                    setForgotSuccess(null);
+                    if (!forgotEmail) return setForgotError('Email is required.');
+
+                    await doForgotPassword(forgotEmail, setForgotError, setForgotSuccess);
+                  }}
+                >
+                  Submit
+                </button>
+                <button className={styles.cancelButton} onClick={() => setShowForgotModal(false)}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
       <div className={styles.bg}>
         <img className={styles.decor1} src="/login/bottom-left.svg" />

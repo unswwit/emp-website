@@ -1,6 +1,7 @@
 // Authentication API endpoints
 
 require("dotenv").config();
+const nodemailer = require("nodemailer");
 const db = require("./db");
 const { Roles } = require("../enums.js");
 
@@ -111,6 +112,74 @@ const loginUser = async (req, res) => {
   });
 };
 
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required." });
+  }
+
+  try {
+    // Check if email is valid
+    const data = await db.query(`SELECT * FROM users WHERE email = $1;`, [email]);
+
+    const arr = data.rows;
+    if (arr.length === 0) {
+      return res.status(400).json({ message: "No account found with that email." });
+    }
+
+    const zid = await db.query(`SELECT zid FROM users WHERE email = $1;`, [email]);
+
+    const token = uuidv4();
+
+    const date = new Date().toLocaleString();
+
+    const query = `
+      INSERT INTO invitation_tokens (token, used, created_at)
+      VALUES ($1, $2, $3)
+    `;
+
+    const params = [token, false, date];
+    await db.query(query, params);
+
+    // Send reset email
+    sendForgotPasswordEmail(email, token);
+
+    return res.status(200).json({ message: "Reset email sent!" });
+  } catch (err) {
+    console.error("Forgot password error:", err);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+};
+
+// SEND EMAIL FUNCTION
+const sendForgotPasswordEmail = (email, token) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  const link = `https://empowerment.unswwit.com/reset-password?token=${token}&email=${encodeURIComponent(email)}`;
+
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: "UNSW WIT Empowerment Program Reset Password",
+    text: `Hi there!\n\nWe received a request to reset the password for ${email}.\n\nClick this link to enter a new password:\n${link}\n\nIf you did NOT expect this, please contact the admins immediately.`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending reset email:", error);
+    } else {
+      console.log("Reset email sent:", info.response);
+    }
+  });
+};
+
 // RESET PASSWORD
 const resetPassword = async (req, res) => {
   const { email, password, token } = req.body;
@@ -171,5 +240,6 @@ module.exports = {
   registerUser,
   loginUser,
   verifyToken,
+  forgotPassword,
   resetPassword,
 };
