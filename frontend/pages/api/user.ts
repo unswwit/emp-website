@@ -84,3 +84,21 @@ export async function doForgotPassword(
     setError('Server error. Try again later.');
   }
 }
+
+export async function doResetPassword(
+  password: string,
+  token: string | null,
+  email: string | null,
+  router?: NextRouter
+) {
+  const res = await fetch(`${apiUrl}/user/reset-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password, token, email }),
+  });
+  // if password is reset and the router is given, go back to login
+  if (res.ok && router) {
+    router.push('/user/login');
+  }
+  return res;
+}
