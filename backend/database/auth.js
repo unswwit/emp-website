@@ -14,12 +14,10 @@ const registerUser = async (req, res) => {
   const token = req.query.token;
 
   if (token === "undefined") {
-    return res
-      .status(400)
-      .send({
-        message:
-          "You do not have permission to register. Please contact the WIT sponsorship team.",
-      });
+    return res.status(400).send({
+      message:
+        "You do not have permission to register. Please contact the WIT sponsorship team.",
+    });
   }
 
   // Check valid invitation token
@@ -81,8 +79,9 @@ const loginUser = async (req, res) => {
       console.error(err.stack);
     }
 
+    // if zid/email does not exist
     if (!results || !results.rows || results.rows.length === 0) {
-      console.log(`${userId} login fail`); // Optional debug log
+      // console.log(`${userId} login fail`); // FOR DEBUGGING
       return res.status(401).json({ message: `Email/zID is not registered.` });
     }
     // // if zid/email does not exist
@@ -110,6 +109,52 @@ const loginUser = async (req, res) => {
   });
 };
 
+// RESET PASSWORD
+const resetPassword = async (req, res) => {
+  const { email, password, token } = req.body;
+
+  if (!email || !password || !token) {
+    console.log("RESET FAIL: Missing fields", { email, password, token });
+    return res.status(400).send({ message: "Invalid request." });
+  }
+
+  try {
+    console.log("Reset Password Request:", { email, token });
+
+    const tokenResult = await db.query(
+      "SELECT * FROM invitation_tokens WHERE token = $1 AND used = $2",
+      [token, false]
+    );
+    const check = await db.query(`SELECT * FROM invitation_tokens`);
+
+    console.log("Token DB query result:", tokenResult.rows);
+
+    if (tokenResult.rows.length === 0) {
+      return res.status(400).send({ message: "Invalid/expired token." });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const params = [email, hashedPassword];
+    const q = "UPDATE users SET password = $2 WHERE email = $1";
+    await db.query(q, params);
+
+    await db.query("UPDATE invitation_tokens SET used = $1 WHERE token = $2", [
+      true,
+      token,
+    ]);
+
+    console.log(`Password reset successful for ${email}`);
+    return res
+      .status(200)
+      .json({
+        message: "Password reset successfully! Please proceed to login.",
+      });
+  } catch (err) {
+    console.error("Reset password error:", err);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+};
+
 // Verify and decode token
 const verifyToken = (token_header, res) => {
   if (!token_header) {
@@ -131,4 +176,5 @@ module.exports = {
   registerUser,
   loginUser,
   verifyToken,
+  resetPassword,
 };
