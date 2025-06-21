@@ -37,7 +37,7 @@
     "eslint": "8.57.0",
     "eslint-config-next": "13.4.19",
     "iconsax-react": "^0.0.8",
-    "jspdf": "^2.5.2",
+    "jspdf": "^3.0.0",
     "jspdf-autotable": "^5.0.0",
     "mdb-react-ui-kit": "^8.0.0",
     "next": "^14.0.0",
