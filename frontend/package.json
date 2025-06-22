@@ -35,7 +35,7 @@
     "countdown": "^2.6.0",
     "date-fns": "^4.0.0",
     "eslint": "8.57.0",
-    "eslint-config-next": "13.4.19",
+    "eslint-config-next": "13.5.11",
     "iconsax-react": "^0.0.8",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^5.0.0",
