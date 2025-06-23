@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { styled } from '@mui/material/styles';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import { ExpandMoreOutlined } from '@mui/icons-material';
 import Paper from '@mui/material/Paper';
 import { hoursInfo, hoursStatus } from '../../types/hours';
 
-const StyledBox = styled(Paper)(({ theme }) => ({
-  borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[1],
-  marginBottom: theme.spacing(2),
-  border: `1px solid ${theme.palette.divider}`,
-
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center',
-  padding: '40px 100px',
-  [theme.breakpoints.down('sm')]: {
-    padding: '20px 10px',
-  },
+  width: '100%',
+  // [theme.breakpoints.down('sm')]: {
+  //   flexDirection: 'column',
+  //   alignItems: 'flex-start',
+  //   gap: '8px',
+  // },
+}));
+
+const ProgressBarContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+
+  padding: '30px',
+  // [theme.breakpoints.down('sm')]: {
+  //   flexDirection: 'column',
+  //   alignItems: 'flex-start',
+  //   gap: '8px',
+  // },
 }));
 
 const ProgressBar = styled(LinearProgress)(({ theme }) => ({
@@ -47,7 +57,15 @@ const LabelContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const ProgressTracker = ({ hours, statuses }: { hours: hoursInfo[]; statuses: hoursStatus[] }) => {
+const ProgressTracker = ({
+  hours,
+  statuses,
+  defaultExpanded = false,
+}: {
+  hours: hoursInfo[];
+  statuses: hoursStatus[];
+  defaultExpanded?: boolean;
+}) => {
   const [filteredHours, setFilteredHours] = useState([] as hoursInfo[]);
 
   useEffect(() => {
@@ -66,13 +84,21 @@ const ProgressTracker = ({ hours, statuses }: { hours: hoursInfo[]; statuses: ho
   const progressValue = hoursCompleted >= totalHours ? 100 : (hoursCompleted / totalHours) * 100;
 
   return (
-    <StyledBox>
-      <ProgressBar variant="determinate" value={progressValue} />
-      <LabelContainer>
-        <h4>Hours Completed: {hoursCompleted}</h4>
-        <h4>Hours Remaining: {hoursRemaining}</h4>
-      </LabelContainer>
-    </StyledBox>
+    <Accordion defaultExpanded={defaultExpanded}>
+      <AccordionSummary expandIcon={<ExpandMoreOutlined />}>
+        <Container>
+          <h3>Progress</h3>
+          <ProgressBarContainer>
+            <ProgressBar variant="determinate" value={progressValue} />
+            <LabelContainer>
+              <h4>Hours Completed: {hoursCompleted}</h4>
+              <h4>Hours Remaining: {hoursRemaining}</h4>
+            </LabelContainer>
+          </ProgressBarContainer>
+        </Container>
+      </AccordionSummary>
+      <AccordionDetails>Details of Activites here</AccordionDetails>
+    </Accordion>
   );
 };
 
