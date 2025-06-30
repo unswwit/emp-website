@@ -59,3 +59,46 @@ export async function getUserProfile() {
     console.error(data.message);
   }
 }
+
+export async function doForgotPassword(
+  email: string,
+  setError: Dispatch<React.SetStateAction<string | null>>,
+  setSuccess: Dispatch<React.SetStateAction<string | null>>
+) {
+  try {
+    const res = await fetch(`${apiUrl}/user/forgot-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.message || 'Something went wrong.');
+    } else {
+      setSuccess('Reset email sent! Check your inbox.');
+    }
+  } catch (err) {
+    console.error('Forgot password error:', err);
+    setError('Server error. Try again later.');
+  }
+}
+
+export async function doResetPassword(
+  password: string,
+  token: string | null,
+  email: string | null,
+  router?: NextRouter
+) {
+  const res = await fetch(`${apiUrl}/user/reset-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password, token, email }),
+  });
+  // if password is reset and the router is given, go back to login
+  if (res.ok && router) {
+    router.push('/user/login');
+  }
+  return res;
+}

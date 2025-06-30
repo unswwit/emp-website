@@ -3,6 +3,22 @@ import { hoursRequest } from '../../types/hours';
 import { addHoursSchema } from '../../types/schemas';
 import { useEffect } from 'react';
 import { Backdrop, Box, Button, Fade, Modal, Stack, TextField, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+const ModalBox = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '90%',
+  maxWidth: 400,
+  maxHeight: '90vh',
+  overflowY: 'auto',
+  backgroundColor: theme.palette.background.paper,
+  boxShadow: theme.shadows[24],
+  padding: theme.spacing(4),
+  borderRadius: theme.shape.borderRadius * 2,
+}));
 
 export const AddHoursModal = ({
   isOpen,
@@ -62,19 +78,7 @@ export const AddHoursModal = ({
       }}
     >
       <Fade in={isOpen}>
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 400,
-            bgcolor: 'background.paper',
-            boxShadow: 24,
-            p: 4,
-            borderRadius: 2,
-          }}
-        >
+        <ModalBox>
           <Typography variant="h6" component="h2">
             Add Hours Request
           </Typography>
@@ -163,7 +167,7 @@ export const AddHoursModal = ({
               </Button>
             </Stack>
           </form>
-        </Box>
+        </ModalBox>
       </Fade>
     </Modal>
   );
