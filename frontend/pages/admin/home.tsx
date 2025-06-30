@@ -3,7 +3,8 @@ import { Montserrat } from 'next/font/google';
 import { Button, Divider, Snackbar, Stack } from '@mui/material';
 import styles from '../../styles/User.module.css';
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import { applyPlugin } from 'jspdf-autotable';
+applyPlugin(jsPDF);
 
 import MainContent from '../../components/MainContent';
 import LoadingOverlay from '../../components/LoadingOverlay';
