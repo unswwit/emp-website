@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Montserrat } from 'next/font/google';
 import { Button, Divider, Snackbar, Stack } from '@mui/material';
 import styles from '../../styles/User.module.css';
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 
 import MainContent from '../../components/MainContent';
