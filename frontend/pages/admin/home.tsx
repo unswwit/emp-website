@@ -65,7 +65,7 @@ export default function AdminHome() {
     });
   };
 
-  const handleDownloadSummary = async () => {
+  const handleDownloadSummary = () => {
     handleRefresh();
     const downloadedHours = hoursList.filter((hour) => hour.status === hoursStatus.APPROVED);
 
