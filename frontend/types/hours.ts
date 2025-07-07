@@ -7,7 +7,7 @@ export interface hoursInfo {
   num_hours: number;
   description: string;
   timestamp: string;
-  image_url: string[]; // changed to hold multiple images
+  image_url: string;
   status: hoursStatus;
 }
 
@@ -16,7 +16,7 @@ export interface hoursRequest {
   numHours: number;
   description: string;
   timestamp: string;
-  imageUrl: string[]; // changed to hold multiple images
+  imageUrl: string;
 }
 
 export interface hoursApproveRequest {
@@ -48,7 +48,7 @@ export interface groupedHoursEntry {
   entries: {
     timestamp: string;
     description: string;
-    image_url: string[]; // support 1-5 images
+    image_url: string;
   }[];
 }
 
