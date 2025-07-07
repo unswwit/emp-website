@@ -121,30 +121,21 @@ export const HoursTable = ({
                   <TableCell>{h.num_hours}</TableCell>
                   <TableCell>{h.description}</TableCell>
                   <TableCell>
-                    {/* per four images display */}
-                    <div style={{ display: 'flex', gap: 4 }}>
-                      {(Array.isArray(h.image_url) ? h.image_url : [h.image_url])
-                        .filter(Boolean)
-                        .map((imgUrl, imgIdx) => (
-                          <UnstyledButton
-                            key={imgIdx}
-                            onClick={() =>
-                              onImage({
-                                imageSrc: imgUrl,
-                                imageAlt: `Proof picture ${imgIdx + 1} for ${h.description}`,
-                              })
-                            }
-                          >
-                            <img
-                              src={imgUrl}
-                              alt={`Proof picture ${imgIdx + 1} for ${h.description}`}
-                              height={50}
-                              width={50}
-                              style={{ objectFit: 'cover', borderRadius: 4 }}
-                            />
-                          </UnstyledButton>
-                        ))}
-                    </div>
+                    <UnstyledButton
+                      onClick={() =>
+                        onImage({
+                          imageSrc: h.image_url,
+                          imageAlt: `Proof picture for ${h.description}`,
+                        })
+                      }
+                    >
+                      <img
+                        src={h.image_url}
+                        alt={`Proof picture for ${h.description}`}
+                        height={50}
+                        width={50}
+                      />
+                    </UnstyledButton>
                   </TableCell>
                   <TableCell align={actions ? 'left' : 'right'}>
                     <Chip
