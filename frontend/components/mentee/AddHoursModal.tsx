@@ -71,7 +71,7 @@ export const AddHoursModal = ({
     form.setFieldValue('imageUrls', urls);
   };
 
-  // checker 
+  // checker (extra)
   const handleAddImageInput = () => {
     if ((form.values?.imageUrls?.length || 0) < 5) {
       form.setFieldValue('imageUrls', [...(form.values?.imageUrls || []), '']);
@@ -118,7 +118,7 @@ export const AddHoursModal = ({
                 numHours: form.values?.hours,
                 description: form.values?.description,
                 timestamp: currentDateTime,
-                imageUrl: form.values?.imageUrls.filter((url: string) => url), // filter out empty
+                imageUrl: form.values?.imageUrls.filter((url: string) => url), 
               });
             }}
           >
@@ -186,8 +186,8 @@ export const AddHoursModal = ({
                 ))}
                 <Button
                   variant="outlined"
-                  onClick={handleAddImageInput} // make sure <= 5 images 
-                  disabled={form.values?.imageUrls?.length >= 5}
+                  onClick={handleAddImageInput} 
+                  disabled={form.values?.imageUrls?.length >= 5} // making sure <= 5 images; disable option at > 5
                   sx={{ mb: 1 }}
                 >
                   Add Another Image
@@ -198,7 +198,17 @@ export const AddHoursModal = ({
                       key={idx}
                       src={url || 'https://placehold.co/600x400?text=Image+Preview'}
                       style={{ width: 100, height: 100, objectFit: 'cover', borderRadius: 8 }}
-                      alt={`Preview ${idx + 1}`}
+                      alt={
+                        form.values?.description
+                          // check if desc is there and decide the alt text from there on
+                          // truncating desc for overflow checks
+                          ? `Proof picture ${idx + 1} for ${
+                            form.values.description.length > 20
+                              ? form.values.description.slice(0, 20) + '...'
+                              : form.values.description
+                          }`
+                          : `Proof picture ${idx + 1}`
+                      }
                     />
                   ))}
                 </Stack>
