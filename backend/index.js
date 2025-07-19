@@ -24,6 +24,7 @@ app.get("/user/profile", user.userInfo);
 // -------- Mentee --------//
 app.post("/mentee/request-hours", mentee.requestHours);
 app.get("/mentee/view-hours", mentee.menteeViewHours);
+app.get("/mentee/log-summary", mentee.menteeLogSummary);
 
 // -------- Admin --------//
 app.patch("/admin/approve-hours", admin.approveHours);

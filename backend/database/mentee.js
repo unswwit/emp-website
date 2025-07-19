@@ -69,7 +69,49 @@ const menteeViewHours = async (req, res) => {
   }
 };
 
+// function for storing and retrieving mentee hours from the database 
+// unique identifier for each mentee, full name
+// total required hours, sum of logged hours, timestamp of last log update
+
+const menteeLogSummary = async (req, res) => {
+  const zid = verifyToken(req.headers["authorization"], res);
+  if (zid instanceof Object) return;
+
+  try {
+    const query = `
+      SELECT
+      u.zid,
+      u.firstname,
+      u.lastname,
+      COALESCE(SUM(h.num_hours), 0) AS total_logged_hours,
+      MAX(h.timestamp) AS last_log_timestamp
+    FROM users u
+    LEFT JOIN hours h ON u.zid = h.zid AND h.status = 'approved'
+    WHERE u.zid = $1
+    GROUP BY u.zid, u.firstname, u.lastname
+    `;
+
+    const { rows } = await db.query(query, [zid]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Mentee not found" });
+    }
+
+    const result = {
+      ...rows[0],
+      total_required_hours: 20
+    };
+
+    res.status(200).json(result);
+  } catch (err) {
+    console.error("Error fetching mentee progress:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
 module.exports = {
   requestHours,
   menteeViewHours,
+  menteeLogSummary,
 };
