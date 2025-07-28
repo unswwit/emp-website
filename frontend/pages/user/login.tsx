@@ -1,11 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { Montserrat } from 'next/font/google';
 import styles from '../../styles/User.module.css';
-<<<<<<< HEAD
-import { doLogin } from '../api/user';
-=======
 import { doLogin, doResetPassword } from '../api/user';
->>>>>>> 933cf1ac50c3181aeb5f7e0801fa176027136e13
 import { doForgotPassword } from '../api/user';
 import { useRouter } from 'next/router';
 import { checkValidUser } from '../../utils/auth';
@@ -26,14 +22,11 @@ export default function Login() {
   const [forgotError, setForgotError] = useState<string | null>(null);
   const [forgotSuccess, setForgotSuccess] = useState<string | null>(null);
 
-<<<<<<< HEAD
-=======
   // Reset password modal state
   const [resetModalOpen, setResetModalOpen] = useState(false);
   const [resetToken, setResetToken] = useState<string | null>(null);
   const [resetEmail, setResetEmail] = useState<string | null>(null);
 
->>>>>>> 933cf1ac50c3181aeb5f7e0801fa176027136e13
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
@@ -143,16 +136,12 @@ export default function Login() {
                   <button
                     type="button"
                     onClick={() => setShowForgotModal(true)}
-<<<<<<< HEAD
-                    style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}
-=======
                     style={{
                       background: 'none',
                       border: 'none',
                       color: 'white',
                       cursor: 'pointer',
                     }}
->>>>>>> 933cf1ac50c3181aeb5f7e0801fa176027136e13
                   >
                     Forgot password?
                   </button>

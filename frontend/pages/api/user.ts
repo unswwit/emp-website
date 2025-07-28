@@ -85,8 +85,6 @@ export async function doForgotPassword(
     setError('Server error. Try again later.');
   }
 }
-<<<<<<< HEAD
-=======
 
 export async function doResetPassword(
   password: string,
@@ -105,4 +103,3 @@ export async function doResetPassword(
   }
   return res;
 }
->>>>>>> 933cf1ac50c3181aeb5f7e0801fa176027136e13
