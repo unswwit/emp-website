@@ -24,28 +24,47 @@ export const AddHoursModal = ({
   isOpen,
   onAdd,
   onClose,
+  onEdit,
+  mode = 'add',
+  initialData,
 }: {
   isOpen: boolean;
   onAdd: (menteeHours: hoursRequest) => void;
+  onEdit?: (id: string, menteeHours: hoursRequest) => void;
   onClose: () => void;
+  mode?: 'add' | 'edit';
+  initialData?: {
+    id: string;
+    numHours: number;
+    description: string;
+    imageUrl: string;
+  };
 }) => {
   const form = useForm({
     validate: zodResolver(addHoursSchema),
   });
 
   const initForm = () => {
-    form.setValues({
-      hours: 0,
-      description: '',
-      imageUrl: '',
-    });
-
+    if (mode === 'edit' && initialData) {
+      form.setValues({
+        hours: initialData.numHours,
+        description: initialData.description,
+        imageUrl: initialData.imageUrl,
+      });
+    } else {
+      form.setValues({
+        hours: 0,
+        description: '',
+        imageUrl: '',
+      });
+    }
     form.clearErrors();
   };
 
   useEffect(() => {
     initForm();
   }, [isOpen]);
+
 
   function getCurrentDateTime() {
     const now = new Date();
@@ -80,7 +99,7 @@ export const AddHoursModal = ({
       <Fade in={isOpen}>
         <ModalBox>
           <Typography variant="h6" component="h2">
-            Add Hours Request
+            {mode === 'edit' ? 'Edit Hours Request' : 'Add Hours Request'}
           </Typography>
           <Typography sx={{ mt: 2 }}>Please convert your minutes to hours.</Typography>
           <Typography sx={{ mb: 1, mt: 1 }}>
@@ -92,13 +111,18 @@ export const AddHoursModal = ({
               if (form.validate().hasErrors) return;
 
               const currentDateTime = getCurrentDateTime();
-
-              onAdd({
+              const payload: hoursRequest = {
                 numHours: form.values?.hours,
                 description: form.values?.description,
                 timestamp: currentDateTime,
                 imageUrl: form.values?.imageUrl,
-              });
+              };
+
+              if (mode === 'edit' && onEdit && initialData) {
+                onEdit(initialData.id, payload);
+              } else {
+                onAdd(payload);
+              }
             }}
           >
             <Stack sx={{ mb: 2 }} spacing={1}>
@@ -110,7 +134,8 @@ export const AddHoursModal = ({
                 inputProps={{ step: '0.01' }}
                 required
                 autoFocus
-                onChange={(e) => form?.setFieldValue('hours', +e.target.value)}
+                value={form.values.hours}
+                onChange={(e) => form.setFieldValue('hours', +e.target.value)}
                 onBlur={() => form.validateField('hours')}
                 error={form.errors?.hours ? true : false}
                 helperText={form.errors?.hours}
@@ -122,7 +147,8 @@ export const AddHoursModal = ({
                 rows={2}
                 multiline
                 required
-                onChange={(e) => form?.setFieldValue('description', e.target.value)}
+                value={form.values.description}
+                onChange={(e) => form.setFieldValue('description', e.target.value)}
                 onBlur={() => form.validateField('description')}
                 error={form.errors?.description ? true : false}
                 helperText={form.errors?.description}
@@ -136,13 +162,14 @@ export const AddHoursModal = ({
                   label="Google Drive Image Link (for proof)"
                   variant="outlined"
                   required
+                  value={form.values.imageUrl}
                   onChange={(e) => {
                     const imageId = e.target.value.match(/file\/d\/(.*)\//g);
                     const newImageUrl = imageId
                       ? `https://drive.google.com/thumbnail?id=${imageId[0].split('/')[2]}&sz=w1000`
                       : e.target.value;
 
-                    form?.setFieldValue('imageUrl', newImageUrl);
+                    form.setFieldValue('imageUrl', newImageUrl);
                   }}
                   onBlur={() => form.validateField('imageUrl')}
                   error={form.errors?.imageUrl ? true : false}
@@ -163,7 +190,7 @@ export const AddHoursModal = ({
                 Cancel
               </Button>
               <Button variant="contained" type="submit">
-                Send Request
+                {mode === 'edit' ? 'Edit' : 'Send Request'}
               </Button>
             </Stack>
           </form>

@@ -18,15 +18,24 @@ import MenteeNavbar from '../../components/mentee/MenteeNavbar';
 import { ViewImageModal } from '../../components/mentee/ViewImageModal';
 import { checkValidUser } from '../../utils/auth';
 import { getUserProfile } from '../api/user';
+import { editMenteeHours } from '../api/mentee';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function MenteeHome() {
   const router = useRouter();
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+  const [modalInitialData, setModalInitialData] = useState<{
+    id: string;
+    numHours: number;
+    description: string;
+    imageUrl: string;
+  } | undefined>(undefined);
+
   const [isLoading, setLoading] = useState(true);
   const [isValidUser, setValidUser] = useState(false);
-  const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [isAddNotifyOpen, setAddNotifyOpen] = useState(false);
   const [isImageModalOpen, setImageModalOpen] = useState(false);
 
@@ -35,8 +44,29 @@ export default function MenteeHome() {
   const [toastMessage, setToastMessage] = useState('');
   const [userInfo, setUserInfo] = useState({} as userProfile);
 
-  const handleAddModalOpen = () => setAddModalOpen(true);
-  const handleAddModalClose = () => setAddModalOpen(false);
+
+  const handleAddModalOpen = () => {
+    setModalMode('add');
+    setModalInitialData(undefined);
+    setModalOpen(true);
+  };
+
+  const handleAddModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const handleRowClick = (log: hoursInfo) => {
+    if (log.status === hoursStatus.PENDING || log.status === hoursStatus.REJECTED) {
+      setModalMode('edit');
+      setModalInitialData({
+        id: log.id,
+        numHours: log.num_hours,
+        description: log.description,
+        imageUrl: log.image_url,
+      });
+      setModalOpen(true);
+    }
+  };
 
   const handleImageModalOpen = ({ imageSrc, imageAlt }: hoursImage) => {
     setSelectedImage({ imageSrc, imageAlt });
@@ -82,6 +112,16 @@ export default function MenteeHome() {
     setLoading(true);
     initHome();
   }, []);
+
+  const handleEdit = async (id: string, editedData: hoursRequest) => {
+    try {
+      await editMenteeHours(id, editedData);
+      await handleRefresh();
+      setModalOpen(false);
+    } catch (err) {
+      console.error('Edit failed:', err);
+    }
+  };
 
   return (
     <div className={styles.userHome}>
@@ -132,6 +172,7 @@ export default function MenteeHome() {
                     hours={hoursList}
                     statuses={[hoursStatus.PENDING, hoursStatus.REJECTED]}
                     onImage={handleImageModalOpen}
+                    onRowClick={handleRowClick}
                   />
                 </Stack>
               </div>
@@ -139,8 +180,11 @@ export default function MenteeHome() {
 
             {/* Modals */}
             <AddHoursModal
-              isOpen={isAddModalOpen}
+              isOpen={modalOpen}
+              mode={modalMode}
+              initialData={modalInitialData}
               onAdd={handleAddRequest}
+              onEdit={handleEdit}
               onClose={handleAddModalClose}
             />
             <ViewImageModal

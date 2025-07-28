@@ -14,6 +14,7 @@ export const HoursCollapsible = ({
   viewFname = false,
   viewLname = false,
   onImage,
+  onRowClick,
 }: {
   title: string;
   hours: hoursInfo[];
@@ -24,6 +25,7 @@ export const HoursCollapsible = ({
   viewFname?: boolean;
   viewLname?: boolean;
   onImage: (image: hoursImage) => void;
+  onRowClick?: (log: hoursInfo) => void;
 }) => {
   const [filteredHours, setFilteredHours] = useState([] as hoursInfo[]);
 
@@ -50,6 +52,7 @@ export const HoursCollapsible = ({
               viewZid={viewZid}
               viewFname={viewFname}
               viewLname={viewLname}
+              onRowClick={onRowClick}
             />
           ) : (
             'Nothing to see here.'
