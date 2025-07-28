@@ -26,7 +26,7 @@ app.post("/user/forgot-password", auth.forgotPassword);
 // -------- Mentee --------//
 app.post("/mentee/request-hours", mentee.requestHours);
 app.get("/mentee/view-hours", mentee.menteeViewHours);
-
+app.patch("/mentee/edit-hours", mentee.editHours);
 // -------- Admin --------//
 app.patch("/admin/approve-hours", admin.approveHours);
 app.get("/admin/view-hours", admin.adminViewHours);

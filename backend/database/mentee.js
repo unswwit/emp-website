@@ -29,7 +29,15 @@ const requestHours = async (req, res) => {
       VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
     const id = uuidv4();
-    const values = [id, zid, numHours, description, timestamp, imageUrl, Status.PENDING];
+    const values = [
+      id,
+      zid,
+      numHours,
+      description,
+      timestamp,
+      imageUrl,
+      Status.PENDING,
+    ];
 
     await db.query(insertQuery, values);
 
@@ -69,7 +77,70 @@ const menteeViewHours = async (req, res) => {
   }
 };
 
+// Edit hours if log is pending
+const editHours = async (req, res) => {
+  const { logId, numHours, description, imageUrl } = req.body;
+
+  if (!logId || !numHours || !description) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+
+  const zid = verifyToken(req.headers["authorization"], res);
+  if (zid instanceof Object) {
+    return;
+  }
+
+  const userExists = checkUserExists(zid, res);
+  if (!userExists) {
+    return;
+  }
+
+  try {
+    // Fetch log using logId
+    const query = `SELECT * FROM hours WHERE id = $1 AND zid = $2`;
+    const { rows } = await db.query(query, [logId, zid]);
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Log not found" });
+    }
+    const log = rows[0];
+
+    // Check if status is pending
+    if (log.status !== Status.PENDING) {
+      return res
+        .status(403)
+        .json({ message: "Log cannot be edited unless status is 'Requested'" });
+    }
+
+    // Use new imageUrl if provided, else keep existing
+    const updatedImageUrl = imageUrl || log.image_url;
+    const updatedTimestamp = new Date().toISOString();
+
+    // Update log
+    const updateQuery = `
+      UPDATE hours
+      SET num_hours = $1, description = $2, image_url = $3, timestamp = $4
+      WHERE id = $5 AND zid = $6
+    `;
+    const updateValues = [
+      numHours,
+      description,
+      updatedImageUrl,
+      updatedTimestamp,
+      logId,
+      zid,
+    ];
+
+    await db.query(updateQuery, updateValues);
+
+    res.status(200).json({ message: "Log updated successfully" });
+  } catch (error) {
+    console.error(error.stack);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   requestHours,
   menteeViewHours,
+  editHours,
 };
