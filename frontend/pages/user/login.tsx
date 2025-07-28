@@ -1,13 +1,17 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { Montserrat } from 'next/font/google';
-
 import styles from '../../styles/User.module.css';
+<<<<<<< HEAD
 import { doLogin } from '../api/user';
+=======
+import { doLogin, doResetPassword } from '../api/user';
+>>>>>>> 933cf1ac50c3181aeb5f7e0801fa176027136e13
 import { doForgotPassword } from '../api/user';
 import { useRouter } from 'next/router';
 import { checkValidUser } from '../../utils/auth';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import { userLoginRequest } from '../../types/user';
+import ResetPasswordModal from '../../components/ResetPasswordModal';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -22,6 +26,14 @@ export default function Login() {
   const [forgotError, setForgotError] = useState<string | null>(null);
   const [forgotSuccess, setForgotSuccess] = useState<string | null>(null);
 
+<<<<<<< HEAD
+=======
+  // Reset password modal state
+  const [resetModalOpen, setResetModalOpen] = useState(false);
+  const [resetToken, setResetToken] = useState<string | null>(null);
+  const [resetEmail, setResetEmail] = useState<string | null>(null);
+
+>>>>>>> 933cf1ac50c3181aeb5f7e0801fa176027136e13
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
@@ -44,6 +56,38 @@ export default function Login() {
     setLoading(true);
     initLogin();
   }, []);
+
+  useEffect(() => {
+    const { token, email } = router.query;
+    if (typeof token === 'string') setResetToken(token);
+    if (typeof email === 'string') setResetEmail(email);
+  }, [router.query]);
+
+  // commented out; was used for testing
+  // const handleSubmitEmail = async (email: string) => {
+  //   setResetToken('dummy-token');
+  //   return true;
+  // };
+
+  // handles new password submission
+  const handleSubmitNewPassword = async (password: string, confirmPassword: string) => {
+    if (password !== confirmPassword) {
+      alert('Passwords do not match.');
+      return;
+    }
+    try {
+      const res = await doResetPassword(password, resetToken, resetEmail, router);
+      if (res.ok) {
+        alert('Password reset successful!');
+        setResetModalOpen(false);
+      } else {
+        alert('Password reset failed.');
+      }
+    } catch (e) {
+      console.error('Reset failed:', e);
+      alert('Password reset failed.');
+    }
+  };
 
   return (
     <div className={styles.user}>
@@ -99,7 +143,16 @@ export default function Login() {
                   <button
                     type="button"
                     onClick={() => setShowForgotModal(true)}
+<<<<<<< HEAD
                     style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}
+=======
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'white',
+                      cursor: 'pointer',
+                    }}
+>>>>>>> 933cf1ac50c3181aeb5f7e0801fa176027136e13
                   >
                     Forgot password?
                   </button>
@@ -108,6 +161,23 @@ export default function Login() {
                   Log in
                 </button>
               </form>
+              {/* used for testing: <p>
+                <button
+                  type="button"
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#0070f3',
+                    textDecoration: 'underline',
+                    cursor: 'pointer',
+                    padding: 0,
+                    marginTop: '1rem'
+                  }}
+                  onClick={() => setResetModalOpen(true)}
+                >
+                  Forgot password?
+                </button>
+              </p> */}
               <p>Reach out to our Sponsorship team to get unique registration link.</p>
               {/* <p>
                 Haven't registered yet?{' '}
@@ -160,6 +230,12 @@ export default function Login() {
         <img className={styles.decor1} src="/login/bottom-left.svg" />
         <img className={styles.decor2} src="/login/top-right.svg" />
       </div>
+      {/* reset password modal: under components to split up the code/easier understanding*/}
+      <ResetPasswordModal
+        open={resetModalOpen}
+        onClose={() => setResetModalOpen(false)}
+        onSubmitNewPassword={handleSubmitNewPassword}
+      />
     </div>
   );
 }
