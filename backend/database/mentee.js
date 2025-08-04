@@ -77,6 +77,22 @@ const menteeViewHours = async (req, res) => {
   }
 };
 
+function getFormattedTimestamp() {
+  const now = new Date();
+  const date = now.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+  const time = now.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
+  return `${date} ${time}`;
+}
+
 // Edit hours if log is pending
 const editHours = async (req, res) => {
   const { logId, numHours, description, imageUrl } = req.body;
@@ -113,7 +129,7 @@ const editHours = async (req, res) => {
 
     // Use new imageUrl if provided, else keep existing
     const updatedImageUrl = imageUrl || log.image_url;
-    const updatedTimestamp = new Date().toISOString();
+    const updatedTimestamp = getFormattedTimestamp();
 
     // Update log
     const updateQuery = `
