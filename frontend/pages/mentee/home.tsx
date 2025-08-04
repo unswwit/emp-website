@@ -56,7 +56,7 @@ export default function MenteeHome() {
   };
 
   const handleRowClick = (log: hoursInfo) => {
-    if (log.status === hoursStatus.PENDING || log.status === hoursStatus.REJECTED) {
+    if (log.status === hoursStatus.PENDING) {
       setModalMode('edit');
       setModalInitialData({
         id: log.id,

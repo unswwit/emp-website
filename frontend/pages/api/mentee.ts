@@ -48,7 +48,7 @@ export async function editMenteeHours(id: string, req: hoursRequest) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getAuthToken()}`,
     },
-    body: JSON.stringify({ id, ...req }),
+    body: JSON.stringify({ logId: id, ...req }),
   });
 
   const data = await res.json();
