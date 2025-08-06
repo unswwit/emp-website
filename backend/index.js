@@ -27,6 +27,7 @@ app.post("/user/forgot-password", auth.forgotPassword);
 app.post("/mentee/request-hours", mentee.requestHours);
 app.get("/mentee/view-hours", mentee.menteeViewHours);
 app.get("/mentee/log-summary", mentee.menteeLogSummary);
+app.delete("/mentee/delete-hours", mentee.deleteRequestedLog);
 
 // -------- Admin --------//
 app.patch("/admin/approve-hours", admin.approveHours);
