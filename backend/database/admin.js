@@ -69,13 +69,20 @@ const adminViewHours = async (req, res) => {
     checkAdminPrivilege(zid, res);
     // Fetch hours data for all zids
     const query = `
-    SELECT hours.id, hours.zid, hours.num_hours, hours.description, hours.timestamp, hours.image_url, hours.status,
+    SELECT hours.id, hours.zid, hours.num_hours, hours.description, hours.timestamp, hours.image_url, hours.status, hours.tags,
            users.zid, users.firstname, users.lastname, users.email
     FROM hours
     LEFT JOIN users ON hours.zid = users.zid
   `;
 
     const { rows } = await db.query(query, []);
+
+    // parse postgresql array
+    rows.forEach(row => {
+      tags = row.tags.slice(1, -1);
+      row.tags = tags ? tags.split(',') : [];
+    });
+    
     return res.status(200).json(rows);
   } catch (error) {
     console.error("Error retrieving hours:", error);

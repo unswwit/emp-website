@@ -10,7 +10,7 @@ const { Status } = require("../enums.js");
 
 // Mentee requests hours
 const requestHours = async (req, res) => {
-  const { numHours, description, timestamp, imageUrl } = req.body;
+  const { numHours, description, timestamp, imageUrl, tags } = req.body;
 
   const zid = verifyToken(req.headers["authorization"], res);
   if (zid instanceof Object) {
@@ -25,11 +25,11 @@ const requestHours = async (req, res) => {
   try {
     // Insert hours request into the database
     const insertQuery = `
-      INSERT INTO hours (id, zid, num_hours, description, timestamp, image_url, status)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      INSERT INTO hours (id, zid, num_hours, description, timestamp, image_url, status, tags)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     `;
     const id = uuidv4();
-    const values = [id, zid, numHours, description, timestamp, imageUrl, Status.PENDING];
+    const values = [id, zid, numHours, description, timestamp, imageUrl, Status.PENDING, tags];
 
     await db.query(insertQuery, values);
 
@@ -55,13 +55,20 @@ const menteeViewHours = async (req, res) => {
   try {
     // Fetch hours data for a specific zid
     const query = `
-      SELECT id, num_hours, description, timestamp, image_url, status
+      SELECT id, num_hours, description, timestamp, image_url, status, tags
       FROM hours
       WHERE zid = $1
     `;
 
     const params = [zid];
     const { rows } = await db.query(query, params);
+
+    // parse postgresql array
+    rows.forEach(row => {
+      tags = row.tags.slice(1, -1);
+      row.tags = tags ? tags.split(',') : [];
+    });
+
     res.status(200).json(rows);
   } catch (error) {
     console.error("Error retrieving hours:", error);

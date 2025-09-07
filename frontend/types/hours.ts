@@ -8,6 +8,7 @@ export interface hoursInfo {
   description: string;
   timestamp: string;
   image_url: string;
+  tags: hoursTag[];
   status: hoursStatus;
 }
 
@@ -17,6 +18,7 @@ export interface hoursRequest {
   description: string;
   timestamp: string;
   imageUrl: string;
+  tags: hoursTag[];
 }
 
 export interface hoursApproveRequest {
@@ -59,4 +61,10 @@ export interface cellHookData {
     y: number;
     raw: any;
   };
+}
+
+export enum hoursTag {
+  MENTOR = 'MENTOR',
+  TRAINING = 'TRAINING',
+  EVENT = 'EVENT',
 }
