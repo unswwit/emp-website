@@ -79,7 +79,7 @@ const adminViewHours = async (req, res) => {
 
     // parse postgresql array
     rows.forEach(row => {
-      tags = row.tags.slice(1, -1);
+      const tags = row.tags.slice(1, -1);
       row.tags = tags ? tags.split(',') : [];
     });
     
