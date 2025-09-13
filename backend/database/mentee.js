@@ -110,8 +110,51 @@ const menteeLogSummary = async (req, res) => {
 };
 
 
+const deleteRequestedLog = async (req, res) => {
+  const { logId } = req.body;
+
+  if (!logId) {
+    return res.status(400).json({ message: "Missing logId" });
+  }
+
+  const zid = verifyToken(req.headers["authorization"], res);
+  
+  if (zid instanceof Object) {
+    return;
+  }
+
+  const userExists = checkUserExists(zid, res);
+  if (!userExists) {
+    return;
+  }
+
+  try {
+    // Ensure the log belongs to the user and is still pending
+    const checkQuery = `
+      SELECT * FROM hours
+      WHERE id = $1 AND zid = $2 AND status = $3
+    `;
+    const checkResult = await db.query(checkQuery, [logId, zid, Status.PENDING]);
+
+    if (checkResult.rows.length === 0) {
+      return res.status(404).json({ message: "Log not found or not in 'Requested' status" });
+    }
+
+    // Proceed with deletion
+    const deleteQuery = `DELETE FROM hours WHERE id = $1`;
+    await db.query(deleteQuery, [logId]);
+
+    res.status(200).json({ message: "Log deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting log:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
 module.exports = {
   requestHours,
   menteeViewHours,
   menteeLogSummary,
+  deleteRequestedLog,
 };
