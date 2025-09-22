@@ -3,6 +3,7 @@ import {
   ButtonGroup,
   Chip,
   Paper,
+  styled,
   Table,
   TableBody,
   TableCell,
@@ -11,9 +12,10 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
-import { hoursAdminActions, hoursImage, hoursInfo, hoursStatus } from '../../types/hours';
+import { hoursAdminActions, hoursImage, hoursInfo, hoursStatus, hoursTag } from '../../types/hours';
 import { ChangeEvent, useMemo, useState } from 'react';
 import { UnstyledButton } from '@mantine/core';
+import { mapTagText } from '../../lib/helpers/tags';
 
 const mapStatusColor = (status: hoursStatus) => {
   switch (status) {
@@ -27,6 +29,16 @@ const mapStatusColor = (status: hoursStatus) => {
       return 'primary';
   }
 };
+
+const TagsContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  gap: '6px',
+  flexWrap: 'wrap',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+}));
 
 export const HoursTable = ({
   hours,
@@ -99,6 +111,9 @@ export const HoursTable = ({
               <TableCell>
                 <b>Proof</b>
               </TableCell>
+              <TableCell width={'20%'}>
+                <b>Tags</b>
+              </TableCell>
               <TableCell align={actions ? 'left' : 'right'}>
                 <b>Status</b>
               </TableCell>
@@ -136,6 +151,17 @@ export const HoursTable = ({
                         width={50}
                       />
                     </UnstyledButton>
+                  </TableCell>
+                  <TableCell>
+                    <TagsContainer>
+                      {h.tags.sort().map((tag, k) => (
+                        <Chip 
+                          key={k}
+                          sx={{ background: '#FCB14C'}}
+                          label={mapTagText(tag)}
+                        />
+                      ))}
+                    </TagsContainer>
                   </TableCell>
                   <TableCell align={actions ? 'left' : 'right'}>
                     <Chip

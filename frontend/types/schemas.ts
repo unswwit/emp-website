@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { hoursTag } from './hours';
 
 export const addHoursSchema = z.object({
   hours: z
@@ -11,4 +12,5 @@ export const addHoursSchema = z.object({
     .min(2, { message: 'Description must contain at least 2 characters' })
     .max(2000, { message: 'Description must be less than 2000 characters' }),
   imageUrl: z.string().url({ message: 'Invalid URL' }),
+  tags: z.array(z.nativeEnum(hoursTag))
 });

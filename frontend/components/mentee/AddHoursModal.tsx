@@ -1,9 +1,10 @@
 import { useForm, zodResolver } from '@mantine/form';
-import { hoursRequest } from '../../types/hours';
+import { hoursRequest, hoursTag } from '../../types/hours';
 import { addHoursSchema } from '../../types/schemas';
 import { useEffect } from 'react';
-import { Backdrop, Box, Button, Fade, Modal, Stack, TextField, Typography } from '@mui/material';
+import { Backdrop, Box, Button, Chip, Fade, Modal, Stack, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { mapTagText } from '../../lib/helpers/tags';
 
 const ModalBox = styled(Box)(({ theme }) => ({
   position: 'absolute',
@@ -38,6 +39,7 @@ export const AddHoursModal = ({
       hours: 0,
       description: '',
       imageUrl: '',
+      tags: [],
     });
 
     form.clearErrors();
@@ -62,6 +64,8 @@ export const AddHoursModal = ({
     });
     return `${date} ${time}`;
   }
+
+  const tagOptions = Object.values(hoursTag);
 
   return (
     <Modal
@@ -98,6 +102,7 @@ export const AddHoursModal = ({
                 description: form.values?.description,
                 timestamp: currentDateTime,
                 imageUrl: form.values?.imageUrl,
+                tags: form.values?.tags,
               });
             }}
           >
@@ -157,6 +162,33 @@ export const AddHoursModal = ({
                 }
                 style={{ width: '100%', height: 250 }}
               />
+              <Typography>
+                Select tags:
+              </Typography>
+              <Stack direction="row" sx={{ flexWrap: 'wrap', gap: '6px' }}>
+                {tagOptions.sort().map((tag, k) => {
+                  const selected = form.values?.tags?.includes(tag);
+
+                  return (
+                    <Chip 
+                      key={k}
+                      sx={{ background: selected ? '#FCB14C' : undefined,
+                        "&:hover": selected ? { backgroundColor: '#EFA94B' } : undefined }}
+                      clickable
+                      label={mapTagText(tag)}
+                      onClick={() => {
+                        if (selected) {
+                          // remove tag
+                          form?.setFieldValue('tags', form.values?.tags.filter((t: hoursTag) => t != tag));
+                        } else {
+                          // add tag
+                          form?.setFieldValue('tags', [...form.values?.tags, tag]);
+                        }
+                      }}
+                    />
+                  )
+                })}
+              </Stack>
             </Stack>
             <Stack direction="row" justifyContent="end" spacing={2}>
               <Button variant="outlined" onClick={onClose}>
