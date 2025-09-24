@@ -43,6 +43,7 @@ export async function doLogin(
 }
 
 export async function getUserProfile() {
+
   const res = await fetch(`${apiUrl}/user/profile`, {
     method: 'GET',
     headers: {
