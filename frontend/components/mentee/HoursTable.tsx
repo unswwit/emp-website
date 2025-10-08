@@ -35,6 +35,7 @@ export const HoursTable = ({
   viewZid = false,
   viewFname = false,
   viewLname = false,
+  onRowClick,
 }: {
   hours: hoursInfo[];
   actions?: hoursAdminActions;
@@ -42,6 +43,7 @@ export const HoursTable = ({
   viewZid?: boolean;
   viewFname?: boolean;
   viewLname?: boolean;
+  onRowClick?: (log: hoursInfo) => void;
 }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -113,7 +115,14 @@ export const HoursTable = ({
           <TableBody>
             {visibleRows?.map((h, k) => {
               return (
-                <TableRow key={k} hover>
+                <TableRow
+                  key={k}
+                  hover
+                  onClick={() => {
+                    if (!actions && onRowClick) onRowClick(h);
+                  }}
+                  sx={{ cursor: !actions ? 'pointer' : 'default' }}
+                >
                   <TableCell>{h.timestamp}</TableCell>
                   {viewZid && <TableCell>{h.zid}</TableCell>}
                   {viewFname && <TableCell>{h.firstname}</TableCell>}
