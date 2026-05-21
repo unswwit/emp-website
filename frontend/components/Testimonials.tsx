@@ -1,70 +1,52 @@
-/* eslint-disable */
-import styles from '../styles/Quotes.module.css';
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  // MDBCarousel,
-  // MDBCarouselInner,
-  // MDBCarouselItem,
-  MDBTypography,
-  // MDBIcon,
-} from 'mdb-react-ui-kit';
-import { Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css';
-import { testimonials } from '../data/testimonials';
+import styles from '../styles/Home.module.css';
+import { ExecQuote } from '../types/execQuotes';
 
-function QuoteCard({ data }: any) {
+export default function Testimonials({ quotes }: { quotes: ExecQuote[] }) {
+  const featured = quotes[0];
+  const side = quotes.slice(1);
+
+  if (!featured) return null;
+
   return (
-    <div className={styles.box}>
-      <MDBCard className={styles.quoteCard}>
-        <MDBCardBody>
-          <MDBRow>
-            <MDBCol md="8" lg="9" xl="8">
-              <div className={styles.flexBox}>
-                <div>
-                  <img
-                    src={
-                      data.photo.src || 'https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp'
-                    }
-                    alt={data.photo.alt || 'Example Avatar'}
-                  />
-                </div>
-                <div>
-                  <figcaption>{data.name || 'Example Name'}</figcaption>
-                  <p>{data.mentorship || 'Example Mentor Role'}</p>
-                  <br />
-                  <MDBTypography blockquote>
-                    <span className="font-italic">
-                      {data.description ||
-                        'Lorem ipsum dolor sit amet consectetur adipisicing elit.\
-                      Pariatur sint nesciunt ad itaque aperiam expedita officiis\
-                      incidunt minus facere, molestias quisquam impedit\
-                      inventore.'}
-                    </span>
-                  </MDBTypography>
-                </div>
+    <div className={styles.cohortLayout}>
+      {/* Left: big pull quote */}
+      <div>
+        <span className={styles.openQuote}>&ldquo;</span>
+        <p className={styles.pullQuoteText}>{featured.quote}</p>
+        <div className={styles.pullAuthor}>
+          <div className={styles.pullPhoto}>
+            {featured.imageUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={featured.imageUrl} alt={featured.name} />
+            )}
+          </div>
+          <div>
+            <div className={styles.pullName}>{featured.name}</div>
+            <div className={styles.pullRole}>{featured.position}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right: remaining quotes */}
+      <div className={styles.sideQuotes}>
+        {side.map((q, i) => (
+          <div key={i} className={styles.sideQuote}>
+            <p className={styles.sideQuoteText}>{q.quote}</p>
+            <div className={styles.pullAuthor}>
+              <div className={styles.pullPhoto}>
+                {q.imageUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={q.imageUrl} alt={q.name} />
+                )}
               </div>
-            </MDBCol>
-          </MDBRow>
-        </MDBCardBody>
-      </MDBCard>
+              <div>
+                <div className={styles.sideQuoteName}>{q.name}</div>
+                <div className={styles.sideQuoteRole}>{q.position}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
-  );
-}
-
-export default function Testimonials() {
-  return (
-    <Slide>
-      {testimonials.map((testimony, index) => (
-        <MDBContainer key={index} className={styles.container}>
-          <MDBCol xl="10">
-            <QuoteCard data={testimony} />
-          </MDBCol>
-        </MDBContainer>
-      ))}
-    </Slide>
   );
 }

@@ -1,163 +1,126 @@
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { createStyles, Group, Burger, Drawer, ScrollArea, Divider, rem } from '@mantine/core';
+import { Burger, Drawer, ScrollArea, Divider, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
-const useStyles = createStyles((theme) => ({
-  link: {
-    display: 'flex',
-    alignItems: 'center',
-    height: '100%',
-    paddingLeft: theme.spacing.md,
-    paddingRight: theme.spacing.md,
-    textDecoration: 'none',
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
-    fontWeight: 500,
-    fontSize: theme.fontSizes.sm,
-    fontFamily: 'Montserrat',
-
-    [theme.fn.smallerThan('sm')]: {
-      height: rem(42),
-      display: 'flex',
-      alignItems: 'center',
-      width: '100%',
-    },
-
-    '&.active': {
-      color: 'orange',
-    },
-
-    ...theme.fn.hover({
-      backgroundColor: 'transparent',
-      color: theme.colorScheme === 'dark' ? theme.white : theme.black,
-    }),
-  },
-
-  hiddenMobile: {
-    float: 'right',
-    [theme.fn.smallerThan('md')]: {
-      display: 'none',
-    },
-  },
-
-  hiddenDesktop: {
-    [theme.fn.largerThan('md')]: {
-      display: 'none',
-    },
-  },
-}));
+const navLinks = [
+  { label: 'Program', href: '#program' },
+  { label: 'Mentors', href: '#mentors' },
+  { label: 'Cohort', href: '#cohort' },
+  { label: 'Partners', href: '#partners' },
+  { label: 'About', href: '#about' },
+];
 
 const Navbar = () => {
-  const { classes, theme } = useStyles();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const router = useRouter();
-  const [activeSection, setActiveSection] = useState<string>('About');
-
-  const handleLogin = () => {
-    router.push('/user/login');
-  };
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['About', 'Timeline'];
-      let currentSection = 'About';
-
-      sections.forEach((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          const { top, height } = element.getBoundingClientRect();
-          if (top <= 50 && top + height > 50) {
-            currentSection = section;
-          }
-        }
-      });
-
-      setActiveSection(currentSection);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLogin = () => {
+    router.push('/user/login');
+    closeDrawer();
+  };
+
+  const year = new Date().getFullYear();
+
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.navLeft}>
-        <div className={styles.burgerWrapper}>
+    <nav className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ''}`}>
+      <div className={styles.navInner}>
+        {/* Logo */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <Burger
             opened={drawerOpened}
             onClick={toggleDrawer}
-            className={classes.hiddenDesktop}
-            color="white"
+            className={styles.burger}
+            color="var(--wit-dark)"
+            size="sm"
           />
+          <a href="#" className={styles.navLogoLink}>
+            <Image
+              src="/WIT-logo-black.png"
+              alt="WIT logo"
+              height={36}
+              width={36}
+              style={{ objectFit: 'contain' }}
+            />
+          </a>
         </div>
 
-        <Image
-          src="/WIT-logo-white.png"
-          alt="UNSWWIT Logo"
-          className={styles.logo}
-          width={50}
-          height={50}
-          priority
-        />
+        {/* Center links */}
+        <div className={styles.navCenter}>
+          {navLinks.map((link) => (
+            <a key={link.label} href={link.href} className={styles.navLink}>
+              {link.label}
+            </a>
+          ))}
+        </div>
 
-        <strong className={classes.hiddenMobile}>E M P O W E R M E N T</strong>
-        <strong className={classes.hiddenDesktop}>E M P</strong>
-
-        <Group className={classes.hiddenMobile}>
+        {/* Right actions */}
+        <div className={styles.navRight}>
+          <button className={styles.loginLink} onClick={handleLogin}>
+            Login
+          </button>
           <a
-            href="#About"
-            className={`${classes.link} ${activeSection === 'About' ? 'active' : ''}`}
+            href="https://www.facebook.com/events/545237864225826"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.applyButton}
           >
-            About
+            Apply {year}
           </a>
-          <a
-            href="#Timeline"
-            className={`${classes.link} ${activeSection === 'Timeline' ? 'active' : ''}`}
-          >
-            Timeline
-          </a>
-        </Group>
+        </div>
       </div>
 
-      <button className={`${styles.logoutButton} ${classes.hiddenMobile}`} onClick={handleLogin}>
-        Login
-      </button>
-
+      {/* Mobile drawer */}
       <Drawer
         opened={drawerOpened}
         onClose={closeDrawer}
         size="100%"
         padding="md"
-        title="WIT Empowerment Website"
-        className={classes.hiddenDesktop}
+        title={
+          <span style={{ fontFamily: 'Montserrat', fontWeight: 700, fontSize: '1rem' }}>
+            WIT Empowerment
+          </span>
+        }
         style={{ fontFamily: 'Montserrat' }}
         zIndex={1000000}
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
-          <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
-          <div className="column">
-            <a
-              href="#About"
-              className={`${classes.link} ${activeSection === 'About' ? 'active' : ''}`}
-            >
-              About
-            </a>
-            <a
-              href="#Timeline"
-              className={`${classes.link} ${activeSection === 'Timeline' ? 'active' : ''}`}
-            >
-              Timeline
-            </a>
+          <Divider my="sm" color="gray.1" />
+          <div className={styles.mobileLinks}>
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className={styles.mobileLink}
+                onClick={closeDrawer}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
-          <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
-
-          <Group position="center" grow pb="xl" px="md">
-            <button className={styles.logoutButton} onClick={handleLogin}>
+          <Divider my="sm" color="gray.1" />
+          <div className={styles.mobileActions}>
+            <button className={styles.loginLink} onClick={handleLogin}>
               Login
             </button>
-          </Group>
+            <a
+              href="https://www.facebook.com/events/545237864225826"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.applyButton}
+            >
+              Apply {year}
+            </a>
+          </div>
         </ScrollArea>
       </Drawer>
     </nav>
