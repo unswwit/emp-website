@@ -79,19 +79,23 @@
 .loginLink {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.72rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--wit-dark);
   background: none;
-  border: none;
+  border: 1.5px solid var(--wit-dark);
+  border-radius: 100px;
   cursor: pointer;
-  transition: color 0.2s;
-  padding: 0;
+  padding: 0.65rem 1.4rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
 }
 
 .loginLink:hover {
-  color: var(--wit-orange);
+  background-color: var(--wit-dark);
+  color: white;
 }
 
 .applyButton {

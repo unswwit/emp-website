@@ -5,23 +5,19 @@ import React from 'react';
 import Navbar from '../components/NavBar';
 import Hero from '../components/Hero';
 import StayInTheLoop from '../components/Countdown';
-import SponsorCollage from '../components/SponsorCollage';
 import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
-import { filterSponsors } from '../lib/helpers/sponsor';
-import { ITypeSponsorsFields, TypeSponsorsSkeleton } from '../types/sponsors';
 import { ExecQuote, ExecQuotesSkeleton } from '../types/execQuotes';
 import ContentService from '../lib/api';
 import { GetStaticProps } from 'next';
 
 type Props = {
-  sponsors: ITypeSponsorsFields[];
   empQuotes: ExecQuote[];
 };
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-export default function Home({ sponsors, empQuotes }: Props) {
+export default function Home({ empQuotes }: Props) {
   const year = new Date().getFullYear();
 
   return (
@@ -176,7 +172,23 @@ export default function Home({ sponsors, empQuotes }: Props) {
             <span>Partners &amp; Affiliations</span>
           </div>
           <h2 className={styles.partnersHeadline}>Trusted by Sydney&rsquo;s leading firms.</h2>
-          <SponsorCollage tempSponsors={sponsors} />
+          <div className={styles.partnerGrid}>
+            {[
+              { name: 'Domain',    logo: 'https://images.ctfassets.net/g8syemd5uoqq/2GvK39B0N41mSD3mzAGEsg/3cd7eb7667172462ed04826eaf9d9342/Domain_Logo_RGB_GREEN.svg' },
+              { name: 'Atlassian', logo: 'https://images.ctfassets.net/g8syemd5uoqq/4hfuFaRk8vtl8OUM2aAQg7/6a41b8a2cae06012240c43d01a9ec36d/Atlassian_logo_brand_RGB.svg' },
+              { name: 'Audinate',  logo: 'https://images.ctfassets.net/g8syemd5uoqq/3Vtc6GM7kHwjP6RROVjIU6/f34f930e0008a357b3bbb01e275318dd/Audinate_Logotype_Black_RGB.png' },
+              { name: 'Canva',     logo: 'https://images.ctfassets.net/g8syemd5uoqq/2QD0rgsvfVi4IfYKCWRNH2/6723c6fbf46616b2f764378d55968ad1/clientuicsestructured_datajson_ldimageslogo.webp' },
+              { name: 'Macquarie', logo: 'https://images.ctfassets.net/g8syemd5uoqq/rIoJaXQup3YqQaSf3hJ8Y/69237ee3112978a1aa1ee51d9812893d/mgl-rgb.black.vertical.1.0.svg' },
+              { name: 'WiseTech',  logo: 'https://images.ctfassets.net/g8syemd5uoqq/3hYxtc5TEg6yOqbzkTuWDZ/73884048dff562adbc817b89179c0dd2/images.png' },
+              { name: 'Westpac',   logo: 'https://images.ctfassets.net/g8syemd5uoqq/5ierOH6VagDIK3XSqCIKQX/dc204d232216a9299b155276122aa39c/westpac.jpg' },
+              { name: 'Yokogawa', logo: 'https://images.ctfassets.net/g8syemd5uoqq/1G0zFTnEQOBRP3OPOg3vmb/50c4f6fd37c2631a306371150fb21660/YB1type_Clr.png' },
+            ].map(({ name, logo }) => (
+              <div key={name} className={styles.partnerPill}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={logo} alt={name} className={styles.partnerLogoImg} />
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 06 — Stay in the Loop */}
@@ -189,11 +201,6 @@ export default function Home({ sponsors, empQuotes }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const s = (await ContentService.instance.getEntriesByType<TypeSponsorsSkeleton>('sponsors')).map(
-    (s) => s.fields
-  );
-  const sponsors = filterSponsors(s);
-
   const rawQuotes = await ContentService.instance.getEntriesByType<ExecQuotesSkeleton>('execQuotes');
   const empQuotes = rawQuotes
     .filter((e) => e.fields.index >= 10 && e.fields.index <= 13)
@@ -210,7 +217,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      sponsors,
       empQuotes,
     },
   };
