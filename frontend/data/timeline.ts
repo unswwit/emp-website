@@ -75,12 +75,12 @@ export const timeline = [
           choose a prompt that speaks to your soul the most & flex your creativity! 🎨\n\n\
          “They won\'t fear it until they understand it, and they won\'t understand it until\
           they\'ve used it. Theory will take you only so far.”― Oppenheimer 🎩\n\n\
-         “That brain of mine is something more than merely mortal; as time will show.” — Ada Lovelace 🌼\n\n\
+         “That brain of mine is something more than merely mortal; as time will show.” - Ada Lovelace 🌼\n\n\
          "The most beautiful thing we can experience is the mysterious.\
            It is the source of all true art and all science.\
            He to whom this emotion is a stranger, who can no longer pause to wonder and stand rapt in awe,\
-           is as good as dead: his eyes are closed." — Albert Einstein 🔭\n\n\
-         "I am one of those who think like Nobel, that humanity will draw more good than evil from new discoveries." — Marie Curie ☢️',
+           is as good as dead: his eyes are closed." - Albert Einstein 🔭\n\n\
+         "I am one of those who think like Nobel, that humanity will draw more good than evil from new discoveries." - Marie Curie ☢️',
       photo: {
         src: './2024placeholder-event.jpg',
         alt: 'training-induction',

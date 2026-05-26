@@ -1,57 +1,97 @@
-import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import React from 'react';
-import { SocialIcon } from 'react-social-icons';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <>
-      <div className={styles.divider}>
-        <div className={styles.flex}>
-          <Image
-            src="/WIT-logo-white.png"
-            alt="UNSWWIT Logo"
-            className={styles.footerLogo}
-            width={50}
-            height={50}
-            priority
-          />
-          <p>© UNSW Women in Technology {new Date().getFullYear()}</p>
+    <footer className={styles.footer}>
+      <div className={styles.footerInner}>
+        {/* Brand col */}
+        <div>
+          <a href="#" className={styles.footerLogoText}>
+            <span className={styles.footerLogoAccent}>&ldquo;</span>&#123;wit&#125;
+          </a>
+          <p className={styles.footerTagline}>UNSW Women in Technology</p>
+          <p className={styles.footerCopyright}>© {year} · Arc Affiliated Club</p>
         </div>
-        <div className={styles.footerIcons}>
-          <Tooltip title="Instagram" arrow>
-            <IconButton>
-              <div>
-                <SocialIcon
-                  url="https://www.instagram.com/wit.unsw/?hl=en"
-                  network="instagram"
-                  bgColor="#F48B01"
-                />
-              </div>
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Facebook" arrow>
-            <IconButton>
-              <div>
-                <SocialIcon
-                  url="https://www.facebook.com/unsw.wit"
-                  network="facebook"
-                  bgColor="#F48B01"
-                />
-              </div>
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Discord" arrow>
-            <IconButton>
-              <div>
-                <SocialIcon url="https://discord.gg/XDr9qmtQ" network="discord" bgColor="#F48B01" />
-              </div>
-            </IconButton>
-          </Tooltip>
+
+        {/* Program links */}
+        <div>
+          <div className={styles.footerColTitle}>Program</div>
+          <a href="#about" className={styles.footerLink}>About</a>
+          <a
+            href="https://www.facebook.com/events/545237864225826"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footerLink}
+          >
+            Apply
+          </a>
+          <a href="#program" className={styles.footerLink}>FAQ</a>
+          <a href="#mentors" className={styles.footerLink}>Mentor signup</a>
+        </div>
+
+        {/* Connect links */}
+        <div>
+          <div className={styles.footerColTitle}>Connect</div>
+          <a
+            href="https://www.instagram.com/wit.unsw/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footerLink}
+          >
+            Instagram
+          </a>
+          <a
+            href="https://www.facebook.com/unsw.wit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footerLink}
+          >
+            Facebook
+          </a>
+          <a
+            href="https://www.linkedin.com/company/unswwit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footerLink}
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://discord.gg/XDr9qmtQ"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footerLink}
+          >
+            Discord
+          </a>
+        </div>
+
+        {/* Other links */}
+        <div>
+          <div className={styles.footerColTitle}>Other</div>
+          <a
+            href="https://unswwit.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footerLink}
+          >
+            Main WIT site
+          </a>
+          <a
+            href="https://unswwit.com/merch"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footerLink}
+          >
+            Merch store
+          </a>
+          <a href="mailto:partners@unswwit.com" className={styles.footerLink}>
+            Contact
+          </a>
         </div>
       </div>
-    </>
+    </footer>
   );
 }

@@ -1,33 +1,40 @@
+import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
-import { compareAsc, getWeekYear } from 'date-fns';
-import CountDown from './Count.js';
 
-export default function Countdown() {
-  const targetDate = new Date('2024-04-22T00:00:00Z');
-  const currentDate = new Date();
-  const compareDate = compareAsc(currentDate, targetDate);
+export default function StayInTheLoop() {
+  const [email, setEmail] = useState('');
+  const year = new Date().getFullYear();
 
-  // targetDate has already past currentDate. I.e. targetDate already happened
-  if (compareDate === 1) {
-    if (getWeekYear(targetDate) === getWeekYear(currentDate)) {
-      return (
-        <div className={styles.divider}>
-          <h2>Sign ups for {getWeekYear(currentDate)} have closed.</h2>
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    window.open('https://www.facebook.com/events/545237864225826', '_blank');
+  };
+
+  return (
+    <section className={styles.loopSection} id="apply">
+      <div className={styles.loopContent}>
+        <div className={styles.loopSectionLabel}>
+          <span className={styles.sectionLabelNum}>06</span>
+          <span className={styles.sectionLabelDash} />
+          <span>Stay in the Loop</span>
         </div>
-      );
-    } else {
-      return (
-        <div className={styles.divider}>
-          <h2>Sign ups for {getWeekYear(currentDate)} are coming soon.</h2>
-        </div>
-      );
-    }
-  } else {
-    // targetDate is upcoming
-    return (
-      <div className={styles.divider}>
-        <CountDown targetDate={targetDate} />
+        <h2 className={styles.loopTitle}>Applications open soon.</h2>
+        <p className={styles.loopSubtitle}>
+          Drop your email and we&rsquo;ll let you know the moment the {year} cohort opens.
+        </p>
+        <form className={styles.emailForm} onSubmit={handleSubmit}>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="your@email.com"
+            className={styles.emailInput}
+          />
+          <button type="submit" className={styles.remindBtn}>
+            Remind me
+          </button>
+        </form>
       </div>
-    );
-  }
+    </section>
+  );
 }
