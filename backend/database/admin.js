@@ -1,6 +1,6 @@
 // Admin API endpoints
 
-require("dotenv").config();
+require("dotenv").config({ path: "./backend.env.local" });
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const csv = require("csv-parser");
@@ -83,59 +83,79 @@ const adminViewHours = async (req, res) => {
   }
 };
 
+
 const invite = async (req, res) => {
   const filePath = req.file.path;
   const emails = [];
 
-  fs.createReadStream(filePath)
-    .pipe(csv())
-    .on("data", (row) => {
-      emails.push(row.email);
-    })
-    .on("end", async () => {
-      for (const email of emails) {
-        const token = uuidv4();
-        const date = new Date().toLocaleString();
-        const query = `
-          INSERT INTO invitation_tokens (token, used, created_at)
-          VALUES ($1, $2, $3)
-        `;
+  await new Promise((resolve, reject) => {
+    fs.createReadStream(filePath)
+      .pipe(csv())
+      .on("data", (row) => {
+        if (row.email) emails.push(row.email);
+      })
+      .on("end", resolve)
+      .on("error", reject);
+  });
 
-        const params = [token, false, date];
-        await db.query(query, params);
-        sendInvitationEmail(email, token);
-      }
-      fs.unlinkSync(filePath);
+  fs.unlinkSync(filePath);
+
+  const errors = [];
+
+  for (const email of emails) {
+    const token = uuidv4();
+    const date = new Date().toLocaleString();
+    try {
+      await db.query(
+        `INSERT INTO invitation_tokens (token, used, created_at)
+          VALUES ($1, $2, $3)`,
+        [token, false, date]
+      );
+      await sendInvitationEmail(email, token); // now returns a Promise (see below)
+    } catch (err) {
+      console.error(`Failed for ${email}:`, err);
+      errors.push(email);
+    }
+  }
+
+  if (errors.length > 0) {
+    return res.status(207).json({
+      message: `Invitations sent, but failed for: ${errors.join(", ")}`,
     });
-  res.status(200).send("Invitations sent successfully");
+  }
+
+  return res.status(200).json({ message: "Invitations sent successfully" });
 };
 
 // Function to send invitation email
+
 const sendInvitationEmail = (email, token) => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-  });
+  return new Promise((resolve, reject) => {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
 
   // TODO: Change link when deployed
-  const link = `https://empowerment.unswwit.com/user/register?token=${token}`;
+    const link = `https://empowerment.unswwit.com/user/register?token=${token}`;
 
-  const mailOptions = {
-    from: process.env.EMAIL,
-    to: email,
-    subject: "UNSW WIT Empowerment Program Invitation Link",
-    text: `Hi there!,\n\nThis email is sent to you as a member of WIT Empowerment Program. Please click the following link to register to the Empower Program Website:\n${link}`,
-  };
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: "[ACTION REQUIRED] WIT Empowerment Program Account Registration",
+      text: `Hi there!,\n\nThis email is sent you as a member of the WIT Empowerment Mentoring Program. Please click the following link to register to the Empowerment Program Website:\n${link}`,
+    };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Error sending email:", error);
-    } else {
-      console.log("Email sent:", info.response);
-    }
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+      } else {
+        console.log("Email sent:", info.response);
+      }
+    });
   });
 };
 

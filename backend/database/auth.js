@@ -1,6 +1,6 @@
 // Authentication API endpoints
 
-require("dotenv").config();
+require("dotenv").config({ path: "./backend.env.local" });
 const nodemailer = require("nodemailer");
 const db = require("./db");
 const { Roles } = require("../enums.js");

@@ -1,6 +1,6 @@
 // User (both Mentee and Admin) API Endpoints
 
-require("dotenv").config();
+require("dotenv").config({ path: "./backend.env.local" });
 
 const db = require("./db");
 const { verifyToken } = require("./auth");
