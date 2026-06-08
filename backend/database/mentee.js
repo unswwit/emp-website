@@ -1,6 +1,6 @@
 // Mentee API endpoints
 
-require("dotenv").config();
+require("dotenv").config({ path: "./backend.env.local" });
 const { v4: uuidv4 } = require("uuid");
 
 const db = require("./db");
