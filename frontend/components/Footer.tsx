@@ -19,14 +19,6 @@ export default function Footer() {
         <div>
           <div className={styles.footerColTitle}>Program</div>
           <a href="#about" className={styles.footerLink}>About</a>
-          <a
-            href="https://www.facebook.com/events/545237864225826"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.footerLink}
-          >
-            Apply
-          </a>
           <a href="#program" className={styles.footerLink}>FAQ</a>
           <a href="#mentors" className={styles.footerLink}>Mentor signup</a>
         </div>

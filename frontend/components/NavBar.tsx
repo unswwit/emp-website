@@ -68,14 +68,6 @@ const Navbar = () => {
           <button className={styles.loginLink} onClick={handleLogin}>
             Login
           </button>
-          <a
-            href="https://www.facebook.com/events/545237864225826"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.applyButton}
-          >
-            Apply {year}
-          </a>
         </div>
       </div>
 
@@ -112,14 +104,6 @@ const Navbar = () => {
             <button className={styles.loginLink} onClick={handleLogin}>
               Login
             </button>
-            <a
-              href="https://www.facebook.com/events/545237864225826"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.applyButton}
-            >
-              Apply {year}
-            </a>
           </div>
         </ScrollArea>
       </Drawer>

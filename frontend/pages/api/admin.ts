@@ -62,8 +62,8 @@ export const handleInviteSubmit = async (
       throw new Error('Failed to send invitations');
     }
 
-    const data = await response.text();
-    setMessage(data);
+    const data = await response.json();
+    setMessage(data.message);
   } catch (error) {
     setMessage('An error occurred');
     console.error(error);
