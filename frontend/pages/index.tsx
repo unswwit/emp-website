@@ -181,7 +181,7 @@ export default function Home({ empQuotes }: Props) {
               { name: 'WiseTech',  logo: 'https://images.ctfassets.net/g8syemd5uoqq/3hYxtc5TEg6yOqbzkTuWDZ/73884048dff562adbc817b89179c0dd2/images.png' },
               { name: 'Westpac',   logo: 'https://images.ctfassets.net/g8syemd5uoqq/5ierOH6VagDIK3XSqCIKQX/dc204d232216a9299b155276122aa39c/westpac.jpg' },
               { name: 'Yokogawa', logo: 'https://images.ctfassets.net/g8syemd5uoqq/1G0zFTnEQOBRP3OPOg3vmb/50c4f6fd37c2631a306371150fb21660/YB1type_Clr.png' },
-              { name: 'AFP',      logo: '' },
+              { name: 'AFP',      logo: 'https://images.ctfassets.net/g8syemd5uoqq/6kBx1sXu9q3UQ7QsAXBdjy/340124f03dcd5b240d92166b519d7397/2025_AFP_logo_RGB_Landscape_Colour_POS__3_.png' },
             ].map(({ name, logo }) => (
               <div key={name} className={styles.partnerPill}>
                 {logo ? (
