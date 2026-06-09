@@ -1,6 +1,6 @@
 // Admin API endpoints
 
-require("dotenv").config();
+require("dotenv").config({ path: "./backend.env.local" });
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const csv = require("csv-parser");
@@ -83,6 +83,7 @@ const adminViewHours = async (req, res) => {
   }
 };
 
+
 const invite = async (req, res) => {
   const filePath = req.file.path;
   const emails = [];
@@ -126,6 +127,7 @@ const invite = async (req, res) => {
 };
 
 // Function to send invitation email
+
 const sendInvitationEmail = (email, token) => {
   return new Promise((resolve, reject) => {
     const transporter = nodemailer.createTransport({
@@ -141,8 +143,8 @@ const sendInvitationEmail = (email, token) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,
-      subject: "UNSW WIT Empowerment Program Invitation Link",
-      text: `Hi there!,\n\nThis email is sent to you as a member of WIT Empowerment Program. Please click the following link to register to the Empower Program Website:\n${link}`,
+      subject: "[ACTION REQUIRED] WIT Empowerment Program Account Registration",
+      text: `Hi there!,\n\nThis email is sent to you as a member of the WIT Empowerment Mentoring Program. Please click the following link to register to the Empowerment Program Website:\n${link}`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
