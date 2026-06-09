@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "./backend.env.local" });
+require("dotenv").config({ path: "./.env.local" });
 
 const Pool = require("pg").Pool;
 const db = new Pool({

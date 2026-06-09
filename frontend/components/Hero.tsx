@@ -25,14 +25,6 @@ export default function Hero() {
           AHEGS-accredited.
         </p>
         <div className={styles.heroActions}>
-          <a
-            href="https://www.facebook.com/events/545237864225826"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.heroBtnPrimary}
-          >
-            Apply as a Mentee
-          </a>
           <a href="#partners" className={styles.heroBtnSecondary}>
             Partner with WIT
           </a>

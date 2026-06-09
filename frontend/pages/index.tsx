@@ -4,7 +4,6 @@ import styles from '../styles/Home.module.css';
 import React from 'react';
 import Navbar from '../components/NavBar';
 import Hero from '../components/Hero';
-import StayInTheLoop from '../components/Countdown';
 import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 import { ExecQuote, ExecQuotesSkeleton } from '../types/execQuotes';
@@ -72,7 +71,7 @@ export default function Home({ empQuotes }: Props) {
               <p className={styles.programText}>
                 Run across Term 2 and Term 3, the Empowerment Mentoring Program pairs each student
                 with an experienced industry mentor. Mentees meet their mentor fortnightly across the
-                two terms and join the wider cohort for four workshops on technical interviews,
+                two terms and join the wider cohort for two workshops on technical interviews,
                 communication, teamwork and leadership.
               </p>
               <p className={styles.programText}>
@@ -108,7 +107,7 @@ export default function Home({ empQuotes }: Props) {
               <div className={styles.stepNum}>03</div>
               <div className={styles.stepTitle}>Mentor</div>
               <div className={styles.stepTime}>Term 2 → Term 3</div>
-              <p className={styles.stepDesc}>Fortnightly 1:1s + four cohort workshops.</p>
+              <p className={styles.stepDesc}>Fortnightly 1:1s + two cohort workshops.</p>
             </div>
             <div>
               <div className={styles.stepNum}>04</div>
@@ -142,8 +141,8 @@ export default function Home({ empQuotes }: Props) {
               { date: '5 May',              label: 'Mentee Applications Open' },
               { date: '19 May',             label: 'Applications Close' },
               { date: '20 – 29 May',        label: 'Mentee Interviews' },
-              { date: '2 June',             label: 'Mentee Training Workshop', tentative: true },
-              { date: '10 June',            label: 'Opening Ceremony',         tentative: true },
+              { date: '7 June',             label: 'Mentee Training Induction' },
+              { date: '10 June',            label: 'Opening Ceremony' },
               { date: '2 July',             label: 'Paint & Sip Social Event', tentative: true },
               { date: '15 July',            label: 'Workshop 1 - Resume & Personal Branding', tentative: true },
               { date: '22 September',       label: 'Workshop 2 - Mock Assessment Centre',    tentative: true },
@@ -182,17 +181,19 @@ export default function Home({ empQuotes }: Props) {
               { name: 'WiseTech',  logo: 'https://images.ctfassets.net/g8syemd5uoqq/3hYxtc5TEg6yOqbzkTuWDZ/73884048dff562adbc817b89179c0dd2/images.png' },
               { name: 'Westpac',   logo: 'https://images.ctfassets.net/g8syemd5uoqq/5ierOH6VagDIK3XSqCIKQX/dc204d232216a9299b155276122aa39c/westpac.jpg' },
               { name: 'Yokogawa', logo: 'https://images.ctfassets.net/g8syemd5uoqq/1G0zFTnEQOBRP3OPOg3vmb/50c4f6fd37c2631a306371150fb21660/YB1type_Clr.png' },
+              { name: 'AFP',      logo: '' },
             ].map(({ name, logo }) => (
               <div key={name} className={styles.partnerPill}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={logo} alt={name} className={styles.partnerLogoImg} />
+                {logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={logo} alt={name} className={styles.partnerLogoImg} />
+                ) : (
+                  <span className={styles.partnerName}>{name}</span>
+                )}
               </div>
             ))}
           </div>
         </section>
-
-        {/* 06 — Stay in the Loop */}
-        <StayInTheLoop />
 
         <Footer />
       </main>

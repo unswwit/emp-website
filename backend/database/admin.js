@@ -107,11 +107,10 @@ const invite = async (req, res) => {
     const date = new Date().toLocaleString();
     try {
       await db.query(
-        `INSERT INTO invitation_tokens (token, used, created_at)
-          VALUES ($1, $2, $3)`,
+        `INSERT INTO invitation_tokens (token, used, created_at) VALUES ($1, $2, $3)`,
         [token, false, date]
       );
-      await sendInvitationEmail(email, token); // now returns a Promise (see below)
+      await sendInvitationEmail(email, token);
     } catch (err) {
       console.error(`Failed for ${email}:`, err);
       errors.push(email);
@@ -139,21 +138,22 @@ const sendInvitationEmail = (email, token) => {
       },
     });
 
-  // TODO: Change link when deployed
     const link = `https://empowerment.unswwit.com/user/register?token=${token}`;
 
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,
       subject: "[ACTION REQUIRED] WIT Empowerment Program Account Registration",
-      text: `Hi there!,\n\nThis email is sent you as a member of the WIT Empowerment Mentoring Program. Please click the following link to register to the Empowerment Program Website:\n${link}`,
+      text: `Hi there!,\n\nThis email is sent to you as a member of the WIT Empowerment Mentoring Program. Please click the following link to register to the Empowerment Program Website:\n${link}`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error("Error sending email:", error);
+        reject(error);
       } else {
         console.log("Email sent:", info.response);
+        resolve(info);
       }
     });
   });
