@@ -93,7 +93,7 @@ export default function Register() {
                       id="fname"
                       name="fname"
                       placeholder="Enter your first name"
-                      pattern="[a-zA-Z]{2,}"
+                      pattern="[a-zA-Z][a-zA-Z ]*"
                       title="Alphabets only and at least 2 characters"
                     />
                   </div>
@@ -106,7 +106,7 @@ export default function Register() {
                       id="lname"
                       name="lname"
                       placeholder="Enter your last name"
-                      pattern="[a-zA-Z]{2,}"
+                      pattern="[a-zA-Z][a-zA-Z ]*"
                       title="Alphabets only and at least 2 characters"
                     />
                   </div>
@@ -147,7 +147,7 @@ export default function Register() {
                     id="cpassword"
                     name="cpassword"
                     placeholder="Confirm your password"
-                    pattern={password}
+                    pattern={password.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}
                     title="Must match password"
                   />
                 </div>
