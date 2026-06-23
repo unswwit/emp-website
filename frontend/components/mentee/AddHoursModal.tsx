@@ -1,7 +1,7 @@
 import { useForm, zodResolver } from '@mantine/form';
 import { hoursRequest } from '../../types/hours';
 import { addHoursSchema } from '../../types/schemas';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Backdrop, Box, Button, Fade, Modal, Stack, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
@@ -20,6 +20,24 @@ const ModalBox = styled(Box)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius * 2,
 }));
 
+function extractDriveFileId(url: string): string | null {
+  // https://drive.google.com/file/d/FILE_ID/view
+  const fileMatch = url.match(/\/file\/d\/([^/?#]+)/);
+  if (fileMatch) return fileMatch[1];
+
+  // https://drive.google.com/open?id=FILE_ID
+  // https://drive.google.com/uc?id=FILE_ID
+  const idMatch = url.match(/[?&]id=([^&]+)/);
+  if (idMatch) return idMatch[1];
+
+  return null;
+}
+
+function toDriveThumbnailUrl(url: string): string {
+  const id = extractDriveFileId(url);
+  return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : url;
+}
+
 export const AddHoursModal = ({
   isOpen,
   onAdd,
@@ -32,6 +50,7 @@ export const AddHoursModal = ({
   const form = useForm({
     validate: zodResolver(addHoursSchema),
   });
+  const [imageError, setImageError] = useState(false);
 
   const initForm = () => {
     form.setValues({
@@ -41,6 +60,7 @@ export const AddHoursModal = ({
     });
 
     form.clearErrors();
+    setImageError(false);
   };
 
   useEffect(() => {
@@ -137,12 +157,8 @@ export const AddHoursModal = ({
                   variant="outlined"
                   required
                   onChange={(e) => {
-                    const imageId = e.target.value.match(/file\/d\/(.*)\//g);
-                    const newImageUrl = imageId
-                      ? `https://drive.google.com/thumbnail?id=${imageId[0].split('/')[2]}&sz=w1000`
-                      : e.target.value;
-
-                    form?.setFieldValue('imageUrl', newImageUrl);
+                    setImageError(false);
+                    form?.setFieldValue('imageUrl', toDriveThumbnailUrl(e.target.value));
                   }}
                   onBlur={() => form.validateField('imageUrl')}
                   error={form.errors?.imageUrl ? true : false}
@@ -155,8 +171,36 @@ export const AddHoursModal = ({
                     ? form.values?.imageUrl
                     : 'https://placehold.co/600x400?text=Image+Preview'
                 }
-                style={{ width: '100%', height: 250 }}
+                style={{ width: '100%', height: 250, display: imageError ? 'none' : undefined }}
+                onError={() => setImageError(true)}
+                onLoad={() => setImageError(false)}
               />
+              {imageError && (
+                <Box
+                  sx={{
+                    width: '100%',
+                    height: 250,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: '1px solid',
+                    borderColor: 'error.main',
+                    borderRadius: 1,
+                    bgcolor: 'error.light',
+                    flexDirection: 'column',
+                    gap: 1,
+                    px: 2,
+                    textAlign: 'center',
+                  }}
+                >
+                  <Typography color="error.dark" fontWeight="bold">
+                    Image could not be loaded
+                  </Typography>
+                  <Typography color="error.dark" variant="body2">
+                    Make sure your Google Drive file is set to &ldquo;Anyone with the link can view&rdquo;.
+                  </Typography>
+                </Box>
+              )}
             </Stack>
             <Stack direction="row" justifyContent="end" spacing={2}>
               <Button variant="outlined" onClick={onClose}>
